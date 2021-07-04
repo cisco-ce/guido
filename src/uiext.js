@@ -52,13 +52,34 @@ function Row(options, widgets) {
 }
 
 function Widget(type, options) {
-  if (!options.widgetId) {
+  const { widgetId, size, text, buttons, columns } = options;
+  if (!widgetId) {
     throw Error('Missing widget id');
   }
   const attributes = {
     Type: type,
-    WidgetId: options.widgetId,
+    WidgetId: widgetId,
   };
+
+  if (options.size) {
+    attributes.Options = 'size=' + size;
+  }
+
+  if (options.text) {
+    attributes.Name = options.text;
+  }
+
+  if (columns) {
+    attributes.Options = 'columns=' + columns; // TODO support multiple Options
+  }
+
+  if (options.buttons) {
+    const valueSpace = Object.keys(buttons).map((Key) => {
+      return tag('Value', tags({ Key, Name: buttons[Key] }));
+    }).join('');
+    attributes.ValueSpace = valueSpace;
+  }
+
   return Node('Widget', attributes);
 }
 
@@ -67,39 +88,15 @@ function ToggleButton(options) {
 }
 
 function Slider(options) {
-  const widget = Widget('Slider', options);
-  if (options.size) {
-    widget.attributes.Width = options.size;
-  }
-  return widget;
+  return Widget('Slider', options);
 }
 
 function Button(options) {
-  const widget = Widget('Button', options);
-
-  if (options.size) {
-    widget.attributes.Options = 'size=' + options.size;
-  }
-  if (options.text) {
-    widget.attributes.Name = options.text;
-  }
-
-  return widget;
+  return Widget('Button', options);
 }
 
 function GroupButton(options) {
-  const widget = Widget('GroupButton', options);
-  const { buttons, columns } = options;
-
-  if (columns) {
-    widget.attributes.Options = 'columns=' + columns;
-  }
-  const valueSpace = Object.keys(buttons).map((Key) => {
-    return tag('Value', tags({ Key, Name: buttons[Key] }));
-  }).join('');
-  widget.attributes.ValueSpace = valueSpace;
-
-  return widget;
+  return Widget('GroupButton', options);
 }
 
 function tag(name, content) {
