@@ -7,10 +7,6 @@ const assert = require('assert');
 const { Config, Panel, Page, Row } = require('../src/uiext');
 const { GroupButton, Button, toXml } = require('../src/uiext');
 
-function compareXml(xml1: string, xml2: string) {
-  return xml1.replace(/\s/g, '') === xml2.replace(/\s/g, '');
-}
-
 describe('XML creation', function() {
   describe('Widget config', function() {
     it('Creates valid button xml', function() {
@@ -20,7 +16,7 @@ describe('XML creation', function() {
         size: 4,
       });
       const xml = toXml(button, false);
-      assert(compareXml(xml, samples.button));
+      assert.equal(xml, samples.button);
     });
 
     it('Creates valid groupbutton xml', function() {
@@ -34,7 +30,7 @@ describe('XML creation', function() {
         columns: 3,
        });
       const xml = toXml(button, false);
-      assert(compareXml(xml, samples.groupButton));
+      assert(xml, samples.groupButton);
     });
   });
 
@@ -44,7 +40,7 @@ describe('XML creation', function() {
         Button({ widgetId: 'mybutton' }),
       ]);
       const xml = toXml(row, false);
-      assert(compareXml(xml, samples.row));
+      assert.equal(xml, samples.row);
     });
   });
 
@@ -55,7 +51,7 @@ describe('XML creation', function() {
       ]);
       const page = Page({ pageId: 'mypage', name: 'My page' }, row);
       const xml = toXml(page, false);
-      assert(compareXml(xml, samples.page));
+      assert.equal(xml, samples.page);
     });
 
     it('Creates a panel with pages', function() {
@@ -63,14 +59,14 @@ describe('XML creation', function() {
       const page2 = Page({ pageId: 'page2' });
       const panel = Panel({ panelId: 'my-panel' }, [page1, page2]);
       const xml = toXml(panel, false);
-      assert(compareXml(xml, samples.panel));
+      assert.equal(xml, samples.panel);
     });
 
     it('Creates a config with a panel', function() {
       const panel = Panel({ panelId: 'my-panel' });
       const config = Config({ version: '1.7' }, panel);
       const xml = toXml(config, false);
-      assert(compareXml(xml, samples.config));
+      assert.equal(xml, samples.config);
     });
 
   });

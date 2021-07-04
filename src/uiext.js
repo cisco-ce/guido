@@ -51,46 +51,43 @@ function Row(options, widgets) {
   return Node('Row', attributes, widgets);
 }
 
-function Widget(attributes, children) {
-  if (!attributes.WidgetId) {
+function Widget(type, options) {
+  if (!options.widgetId) {
     throw Error('Missing widget id');
   }
-
-  return Node('Widget', attributes, children);
+  const attributes = {
+    Type: type,
+    WidgetId: options.widgetId,
+  };
+  return Node('Widget', attributes);
 }
 
 function Button(options) {
-  const attributes = {
-    WidgetId: options.widgetId,
-    Type: 'Button',
-  };
+  const widget = Widget('Button', options);
 
   if (options.size) {
-    attributes.Options = 'size=' + options.size;
+    widget.attributes.Options = 'size=' + options.size;
   }
   if (options.text) {
-    attributes.Name = options.text;
+    widget.attributes.Name = options.text;
   }
 
-  return Widget(attributes);
+  return widget;
 }
 
 function GroupButton(options) {
-  const { widgetId, buttons, columns } = options;
-  const attributes = {
-    WidgetId: widgetId,
-    Type: 'GroupButton',
-  };
+  const widget = Widget('GroupButton', options);
+  const { buttons, columns } = options;
 
   if (columns) {
-    attributes.Options = 'columns=' + columns;
+    widget.attributes.Options = 'columns=' + columns;
   }
   const valueSpace = Object.keys(buttons).map((Key) => {
     return tag('Value', tags({ Key, Name: buttons[Key] }));
   }).join('');
-  attributes.ValueSpace = valueSpace;
+  widget.attributes.ValueSpace = valueSpace;
 
-  return Widget(attributes);
+  return widget;
 }
 
 function tag(name, content) {

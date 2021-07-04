@@ -1,9 +1,9 @@
 {
   "config": "<Extensions><Version>1.7</Version><Panel><PanelId>my-panel</PanelId></Panel></Extensions>",
   "panel": "<Panel><PanelId>my-panel</PanelId><Page><PageId>page1</PageId></Page><Page><PageId>page2</PageId></Page></Panel>",
-  "page": "<Page><Name>My page</Name><PageId>mypage</PageId><Row><Name>My row</Name><Widget><WidgetId>mybutton</WidgetId><Type>Button</Type></Widget></Row></Page>",
-  "row": "<Row><Name>My row</Name><Widget><WidgetId>mybutton</WidgetId><Type>Button</Type></Widget></Row>",
-  "button": "<Widget><WidgetId>my-button</WidgetId><Type>Button</Type><Options>size=4</Options><Name>#4</Name></Widget>",
+  "page": "<Page><Name>My page</Name><PageId>mypage</PageId><Row><Name>My row</Name><Widget><Type>Button</Type><WidgetId>mybutton</WidgetId></Widget></Row></Page>",
+  "row": "<Row><Name>My row</Name><Widget><Type>Button</Type><WidgetId>mybutton</WidgetId></Widget></Row>",
+  "button": "<Widget><Type>Button</Type><WidgetId>my-button</WidgetId><Options>size=4</Options><Name>#4</Name></Widget>",
   "groupButton": "<Widget><WidgetId>my-groupbutton</WidgetId><Type>GroupButton</Type><Options>columns=3</Options><ValueSpace><Value><Key>drinks</Key><Name>Drinks</Name></Value><Value><Key>food</Key><Name>Food</Name></Value><Value><Key>snacks</Key><Name>Snacks</Name></Value></ValueSpace></Widget>"
 }
 
