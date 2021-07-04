@@ -4,8 +4,8 @@ const samples = require('./samples.json');
 
 const assert = require('assert');
 
-const { Config, Panel, Page, Row } = require('../src/uiext');
-const { GroupButton, Button, toXml } = require('../src/uiext');
+const { Config, Panel, Page, Row, toXml } = require('../src/uiext');
+const { GroupButton, ToggleButton, Button, Slider } = require('../src/uiext');
 
 describe('XML creation', function() {
   describe('Widget config', function() {
@@ -18,7 +18,21 @@ describe('XML creation', function() {
       const xml = toXml(button, false);
       assert.equal(xml, samples.button);
     });
-
+    it('Creates valid toggle button xml', function() {
+      const button = ToggleButton({
+        widgetId: 'my-button',
+      });
+      const xml = toXml(button, false);
+      assert.equal(xml, samples.toggleButton);
+    });
+    it('Creates valid slider xml', function() {
+      const button = Slider({
+        widgetId: 'my-slider',
+        size: 3,
+      });
+      const xml = toXml(button, false);
+      assert.equal(xml, samples.slider);
+    });
     it('Creates valid groupbutton xml', function() {
       const button = GroupButton({
         widgetId: 'my-groupbutton',

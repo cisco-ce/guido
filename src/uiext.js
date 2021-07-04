@@ -62,6 +62,18 @@ function Widget(type, options) {
   return Node('Widget', attributes);
 }
 
+function ToggleButton(options) {
+  return Widget('ToggleButton', options);
+}
+
+function Slider(options) {
+  const widget = Widget('Slider', options);
+  if (options.size) {
+    widget.attributes.Width = options.size;
+  }
+  return widget;
+}
+
 function Button(options) {
   const widget = Widget('Button', options);
 
@@ -132,5 +144,13 @@ function toXml(json, format = true) {
 }
 
 module.exports = {
-  Config, Panel, Page, Row, Button, GroupButton, toXml,
+  Config,
+  Panel,
+  Page,
+  Row,
+  Button,
+  Slider,
+  GroupButton,
+  ToggleButton,
+  toXml,
 };
