@@ -17,11 +17,15 @@ function Config(options, children) {
 
 function Panel(options, pages) {
   const attributes = {};
-  if (options.panelId) {
-    attributes.PanelId = options.panelId;
+  const { panelId, name, color } = options;
+  if (panelId) {
+    attributes.PanelId = panelId;
   }
-  if (options.name) {
-    attributes.Name = options.name;
+  if (name) {
+    attributes.Name = name;
+  }
+  if (color) {
+    attributes.Color = color;
   }
 
   return Node('Panel', attributes, pages);
@@ -52,7 +56,7 @@ function Row(options, widgets) {
 }
 
 function Widget(type, options) {
-  const { widgetId, size, text, buttons, columns } = options;
+  const { widgetId, size, text, buttons, icon, columns } = options;
   if (!widgetId) {
     throw Error('Missing widget id');
   }
@@ -61,43 +65,55 @@ function Widget(type, options) {
     WidgetId: widgetId,
   };
 
-  if (options.size) {
-    attributes.Options = 'size=' + size;
+  let options = [];
+
+  if (text) {
+    attributes.Name = text;
   }
 
-  if (options.text) {
-    attributes.Name = options.text;
-  }
-
-  if (columns) {
-    attributes.Options = 'columns=' + columns; // TODO support multiple Options
-  }
-
-  if (options.buttons) {
+  if (buttons) {
     const valueSpace = Object.keys(buttons).map((Key) => {
       return tag('Value', tags({ Key, Name: buttons[Key] }));
     }).join('');
     attributes.ValueSpace = valueSpace;
   }
 
+  if (size) {
+    options.push('size=' + size);
+  }
+
+  if (columns) {
+    options.push('columns=' + columns);
+  }
+
+  if (icon) {
+    options.push('icon=' + icon);
+  }
+
+  if (options.length) {
+    attributes.Options = options.join(';');
+  }
+
   return Node('Widget', attributes);
 }
 
-function ToggleButton(options) {
-  return Widget('ToggleButton', options);
-}
+const ToggleButton = (options) => Widget('ToggleButton', options);
 
-function Slider(options) {
-  return Widget('Slider', options);
-}
+const Slider = (options) => Widget('Slider', options);
 
-function Button(options) {
-  return Widget('Button', options);
-}
+const Button = (options) => Widget('Button', options);
 
-function GroupButton(options) {
-  return Widget('GroupButton', options);
-}
+const GroupButton = (options) => Widget('GroupButton', options);
+
+const Spacer = (options) => Widget('Spacer', options);
+
+const Spinner = (options) => Widget('Spinner', options);
+
+const DirectionalPad = (options) => Widget('DirectionalPad', options);
+
+const IconButton = (options) => Widget('Button', Object.assign(options, { size: 1 }));
+
+const Text = (options) => Widget('Text', options);
 
 function tag(name, content) {
   if (Array.isArray(content)) {
@@ -111,7 +127,7 @@ function tags(elements) {
   return Object.keys(elements).map(key => tag(key, elements[key])).join('');
 }
 
-function formatXml(xml, tab = '  ') {
+function prettifyXml(xml, tab = '  ') {
   let formatted = '', indent= '';
   xml.split(/>\s*</).forEach(function(node) {
       if (node.match( /^\/\w/ )) {
@@ -126,7 +142,7 @@ function formatXml(xml, tab = '  ') {
   return formatted.substring(1, formatted.length - 3);
 }
 
-function toXml(json, format = true) {
+function toXml(json, prettify = true) {
   if (!json) {
     throw new Error('Empty document');
   }
@@ -137,7 +153,7 @@ function toXml(json, format = true) {
 
   const xml = tag(json.type, content + children);
 
-  return format ? formatXml(xml) : xml;
+  return prettify ? prettifyXml(xml) : xml;
 }
 
 module.exports = {
@@ -147,6 +163,11 @@ module.exports = {
   Row,
   Button,
   Slider,
+  Spacer,
+  IconButton,
+  Spinner,
+  DirectionalPad,
+  Text,
   GroupButton,
   ToggleButton,
   toXml,

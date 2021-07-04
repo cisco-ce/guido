@@ -3,8 +3,13 @@
   "panel": "<Panel><PanelId>my-panel</PanelId><Page><PageId>page1</PageId></Page><Page><PageId>page2</PageId></Page></Panel>",
   "page": "<Page><Name>My page</Name><PageId>mypage</PageId><Row><Name>My row</Name><Widget><Type>Button</Type><WidgetId>mybutton</WidgetId></Widget></Row></Page>",
   "row": "<Row><Name>My row</Name><Widget><Type>Button</Type><WidgetId>mybutton</WidgetId></Widget></Row>",
-  "button": "<Widget><Type>Button</Type><WidgetId>my-button</WidgetId><Options>size=4</Options><Name>#4</Name></Widget>",
+  "button": "<Widget><Type>Button</Type><WidgetId>my-button</WidgetId><Name>#4</Name><Options>size=4</Options></Widget>",
   "toggleButton": "<Widget><Type>ToggleButton</Type><WidgetId>my-button</WidgetId></Widget>",
+  "spinner": "<Widget><Type>Spinner</Type><WidgetId>my-spinner</WidgetId></Widget>",
+  "text": "<Widget><Type>Text</Type><WidgetId>my-text</WidgetId><Name>My text</Name><Options>size=3</Options></Widget>",
+  "directionalPad": "<Widget><Type>DirectionalPad</Type><WidgetId>my-directionalpad</WidgetId></Widget>",
+  "iconButton": "<Widget><Type>Button</Type><WidgetId>my-iconbutton</WidgetId><Options>size=1;icon=mic</Options></Widget>",
+  "spacer": "<Widget><Type>Spacer</Type><WidgetId>my-spacer</WidgetId><Options>size=3</Options></Widget>",
   "slider": "<Widget><Type>Slider</Type><WidgetId>my-slider</WidgetId><Options>size=3</Options></Widget>",
   "groupButton": "<Widget><WidgetId>my-groupbutton</WidgetId><Type>GroupButton</Type><Options>columns=3</Options><ValueSpace><Value><Key>drinks</Key><Name>Drinks</Name></Value><Value><Key>food</Key><Name>Food</Name></Value><Value><Key>snacks</Key><Name>Snacks</Name></Value></ValueSpace></Widget>"
 }

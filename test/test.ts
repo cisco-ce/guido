@@ -5,10 +5,12 @@ const samples = require('./samples.json');
 const assert = require('assert');
 
 const { Config, Panel, Page, Row, toXml } = require('../src/uiext');
-const { GroupButton, ToggleButton, Button, Slider } = require('../src/uiext');
+const { GroupButton, ToggleButton, Button, Slider, IconButton, DirectionalPad, Text, Spinner, Spacer } = require('../src/uiext');
 
 describe('XML creation', function() {
+
   describe('Widget config', function() {
+
     it('Creates valid button xml', function() {
       const button = Button({
         widgetId: 'my-button',
@@ -18,6 +20,7 @@ describe('XML creation', function() {
       const xml = toXml(button, false);
       assert.equal(xml, samples.button);
     });
+
     it('Creates valid toggle button xml', function() {
       const button = ToggleButton({
         widgetId: 'my-button',
@@ -25,6 +28,15 @@ describe('XML creation', function() {
       const xml = toXml(button, false);
       assert.equal(xml, samples.toggleButton);
     });
+
+    it('Creates valid spinner xml', function() {
+      const button = Spinner({
+        widgetId: 'my-spinner',
+      });
+      const xml = toXml(button, false);
+      assert.equal(xml, samples.spinner);
+    });
+
     it('Creates valid slider xml', function() {
       const button = Slider({
         widgetId: 'my-slider',
@@ -33,6 +45,43 @@ describe('XML creation', function() {
       const xml = toXml(button, false);
       assert.equal(xml, samples.slider);
     });
+
+    it('Creates valid spacer xml', function() {
+      const button = Spacer({
+        widgetId: 'my-spacer',
+        size: 3,
+      });
+      const xml = toXml(button, false);
+      assert.equal(xml, samples.spacer);
+    });
+
+    it('Creates valid icon button xml', function() {
+      const button = IconButton({
+        widgetId: 'my-iconbutton',
+        icon: 'mic',
+      });
+      const xml = toXml(button, false);
+      assert.equal(xml, samples.iconButton);
+    });
+
+    it('Creates valid text xml', function() {
+      const button = Text({
+        widgetId: 'my-text',
+        text: "My text",
+        size: 3,
+      });
+      const xml = toXml(button, false);
+      assert.equal(xml, samples.text);
+    });
+
+    it('Creates valid directional pad xml', function() {
+      const button = DirectionalPad({
+        widgetId: 'my-directionalpad',
+      });
+      const xml = toXml(button, false);
+      assert.equal(xml, samples.directionalPad);
+    });
+
     it('Creates valid groupbutton xml', function() {
       const button = GroupButton({
         widgetId: 'my-groupbutton',
@@ -46,9 +95,11 @@ describe('XML creation', function() {
       const xml = toXml(button, false);
       assert(xml, samples.groupButton);
     });
+
   });
 
   describe('Row config', function() {
+
     it('Creates a row with widget', function() {
       const row = Row({ text: 'My row' }, [
         Button({ widgetId: 'mybutton' }),
