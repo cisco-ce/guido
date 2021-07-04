@@ -1,5 +1,15 @@
 const LatestVersion = '1.8';
 
+const LegalWidgetAttributes = {
+  Button: ['size', 'text', 'icon'],
+  GroupButton: ['buttons'],
+  Text: ['text'],
+  Slider: ['size'],
+  Spacer: ['size'],
+  Text: ['text', 'size'],
+  GroupButton: ['columns', 'buttons'],
+};
+
 function Node(type, attributes, children = []) {
   const c = Array.isArray(children) ? children : [children];
   return {
@@ -64,6 +74,16 @@ function Widget(type, options) {
     Type: type,
     WidgetId: widgetId,
   };
+
+  const legal = LegalWidgetAttributes[type];
+  Object.keys(options).forEach((key) => {
+    if (key !== 'widgetId') {
+      // console.log('check', type, key);
+      if (!legal.includes(key)) {
+        throw(new Error(`${type} does not support option '${key}'`));
+      }
+    }
+  });
 
   let options = [];
 

@@ -96,6 +96,15 @@ describe('XML creation', function() {
       assert(xml, samples.groupButton);
     });
 
+    it('Checks for valid attributes', function() {
+      try {
+        const button = Button({ jalla: 'inshallah' });
+        assert(false);
+      }
+      catch(e) {
+        assert(true);
+      }
+    });
   });
 
   describe('Row config', function() {
