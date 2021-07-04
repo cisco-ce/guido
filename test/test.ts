@@ -98,12 +98,10 @@ describe('XML creation', function() {
 
     it('Checks for valid attributes', function() {
       try {
-        const button = Button({ jalla: 'inshallah' });
+        const button = Button({ jalla: 'jalla' });
         assert(false);
       }
-      catch(e) {
-        assert(true);
-      }
+      catch(e) {}
     });
   });
 
@@ -141,6 +139,23 @@ describe('XML creation', function() {
       const config = Config({ version: '1.7' }, panel);
       const xml = toXml(config, false);
       assert.equal(xml, samples.config);
+    });
+
+    it('Checks valid child types', function() {
+      const row = Row();
+      try {
+        const panel = Panel({ panelId: 'my-panel' }, row);
+        assert(false);
+      }
+      catch(e) {}
+    });
+
+    it('Checks for legal attributes', function() {
+      try {
+        const row = Row({ jalla: 'jalla' });
+        assert(false);
+      }
+      catch(e) {}
     });
 
   });

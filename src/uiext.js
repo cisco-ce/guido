@@ -1,5 +1,19 @@
 const LatestVersion = '1.8';
 
+const LegalChildren = {
+  Extensions: 'Panel',
+  Panel: 'Page',
+  Page: 'Row',
+  Row: 'Widget',
+};
+
+const LegalAttributes = {
+  Config: ['version'],
+  Panel: ['panelId', 'color', 'icon', 'order', 'name'],
+  Page: ['pageId', 'hideRowNames', 'name'],
+  Row: ['text', 'text'],
+}
+
 const LegalWidgetAttributes = {
   Button: ['size', 'text', 'icon'],
   GroupButton: ['buttons'],
@@ -12,12 +26,25 @@ const LegalWidgetAttributes = {
 
 function Node(type, attributes, children = []) {
   const c = Array.isArray(children) ? children : [children];
+  const invalid = c.find(i => i.type !== LegalChildren[type]);
+  if (invalid) {
+    throw new Error(`${type} cannot have child of type ${invalid.type}`);
+  }
   return {
     type, attributes, children: c,
   }
 }
 
+function validate(type, options) {
+  Object.keys(options).forEach(option => {
+    if (!LegalAttributes[type].includes(option)) {
+      throw new Error(`${type} does not support attribute ${option}`);
+    }
+  });
+}
+
 function Config(options, children) {
+  validate('Config', options);
   const attributes = {
     Version: options.version || LatestVersion,
   };
@@ -26,6 +53,7 @@ function Config(options, children) {
 }
 
 function Panel(options, pages) {
+  validate('Panel', options);
   const attributes = {};
   const { panelId, name, color } = options;
   if (panelId) {
@@ -42,6 +70,7 @@ function Panel(options, pages) {
 }
 
 function Page(options, pages) {
+  validate('Page', options);
   const attributes = {};
   if (options.name) {
     attributes.Name = options.name;
@@ -56,7 +85,8 @@ function Page(options, pages) {
   return Node('Page', attributes, pages);
 }
 
-function Row(options, widgets) {
+function Row(options = {}, widgets = []) {
+  validate('Row', options);
   const attributes = {};
   if (options.text) {
     attributes.Name = options.text;
@@ -66,7 +96,7 @@ function Row(options, widgets) {
 }
 
 function Widget(type, options) {
-  const { widgetId, size, text, buttons, icon, columns } = options;
+  const { widgetId, size, text, name, buttons, icon, columns } = options;
   if (!widgetId) {
     throw Error('Missing widget id');
   }
@@ -87,8 +117,8 @@ function Widget(type, options) {
 
   let options = [];
 
-  if (text) {
-    attributes.Name = text;
+  if (text || name) {
+    attributes.Name = text || name;
   }
 
   if (buttons) {
