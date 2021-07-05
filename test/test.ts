@@ -4,8 +4,24 @@ const samples = require('./samples.json');
 
 const assert = require('assert');
 
-const { Config, Panel, Page, Row, toXml } = require('../src/uiext');
-const { GroupButton, ToggleButton, Button, Slider, IconButton, DirectionalPad, Text, Spinner, Spacer } = require('../src/uiext');
+const {
+  toXml,
+  Config,
+  Panel,
+  ActionButton,
+  WebApp,
+  Page,
+  Row,
+  GroupButton,
+  ToggleButton,
+  Button,
+  Slider,
+  IconButton,
+  DirectionalPad,
+  Text,
+  Spinner,
+  Spacer,
+} = require('../src/uiext');
 
 describe('XML creation', function() {
 
@@ -156,6 +172,21 @@ describe('XML creation', function() {
         assert(false);
       }
       catch(e) {}
+    });
+
+  });
+
+  describe('ActionButton, WebApp', function() {
+    it('Creates a valid web app', function() {
+      const webApp = WebApp({ name: 'YR', url: 'http://yr.no' });
+      const xml = toXml(webApp, false);
+      assert.equal(xml, samples.webApp);
+    });
+    it('Creates a valid action button', function() {
+      const webApp = ActionButton({ panelId: 'action-button' });
+      const xml = toXml(webApp, false);
+      // console.log(xml);
+      assert.equal(xml, samples.actionButton);
     });
 
   });

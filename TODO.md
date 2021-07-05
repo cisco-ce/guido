@@ -3,7 +3,6 @@
 ## Before first release
 
 * Add props for spinner, dpad, ...
-* Add support for web apps and action button
 * Add documentation
 * Add and test functioning d.ts file
 * Add example: a gallery that shows all widgets with variations, inside a ui extension

@@ -1,6 +1,8 @@
 {
-  "config": "<Extensions><Version>1.7</Version><Panel><PanelId>my-panel</PanelId></Panel></Extensions>",
-  "panel": "<Panel><PanelId>my-panel</PanelId><Page><PageId>page1</PageId></Page><Page><PageId>page2</PageId></Page></Panel>",
+  "config": "<Extensions><Version>1.7</Version><Panel><Type>Home</Type><PanelId>my-panel</PanelId></Panel></Extensions>",
+  "panel": "<Panel><Type>Home</Type><PanelId>my-panel</PanelId><Page><PageId>page1</PageId></Page><Page><PageId>page2</PageId></Page></Panel>",
+  "actionButton": "<Panel><Type>Home</Type><PanelId>action-button</PanelId><ActivityType>Custom</ActivityType></Panel>",
+  "webApp": "<Panel><Type>Home</Type><Name>YR</Name><ActivityType>WebApp</ActivityType><ActivityData>http://yr.no</ActivityData></Panel>",
   "page": "<Page><Name>My page</Name><PageId>mypage</PageId><Row><Name>My row</Name><Widget><Type>Button</Type><WidgetId>mybutton</WidgetId></Widget></Row></Page>",
   "row": "<Row><Name>My row</Name><Widget><Type>Button</Type><WidgetId>mybutton</WidgetId></Widget></Row>",
   "button": "<Widget><Type>Button</Type><WidgetId>my-button</WidgetId><Name>#4</Name><Options>size=4</Options></Widget>",

@@ -9,7 +9,7 @@ const LegalChildren = {
 
 const LegalAttributes = {
   Config: ['version'],
-  Panel: ['panelId', 'color', 'icon', 'order', 'name'],
+  Panel: ['panelId', 'color', 'icon', 'order', 'name', 'url'],
   Page: ['pageId', 'hideRowNames', 'name'],
   Row: ['text', 'text'],
 }
@@ -55,18 +55,42 @@ function Config(options, children) {
 function Panel(options, pages) {
   validate('Panel', options);
   const attributes = {};
-  const { panelId, name, color } = options;
+  const { panelId, name, color, order, icon, type } = options;
+
+  attributes.Type = type || 'Home';
   if (panelId) {
     attributes.PanelId = panelId;
   }
   if (name) {
     attributes.Name = name;
   }
+  if (order) {
+    attributes.Order = order;
+  }
+  if (icon) {
+    attributes.Icon = icon;
+  }
   if (color) {
     attributes.Color = color;
   }
 
   return Node('Panel', attributes, pages);
+}
+
+
+function ActionButton(options = {}) {
+  const panel = Panel(options);
+  panel.attributes.ActivityType = 'Custom';
+
+  return panel;
+}
+
+function WebApp(options) {
+  const panel = Panel(options);
+  panel.attributes.ActivityType = 'WebApp';
+  panel.attributes.ActivityData = options.url;
+
+  return panel;
 }
 
 function Page(options, pages) {
@@ -209,6 +233,8 @@ function toXml(json, prettify = true) {
 module.exports = {
   Config,
   Panel,
+  ActionButton,
+  WebApp,
   Page,
   Row,
   Button,
