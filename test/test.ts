@@ -48,6 +48,8 @@ describe('XML creation', function() {
     it('Creates valid spinner xml', function() {
       const button = Spinner({
         widgetId: 'my-spinner',
+        style: 'plusminus',
+        size: 3,
       });
       const xml = toXml(button, false);
       assert.equal(xml, samples.spinner);
@@ -93,6 +95,7 @@ describe('XML creation', function() {
     it('Creates valid directional pad xml', function() {
       const button = DirectionalPad({
         widgetId: 'my-directionalpad',
+        text: 'Fire!',
       });
       const xml = toXml(button, false);
       assert.equal(xml, samples.directionalPad);
@@ -178,14 +181,22 @@ describe('XML creation', function() {
 
   describe('ActionButton, WebApp', function() {
     it('Creates a valid web app', function() {
-      const webApp = WebApp({ name: 'YR', url: 'http://yr.no' });
+      const webApp = WebApp({
+        name: 'YR',
+        url: 'http://yr.no',
+        color: '#334455',
+        icon: 'Hvac',
+      });
       const xml = toXml(webApp, false);
       assert.equal(xml, samples.webApp);
     });
+
     it('Creates a valid action button', function() {
-      const webApp = ActionButton({ panelId: 'action-button' });
+      const webApp = ActionButton({
+        panelId: 'action-button',
+        icon: 'Handset',
+      });
       const xml = toXml(webApp, false);
-      // console.log(xml);
       assert.equal(xml, samples.actionButton);
     });
 

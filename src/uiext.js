@@ -9,7 +9,7 @@ const LegalChildren = {
 
 const LegalAttributes = {
   Config: ['version'],
-  Panel: ['panelId', 'color', 'icon', 'order', 'name', 'url'],
+  Panel: ['panelId', 'type', 'color', 'icon', 'order', 'name', 'url'],
   Page: ['pageId', 'hideRowNames', 'name'],
   Row: ['text', 'text'],
 }
@@ -18,11 +18,22 @@ const LegalWidgetAttributes = {
   Button: ['size', 'text', 'icon'],
   GroupButton: ['buttons'],
   Text: ['text'],
+  // spinner style: vertical, horizontal, plusminus
+  Spinner: ['size', 'style'],
   Slider: ['size'],
   Spacer: ['size'],
+  DirectionalPad: ['text'],
   Text: ['text', 'size'],
   GroupButton: ['columns', 'buttons'],
 };
+
+// panel icons:
+// ["video", "Blinds", "Briefing", "Camera", "Concierge", "Disc", "Handset", "Help", "Helpdesk", "Home", "Hvac", "Info", "Input", "Language", "Laptop", "Lightbulb", "Media", "Microphone", "Power", "Proximity", "Record", "Sliders", "Tv", "Spark", "Webex"]
+
+// button icons:
+// ["video", "home", "play_pause", "list", "end", "arrow_down", "arrow_up", "arrow_left", "arrow_right", "fast_bw", "skip_bw", "skip_fw", "fast_fw", "video", "video_muted", "mic", "mic_muted", "play", "pause", "stop", "record", "audio_minus", "audio_plus", "speaker", "speaker_muted", "red", "green", "blue", "yellow", "plus", "minus", "zoom_in", "zoom_out", "phone", "volume_muted", "back", "eject", "power", "help", "webex_meetings", "webex_teams"]
+
+
 
 function Node(type, attributes, children = []) {
   const c = Array.isArray(children) ? children : [children];
@@ -100,7 +111,7 @@ function Page(options, pages) {
     attributes.Name = options.name;
   }
   if (options.hideRowNames) {
-    attributes.HideRowNames = 1; // TODO verify
+    attributes.Options = 'hideRowNames=1';
   }
   if (options.pageId) {
     attributes.PageId = options.pageId;
@@ -120,7 +131,7 @@ function Row(options = {}, widgets = []) {
 }
 
 function Widget(type, options) {
-  const { widgetId, size, text, name, buttons, icon, columns } = options;
+  const { widgetId, size, text, name, buttons, icon, columns, style, fontSize, align } = options;
   if (!widgetId) {
     throw Error('Missing widget id');
   }
@@ -139,8 +150,6 @@ function Widget(type, options) {
     }
   });
 
-  let options = [];
-
   if (text || name) {
     attributes.Name = text || name;
   }
@@ -152,6 +161,8 @@ function Widget(type, options) {
     attributes.ValueSpace = valueSpace;
   }
 
+  let options = [];
+
   if (size) {
     options.push('size=' + size);
   }
@@ -162,6 +173,18 @@ function Widget(type, options) {
 
   if (icon) {
     options.push('icon=' + icon);
+  }
+
+  if (style) {
+    options.push('style=' + style);
+  }
+
+  if (fontSize) {
+    options.push('fontSize=' + fontSize);
+  }
+
+  if (align) {
+    options.push('align=' + align);
   }
 
   if (options.length) {
