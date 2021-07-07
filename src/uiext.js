@@ -161,34 +161,34 @@ function Widget(type, options) {
     attributes.ValueSpace = valueSpace;
   }
 
-  let options = [];
+  let opts = [];
 
   if (size) {
-    options.push('size=' + size);
+    opts.push('size=' + size);
   }
 
   if (columns) {
-    options.push('columns=' + columns);
+    opts.push('columns=' + columns);
   }
 
   if (icon) {
-    options.push('icon=' + icon);
+    opts.push('icon=' + icon);
   }
 
   if (style) {
-    options.push('style=' + style);
+    opts.push('style=' + style);
   }
 
   if (fontSize) {
-    options.push('fontSize=' + fontSize);
+    opts.push('fontSize=' + fontSize);
   }
 
   if (align) {
-    options.push('align=' + align);
+    opts.push('align=' + align);
   }
 
-  if (options.length) {
-    attributes.Options = options.join(';');
+  if (opts.length) {
+    attributes.Options = opts.join(';');
   }
 
   return Node('Widget', attributes);
