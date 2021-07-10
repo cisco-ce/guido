@@ -117,7 +117,15 @@ describe('XML creation', function() {
 
     it('Checks for valid attributes', function() {
       try {
-        const button = Button({ jalla: 'jalla' });
+        const button = Button({ widgetId: 'widget', jalla: 'jalla' });
+        assert(false);
+      }
+      catch(e) {}
+    });
+
+    it('Throws error if widget id is missing', function() {
+      try {
+        const button = Button({});
         assert(false);
       }
       catch(e) {}
