@@ -11,18 +11,16 @@ const LegalAttributes = {
   Config: ['version'],
   Panel: ['panelId', 'type', 'color', 'icon', 'order', 'name', 'url'],
   Page: ['pageId', 'hideRowNames', 'name'],
-  Row: ['text', 'text'],
+  Row: ['text'],
 }
 
 const LegalWidgetAttributes = {
   Button: ['size', 'text', 'icon'],
-  GroupButton: ['buttons'],
-  Text: ['text'],
-  // spinner style: vertical, horizontal, plusminus
   Spinner: ['size', 'style'],
   Slider: ['size'],
   Spacer: ['size'],
   DirectionalPad: ['text'],
+  ToggleButton: [],
   Text: ['text', 'size'],
   GroupButton: ['columns', 'buttons'],
 };
