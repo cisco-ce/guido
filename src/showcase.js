@@ -3,6 +3,7 @@ const uiext = require('./uiext');
 
 const IdChangeWidget = 'choose-widget';
 const IdPanel = 'widget-gallery';
+const IdWidgetType = 'widget-type';
 
 let currentWidgetIndex = 0;
 
@@ -15,7 +16,7 @@ const widgets = [
   },
   {
     type: 'Spinner',
-    options: { size: 3 },
+    options: { size: 2 },
     info: 'To increment/decrement values',
   },
   {
@@ -40,7 +41,8 @@ const widgets = [
   },
   {
     type: 'Text',
-    options: { text: 'Pure text widget' },
+    options: { text: 'Pure text widget', size: 4
+  },
     info: 'Display info text, or show dynamic values',
   },
   {
@@ -51,20 +53,21 @@ const widgets = [
 ];
 
 function createDemoPanel(mainWidget) {
-  const { Config, Panel, Page, Row, Spinner } = uiext;
+  const { Config, Panel, Page, Row, Spinner, Text } = uiext;
   const config = Config({ version: '1.7' },
     Panel({ panelId: IdPanel, color: '#D541D8', name: 'Widget Gallery', icon: 'Blinds' }, [
       Page({ pageId: 'widget-gallery', name: 'Widget gallery', hideRowNames: true }, [
-        Row({}, Spinner({ widgetId: IdChangeWidget, size: 4, style: 'horizontal' })),
+        Row({}, [
+          Text({ widgetId: IdWidgetType, size: 2 }),
+          Spinner({ widgetId: IdChangeWidget, size: 2, style: 'horizontal' }),
+        ]),
         Row({}, mainWidget),
       ]),
     ])
   );
 
   const xml = uiext.toXml(config);
-  // console.log(xml);
 
-  // TODO
   gui.panelSave(IdPanel, xml);
 }
 
@@ -77,9 +80,8 @@ function setWidget(index) {
   const { type, options } = widgets[index];
   const mainWidget = createWidget(type, options);
   createDemoPanel(mainWidget);
-
-  // TODO
-  gui.widgetSetValue(IdChangeWidget, `Widget: ${type}`);
+  gui.widgetSetValue(IdWidgetType, `Widget: ${type}`);
+  gui.widgetSetValue(IdChangeWidget, index + 1 + ' / ' + widgets.length);
 }
 
 function onChangeWidget(e) {
@@ -102,4 +104,3 @@ function onChangeWidget(e) {
 
 setWidget(0);
 gui.onWidgetAction(onChangeWidget, 'clicked', IdChangeWidget);
-
