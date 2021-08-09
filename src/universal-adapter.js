@@ -38,14 +38,13 @@ function init(deviceLogin, macroModuleName) {
 
   connectXapi(deviceLogin)
     .then((xapi) => {
-
-      Module.prototype.require = () => {
+      Module.prototype.require = function() {
         const moduleName = arguments[0];
         return moduleName === 'xapi' ? xapi : originalRequire.apply(this, arguments);
       };
 
-      // run macro as an external integration. when it calls require('xapi') it will get the connected
-      // object from above
+      // run macro as an external integration. when it calls require('xapi') it will get the
+      // connected xapi object
       require(macroModuleName);
 
     });
