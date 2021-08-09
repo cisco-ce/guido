@@ -1,8 +1,7 @@
-// const jsxapi = require('jsxapi');
-
 const gui = require('./gui');
+const uiext = require('./uiext');
 
-const IdChooseWidget = 'choose-widget';
+const IdChangeWidget = 'choose-widget';
 const IdPanel = 'widget-gallery';
 
 let currentWidgetIndex = 0;
@@ -52,19 +51,18 @@ const widgets = [
 ];
 
 function createDemoPanel(mainWidget) {
-  const { Config, Panel, Page, Row, Spinner } = bui;
+  const { Config, Panel, Page, Row, Spinner } = uiext;
   const config = Config({ version: '1.7' },
     Panel({ panelId: IdPanel, color: '#D541D8', name: 'Widget Gallery', icon: 'Blinds' }, [
       Page({ pageId: 'widget-gallery', name: 'Widget gallery', hideRowNames: true }, [
+        Row({}, Spinner({ widgetId: IdChangeWidget, size: 4, style: 'horizontal' })),
         Row({}, mainWidget),
-        Row({}, []),
-        Row({}, Spinner({ widgetId: IdChooseWidget, size: 4, style: 'horizontal' })),
       ]),
     ])
   );
 
-  const xml = bui.toXml(config);
-  console.log(xml);
+  const xml = uiext.toXml(config);
+  // console.log(xml);
 
   // TODO
   gui.panelSave(IdPanel, xml);
@@ -72,7 +70,7 @@ function createDemoPanel(mainWidget) {
 
 function createWidget(type, props) {
   const attrs = Object.assign({ widgetId: 'main-widget' }, props);
-  return bui[type](attrs);
+  return uiext[type](attrs);
 }
 
 function setWidget(index) {
@@ -81,7 +79,7 @@ function setWidget(index) {
   createDemoPanel(mainWidget);
 
   // TODO
-  // gui.setWidgetValue(IdChooseWidget, `${index + 1} / ${widgets.length}`);
+  gui.widgetSetValue(IdChangeWidget, `Widget: ${type}`);
 }
 
 function onChangeWidget(e) {
@@ -102,11 +100,6 @@ function onChangeWidget(e) {
   setWidget(currentWidgetIndex);
 }
 
-function init() {
-  setWidget(0);
+setWidget(0);
+gui.onWidgetAction(onChangeWidget, 'clicked', IdChangeWidget);
 
-  // TODO:
-  // gui.onSpinnerClicked(IdChooseWidget, onChangeWidget);
-}
-
-init();

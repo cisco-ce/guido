@@ -1,9 +1,4 @@
-let xapi;
-
-// TODO remove when macro module
-function setXapi(_xapi) {
-  xapi = _xapi;
-}
+const xapi = require('xapi');
 
 function panelRemoveAll() {
   return xapi.Command.UserInterface.Extensions.Clear();
@@ -23,8 +18,8 @@ function widgetSetValue(WidgetId, Value) {
 
 function onWidgetAction(callback, action = '', widgetId = '') {
   // todo: just one listener in total
-  xapi.UserInterface.Extensions.Widget.Action.on(e => {
-    if (action && e.Action !== action) return;
+  xapi.Event.UserInterface.Extensions.Widget.Action.on(e => {
+    if (action && e.Type !== action) return;
     if (widgetId && e.WidgetId !== widgetId) return;
     callback(e);
   });
@@ -41,7 +36,6 @@ function onPanelClicked(callback, panelId = '') {
 // function onPageAction(callback, action = '', pageId = '') {}
 
 module.exports = {
-  setXapi,
   panelRemoveAll,
   panelRemove,
   panelSave,
