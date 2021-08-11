@@ -4,7 +4,8 @@
   "description": "",
   "main": "gui-create.lib.js",
   "scripts": {
-    "test": "mocha 'test/**/*.js'"
+    "test": "mocha 'test/**/*.js'",
+    "doc": "typedoc --out docs src/uiext.d.ts"
   },
   "keywords": [],
   "author": "",

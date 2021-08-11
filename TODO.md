@@ -2,9 +2,9 @@
 
 ## Before first release
 
-* Add props for spinner, dpad, ...
-* Add documentation
-* Add and test functioning d.ts file
-* Add example: a gallery that shows all widgets with variations, inside a ui extension
+* Decide name
+* Remove all surrounding helper classes for testing (?)
 * Create git repo on cisco-ce
-* Ask for internal testing
+* Add documentation
+* Publish documentation (gh pages?)
+* Ask for internal testing and bobby++

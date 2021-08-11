@@ -31,6 +31,10 @@ declare function Config(attributes: ConfigAttributes, panels?: Node | Node[]): N
 
 declare function Panel(attributes: PanelAttributes, pages?: Node | Node[]): Node;
 
+declare function ActionButton(attributes: PanelAttributes): Node;
+
+declare function WebApp(attributes: WebAppAttributes): Node;
+
 declare function Page(attributes: PageAttributes, rows: Node | Node[]): Node;
 
 declare function Row(attributes: RowAttributes, widgets: Widget | Widget[]): Node;
@@ -41,6 +45,16 @@ declare interface ConfigAttributes {
 }
 
 declare interface PanelAttributes {
+  panelId?: string;
+  type?: 'Home' | 'InCall' | 'StatusBar' | 'Never';
+  color?: string;
+  icon?: string;
+  order?: number;
+  name?: string;
+}
+
+declare interface WebAppAttributes {
+  url: string;
   panelId?: string;
   type?: 'Home' | 'InCall' | 'StatusBar' | 'Never';
   color?: string;
