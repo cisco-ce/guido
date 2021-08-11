@@ -1,17 +1,39 @@
-declare interface Node {}
-declare type Config = Node;
-declare type Panel = Node;
-declare type Page = Node;
-declare type Row = Node;
-declare type Widget = Node;
+/**
+ * Library for creating dynamic UI extensions for Cisco Webex Devices in a declarative fashion.
+ *
+ * This means the developer does need to know or use the xml syntax required by the xAPI commands
+ * for adding / changing UI extensions.
+ *
+ * Example usage:
+ * ```
+ * const { Config, Panel } = require('uiext');
+ * const config = Config({ version: '1.8' }, Panel());
+ * ```
+ * @module
+ */
 
-declare function Config(attributes: ConfigAttributes, children?: Panel | Panel[]): Config;
+/**
+ * General node for any UI element
+ */
+declare interface Node {
+  type: string;
+  attributes?: Object[];
+  children?: Node[];
+}
 
-declare function Panel(attributes: PanelAttributes, children?: Page | Page[]): Panel;
+interface Widget {
+  Type: string;
+  WidgetId: string;
+}
 
-declare function Page(attributes: PageAttributes, children: Row | Row[]): Page;
+/** Creates a new UI extension config */
+declare function Config(attributes: ConfigAttributes, panels?: Node | Node[]): Node;
 
-declare function Row(attributes: RowAttributes, children: Widget | Widget[]): Row;
+declare function Panel(attributes: PanelAttributes, pages?: Node | Node[]): Node;
+
+declare function Page(attributes: PageAttributes, rows: Node | Node[]): Node;
+
+declare function Row(attributes: RowAttributes, widgets: Widget | Widget[]): Node;
 
 
 declare interface ConfigAttributes {
@@ -36,7 +58,6 @@ declare interface PageAttributes {
 declare interface RowAttributes {
   text?: string;
 }
-
 
 declare type WidgetSize = 1 | 2 | 3 | 4;
 
