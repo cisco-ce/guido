@@ -1,5 +1,3 @@
-export {};
-
 const samples = require('./samples.json');
 
 const assert = require('assert');

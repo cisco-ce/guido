@@ -1,10 +1,10 @@
 {
-  "name": "RoomOS UI library",
+  "name": "roomos-ui-lib",
   "version": "1.0.0",
   "description": "",
   "main": "gui-create.lib.js",
   "scripts": {
-    "test": "mocha -r ts-node/register 'test/**/*.ts'"
+    "test": "mocha 'test/**/*.js'"
   },
   "keywords": [],
   "author": "",
