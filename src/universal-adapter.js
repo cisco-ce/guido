@@ -1,7 +1,7 @@
 /**
  * Adapter that makes it possible to run a pure macro from an external node context instead.
  * Useful to develop, test and commit macros on own laptop instead of in macro editor,
- * then just copy/paste/export/commit&push the macro file when done.
+ * then just copy/paste/export/commit & push the macro file when done.
  *
  * Macros on video device can just import the xapi object directly, but when external you need
  * to provide login details. Some magic here makes lets you connect to the video device with jsxapi,
@@ -10,8 +10,8 @@
  * Usage:
  *  const adapter = require('./universal-adapter');
  *  const videoDevice = { host: '10.0.0.99', username: 'admin', password: 'password };
- *  const macroModule = './mymacro'; // this is the file name you would usually use in require()
- *  adapter(videoDevice, macroModule); // macro starts
+ *  const macroModule = './mymacro'; // the file name you would usually use in require()
+ *  adapter(videoDevice, macroModule); // connect and start macro
  *
  */
 
@@ -45,11 +45,15 @@ async function init(deviceLogin, macroModuleName) {
 
     // run macro as an external integration. when it calls require('xapi') it will get the
     // connected xapi object
-    require(macroModuleName);
+    try {
+      require(macroModuleName);
+    }
+    catch(e) {
+      throw new Error('Unable to load module ' + macroModuleName);
+    }
   }
   catch(e) {
-    console.log('Not able to connect to video device');
-    throw(e);
+    throw new Error('Not able to connect to video device');
   }
 }
 
