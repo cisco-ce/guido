@@ -63,6 +63,10 @@ declare interface WebAppAttributes {
   name?: string;
 }
 
+/**
+ * Pages can be inside panels.
+ * @param hideRowNames Hide the name rows on the left if you want to make the page more compact
+ */
 declare interface PageAttributes {
   pageId?: string;
   name?: string;
