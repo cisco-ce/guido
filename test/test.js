@@ -19,7 +19,7 @@ const {
   Text,
   Spinner,
   Spacer,
-} = require('../src/uiext');
+} = require('../src/ui-builder');
 
 describe('XML creation', function() {
 

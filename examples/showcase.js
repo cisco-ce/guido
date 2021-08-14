@@ -1,5 +1,5 @@
-const gui = require('./gui');
-const uiext = require('./uiext');
+const gui = require('./runner');
+const builder = require('./builder');
 
 const IdChangeWidget = 'choose-widget';
 const IdPanel = 'widget-gallery';
@@ -53,7 +53,7 @@ const widgets = [
 ];
 
 function createDemoPanel(mainWidget) {
-  const { Config, Panel, Page, Row, Spinner, Text } = uiext;
+  const { Config, Panel, Page, Row, Spinner, Text } = builder;
   const config = Config({ version: '1.7' },
     Panel({ panelId: IdPanel, color: '#D541D8', name: 'Widget Gallery', icon: 'Blinds' }, [
       Page({ pageId: 'widget-gallery', name: 'Widget gallery', hideRowNames: true }, [

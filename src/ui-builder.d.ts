@@ -21,7 +21,7 @@ declare interface Node {
   children?: Node[];
 }
 
-interface Widget {
+declare interface Widget extends Node {
   Type: string;
   WidgetId: string;
 }

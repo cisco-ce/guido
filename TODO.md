@@ -2,9 +2,10 @@
 
 ## Before first release
 
-* Decide name
-* Remove all surrounding helper classes for testing (?)
 * Create git repo on cisco-ce
 * Add documentation
+  * ui
+  * ui builder
 * Publish documentation (gh pages?)
 * Ask for internal testing and bobby++
+* Create a better sample (like havards)
