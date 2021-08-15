@@ -58,3 +58,10 @@ declare function onWidgetAction(callback: Function, action?: string, widgetId?: 
  * Sets the value for a widget. This has different meanings for different widgets, eg for a slider it is the slider value, for a text widget its the text, and for a button it is ignored.
  */
 declare function widgetSetValue(widgetId: string, value: string|number|boolean) : void;
+
+declare interface CoordinateSystem {
+  min: number;
+  max: number;
+}
+
+declare function scale(from: CoordinateSystem, to: CoordinateSystem, value: number): number;
