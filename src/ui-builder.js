@@ -21,7 +21,7 @@ const LegalWidgetAttributes = {
   Spacer: ['size'],
   DirectionalPad: ['text'],
   ToggleButton: [],
-  Text: ['text', 'size'],
+  Text: ['text', 'size', 'align', 'fontSize'],
   GroupButton: ['columns', 'buttons'],
 };
 

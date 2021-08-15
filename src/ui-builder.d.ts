@@ -26,6 +26,12 @@ declare interface Widget extends Node {
   WidgetId: string;
 }
 
+/**
+ * Converts any node (and all children) to the XML format that the xAPI commands expect
+ * Typically you always want to do this on the config object only.
+ */
+declare function toXml(node: Node): string;
+
 /** Creates a new UI extension config */
 declare function Config(attributes: ConfigAttributes, panels?: Node | Node[]): Node;
 
@@ -48,7 +54,7 @@ declare interface PanelAttributes {
   panelId?: string;
   type?: 'Home' | 'InCall' | 'StatusBar' | 'Never';
   color?: string;
-  icon?: string;
+  icon?: PanelIcon;
   order?: number;
   name?: string;
 }
@@ -62,6 +68,12 @@ declare interface WebAppAttributes {
   order?: number;
   name?: string;
 }
+
+// list = Array.from(document.querySelectorAll('.icon-button'))
+// list.map(b => b.classList[1].replace('icon-', '')).sort((i1, i2) => i1 < i2 ? -1 : 1).join('|')
+declare type PanelIcon = 'Blinds|Briefing|Camera|Concierge|Disc|Handset|Help|Helpdesk|Home|Hvac|Info|Input|Language|Laptop|Lightbulb|Media|Microphone|Power|Proximity|Record|Sliders|Tv';
+
+declare type ButtonIcon = 'arrow_down|arrow_left|arrow_right|arrow_up|audio_minus|audio_plus|back|blue|eject|end|fast_bw|fast_fw|green|help|home|list|mic|mic_muted|minus|pause|phone|play|play_pause|plus|plus|power|record|red|skip_bw|skip_fw|speaker|speaker_muted|stop|video|video_muted|volume_muted|yellow|zoom_in|zoom_out';
 
 /**
  * Pages can be inside panels.
@@ -83,7 +95,7 @@ declare function Button(attributes: {
   widgetId: string;
   text?: string;
   size?: WidgetSize;
-  icon?: string;
+  icon?: ButtonIcon;
 }): Widget;
 
 declare function GroupButton(attributes: {
@@ -116,6 +128,8 @@ declare function Text(attributes: {
   widgetId: string;
   text?: string;
   size?: WidgetSize;
+  fontSize?: 'small' | 'normal';
+  align?: '' | '' | '';
 }): Widget;
 
 declare function ToggleButton(attributes: {
