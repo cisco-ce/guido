@@ -2,10 +2,13 @@
 
 ## Before first release
 
-* Create git repo on cisco-ce
+* make specific listeners for all interactive widget types
+* document all widget attributes
+* add method for custom icon (?)
+
+* Create a better sample (like havards)
 * Add documentation
   * ui
   * ui builder
-* Publish documentation (gh pages?)
 * Ask for internal testing and bobby++
-* Create a better sample (like havards)
+
