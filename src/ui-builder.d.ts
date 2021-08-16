@@ -33,7 +33,7 @@ declare interface Widget extends Node {
 declare function toXml(node: Node): string;
 
 /** Creates a new UI extension config */
-declare function Config(attributes: ConfigAttributes, panels?: Node | Node[]): Node;
+declare function Config(attributes?: ConfigAttributes, panels?: Node | Node[]): Node;
 
 declare function Panel(attributes: PanelAttributes, pages?: Node | Node[]): Node;
 
@@ -45,19 +45,26 @@ declare function Page(attributes: PageAttributes, rows: Node | Node[]): Node;
 
 declare function Row(attributes: RowAttributes, widgets: Widget | Widget[]): Node;
 
-
 declare interface ConfigAttributes {
   version?: string;
 }
 
 declare interface PanelAttributes {
   panelId?: string;
+  /**
+   * Where the button for opening the panel is available
+   * * Home screen only
+   * * InCall: in-call only
+   * * StatusBar: Both
+   * * Never: hidden (open with xAPI)
+   */
   type?: 'Home' | 'InCall' | 'StatusBar' | 'Never';
   color?: string;
   icon?: PanelIcon;
   order?: number;
   name?: string;
 }
+
 
 declare interface WebAppAttributes {
   url: string;
@@ -98,6 +105,20 @@ declare function Button(attributes: {
   icon?: ButtonIcon;
 }): Widget;
 
+/**
+ * Create group button, where the user can select one of several choices
+ * Example:
+ * ```
+ * const group = GroupButton({
+ *   widgetId: 'my-colors',
+ *   button: {
+ *     green: 'Green',
+ *     red: 'Red',
+ *     blue: 'Blue',
+ *   }
+ * })
+ * ```
+ */
 declare function GroupButton(attributes: {
   widgetId: string;
   buttons: object;

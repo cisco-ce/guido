@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CoordinateSystem | roomos-ui-lib</title>
+	<title>Range | roomos-ui-lib</title>
 	<meta name="description" content="Documentation for roomos-ui-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -58,21 +58,28 @@
 					<a href="../modules/ui.html">ui</a>
 				</li>
 				<li>
-					<a href="ui.CoordinateSystem.html">CoordinateSystem</a>
+					<a href="ui.Range.html">Range</a>
 				</li>
 			</ul>
-			<h1>Interface CoordinateSystem</h1>
+			<h1>Interface Range</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Min-max range for eg sliders</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CoordinateSystem</span>
+						<span class="target">Range</span>
 					</li>
 				</ul>
 			</section>
@@ -83,8 +90,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.CoordinateSystem.html#max" class="tsd-kind-icon">max</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.CoordinateSystem.html#min" class="tsd-kind-icon">min</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.Range.html#max" class="tsd-kind-icon">max</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.Range.html#min" class="tsd-kind-icon">min</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,7 +105,7 @@
 					<div class="tsd-signature tsd-kind-icon">max<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L64">ui.d.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L234">ui.d.ts:234</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -108,7 +115,7 @@
 					<div class="tsd-signature tsd-kind-icon">min<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L63">ui.d.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L233">ui.d.ts:233</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -133,18 +140,24 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="ui.CoordinateSystem.html" class="tsd-kind-icon">Coordinate<wbr>System</a>
+						<a href="ui.Range.html" class="tsd-kind-icon">Range</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ui.CoordinateSystem.html#max" class="tsd-kind-icon">max</a>
+								<a href="ui.Range.html#max" class="tsd-kind-icon">max</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ui.CoordinateSystem.html#min" class="tsd-kind-icon">min</a>
+								<a href="ui.Range.html#min" class="tsd-kind-icon">min</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="ui.WidgetEvent.html" class="tsd-kind-icon">Widget<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/ui.html#Unsubscribe" class="tsd-kind-icon">Unsubscribe</a>
+					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/ui.html#XapiResult" class="tsd-kind-icon">Xapi<wbr>Result</a>
 					</li>
@@ -152,10 +165,61 @@
 						<a href="../modules/ui.html#Xml" class="tsd-kind-icon">Xml</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onButtonClicked" class="tsd-kind-icon">on<wbr>Button<wbr>Clicked</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onButtonPressed" class="tsd-kind-icon">on<wbr>Button<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onButtonReleased" class="tsd-kind-icon">on<wbr>Button<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onDirectionalPadClicked" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Clicked</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onDirectionalPadPressed" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onDirectionalPadReleased" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onGroupButtonPressed" class="tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onGroupButtonReleased" class="tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/ui.html#onPanelClicked" class="tsd-kind-icon">on<wbr>Panel<wbr>Clicked</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onSliderChanged" class="tsd-kind-icon">on<wbr>Slider<wbr>Changed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onSliderPressed" class="tsd-kind-icon">on<wbr>Slider<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onSliderReleased" class="tsd-kind-icon">on<wbr>Slider<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onSpinnerClicked" class="tsd-kind-icon">on<wbr>Spinner<wbr>Clicked</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onSpinnerPressed" class="tsd-kind-icon">on<wbr>Spinner<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onSpinnerReleased" class="tsd-kind-icon">on<wbr>Spinner<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onToggleButtonChanged" class="tsd-kind-icon">on<wbr>Toggle<wbr>Button<wbr>Changed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/ui.html#onWidgetAction" class="tsd-kind-icon">on<wbr>Widget<wbr>Action</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#panelClose" class="tsd-kind-icon">panel<wbr>Close</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#panelOpen" class="tsd-kind-icon">panel<wbr>Open</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/ui.html#panelRemove" class="tsd-kind-icon">panel<wbr>Remove</a>
@@ -168,6 +232,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/ui.html#scale" class="tsd-kind-icon">scale</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#subscribe" class="tsd-kind-icon">subscribe</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/ui.html#widgetSetValue" class="tsd-kind-icon">widget<wbr>Set<wbr>Value</a>

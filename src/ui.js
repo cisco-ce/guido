@@ -21,6 +21,14 @@ function panelRemove(PanelId) {
   return xapi.Command.UserInterface.Extensions.Panel.Remove({ PanelId });
 }
 
+function panelOpen(PanelId, PageId = '') {
+  return xapi.Command.UserInterface.Extensions.Panel.Open({ PanelId, PageId });
+}
+
+function panelClose() {
+  return xapi.Command.UserInterface.Extensions.Panel.Close();
+}
+
 function onPanelClicked(callback, panelId = '') {
   xapi.UserInterface.Extensions.Panel.Clicked.on(e => {
     if (panelId && e.PanelId !== panelId) return;
@@ -33,17 +41,31 @@ function widgetSetValue(WidgetId, Value) {
 }
 
 function onWidgetAction(callback, action = '', widgetId = '') {
+  if (typeof callback !== 'function') {
+    throw new Error('onWidgetAction: first param needs to be a function');
+  }
   // todo: just one listener in total
-return xapi.Event.UserInterface.Extensions.Widget.Action.on(e => {
+  return xapi.Event.UserInterface.Extensions.Widget.Action.on(e => {
     if (action && e.Type !== action) return;
     if (widgetId && e.WidgetId !== widgetId) return;
     callback(e);
-  });
- }
+})};
 
-const onButtonClicked = (widgetId, callback) => onWidget(callback, 'Clicked', widgetId);
-const onButtonPressed = (widgetId, callback) => onWidget(callback, 'Pressed', widgetId);
-const onButtonReleased = (widgetId, callback) => onWidget(callback, 'Released', widgetId);
+const onButtonClicked = (widgetId, callback) => onWidgetAction(callback, 'clicked', widgetId);
+const onButtonPressed = (widgetId, callback) => onWidgetAction(callback, 'pressed', widgetId);
+const onButtonReleased = (widgetId, callback) => onWidgetAction(callback, 'released', widgetId);
+const onToggleButtonChanged = (widgetId, callback) => onWidgetAction(callback, 'changed', widgetId);
+const onSliderChanged = onToggleButtonChanged;
+const onSliderPressed = onButtonPressed;
+const onSliderReleased = onButtonReleased;
+const onGroupButtonPressed = onButtonPressed;
+const onGroupButtonReleased = onButtonPressed;
+const onSpinnerPressed = onButtonPressed;
+const onSpinnerReleased = onButtonReleased;
+const onSpinnerClicked = onButtonClicked;
+const onDirectionalPadPressed = onButtonPressed;
+const onDirectionalPadReleased = onButtonReleased;
+const onDirectionalPadClicked = onButtonClicked;
 
 
 function alert(text, title = '', duration = 0) {
@@ -65,8 +87,8 @@ return to.min + norm * (to.max - to.min);
 }
 
 function subscribe(api, onChanged) {
-api.get().then(onChanged);
-api.on(onChanged);
+  api.get().then(onChanged);
+  api.on(onChanged);
 }
 
 module.exports = {
@@ -75,12 +97,28 @@ module.exports = {
   panelRemoveAll,
   panelRemove,
   panelSave,
+  panelOpen,
+  panelClose,
   widgetSetValue,
   scale,
   subscribe,
-  onWidgetAction,
+
   onPanelClicked,
+  onWidgetAction,
   onButtonClicked,
   onButtonPressed,
   onButtonReleased,
+  onToggleButtonChanged,
+  onSliderChanged,
+  onSliderPressed,
+  onSliderReleased,
+  onGroupButtonPressed,
+  onGroupButtonReleased,
+  onSpinnerPressed,
+  onSpinnerReleased,
+  onSpinnerClicked,
+  onDirectionalPadPressed,
+  onDirectionalPadReleased,
+  onDirectionalPadClicked,
+
 };

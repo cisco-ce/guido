@@ -70,7 +70,23 @@
 					<div class="lead">
 						<p>Thin wrapper for most xAPI user interface commands.</p>
 					</div>
-					<p>This means you don&#39;t need to use the long xAPI commands yourself.</p>
+					<p>This means you don&#39;t need to use the long xAPI commands yourself, eg:</p>
+					<pre><code><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">ui</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./ui&#039;</span><span style="color: #000000">;</span>
+<span style="color: #001080">ui</span><span style="color: #000000">.</span><span style="color: #795E26">alert</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Hello World!&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// instead of</span>
+<span style="color: #001080">xapi</span><span style="color: #000000">.</span><span style="color: #001080">Command</span><span style="color: #000000">.</span><span style="color: #001080">UserInterface</span><span style="color: #000000">.</span><span style="color: #001080">Message</span><span style="color: #000000">.</span><span style="color: #001080">Alert</span><span style="color: #000000">.</span><span style="color: #795E26">Display</span><span style="color: #000000">({ </span><span style="color: #001080">Text:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Hello World!&#039;</span><span style="color: #000000"> });</span>
+</code></pre>
+					<p>Also, event handling is made easier with dedicated methods:</p>
+					<pre><code><span style="color: #001080">ui</span><span style="color: #000000">.</span><span style="color: #795E26">onSliderChanged</span><span style="color: #000000">(</span><span style="color: #001080">e</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;slider changed:&#039;</span><span style="color: #000000">, </span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">Value</span><span style="color: #000000">), </span><span style="color: #A31515">&#039;my-widget&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// instead of</span>
+<span style="color: #001080">xapi</span><span style="color: #000000">.</span><span style="color: #001080">Event</span><span style="color: #000000">.</span><span style="color: #001080">UserInterface</span><span style="color: #000000">.</span><span style="color: #001080">Extensions</span><span style="color: #000000">.</span><span style="color: #001080">Widget</span><span style="color: #000000">.</span><span style="color: #001080">Action</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #001080">e</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">WidgetId</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;my-widget&#039;</span><span style="color: #000000"> &amp;&amp; </span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">Type</span><span style="color: #000000"> === </span><span style="color: #A31515">&#039;changed&#039;</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;slider changed:&#039;</span><span style="color: #000000">, </span><span style="color: #001080">e</span><span style="color: #000000">.</span><span style="color: #001080">Value</span><span style="color: #000000">);</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">});</span>
+</code></pre>
 				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -80,12 +96,14 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/ui.CoordinateSystem.html" class="tsd-kind-icon">Coordinate<wbr>System</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/ui.Range.html" class="tsd-kind-icon">Range</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/ui.WidgetEvent.html" class="tsd-kind-icon">Widget<wbr>Event</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui.html#Unsubscribe" class="tsd-kind-icon">Unsubscribe</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui.html#XapiResult" class="tsd-kind-icon">Xapi<wbr>Result</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui.html#Xml" class="tsd-kind-icon">Xml</a></li>
 							</ul>
@@ -93,12 +111,30 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onButtonClicked" class="tsd-kind-icon">on<wbr>Button<wbr>Clicked</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onButtonPressed" class="tsd-kind-icon">on<wbr>Button<wbr>Pressed</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onButtonReleased" class="tsd-kind-icon">on<wbr>Button<wbr>Released</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onDirectionalPadClicked" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Clicked</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onDirectionalPadPressed" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Pressed</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onDirectionalPadReleased" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Released</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onGroupButtonPressed" class="tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Pressed</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onGroupButtonReleased" class="tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Released</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onPanelClicked" class="tsd-kind-icon">on<wbr>Panel<wbr>Clicked</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onSliderChanged" class="tsd-kind-icon">on<wbr>Slider<wbr>Changed</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onSliderPressed" class="tsd-kind-icon">on<wbr>Slider<wbr>Pressed</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onSliderReleased" class="tsd-kind-icon">on<wbr>Slider<wbr>Released</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onSpinnerClicked" class="tsd-kind-icon">on<wbr>Spinner<wbr>Clicked</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onSpinnerPressed" class="tsd-kind-icon">on<wbr>Spinner<wbr>Pressed</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onSpinnerReleased" class="tsd-kind-icon">on<wbr>Spinner<wbr>Released</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onToggleButtonChanged" class="tsd-kind-icon">on<wbr>Toggle<wbr>Button<wbr>Changed</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#onWidgetAction" class="tsd-kind-icon">on<wbr>Widget<wbr>Action</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#panelClose" class="tsd-kind-icon">panel<wbr>Close</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#panelOpen" class="tsd-kind-icon">panel<wbr>Open</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#panelRemove" class="tsd-kind-icon">panel<wbr>Remove</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#panelRemoveAll" class="tsd-kind-icon">panel<wbr>Remove<wbr>All</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#panelSave" class="tsd-kind-icon">panel<wbr>Save</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#scale" class="tsd-kind-icon">scale</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#subscribe" class="tsd-kind-icon">subscribe</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui.html#widgetSetValue" class="tsd-kind-icon">widget<wbr>Set<wbr>Value</a></li>
 							</ul>
 						</section>
@@ -108,14 +144,49 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="Unsubscribe" class="tsd-anchor"></a>
+					<h3>Unsubscribe</h3>
+					<div class="tsd-signature tsd-kind-icon">Unsubscribe<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L96">ui.d.ts:96</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>Call this to stop subscribing to feedback</p>
+											</div>
+										</div>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="XapiResult" class="tsd-anchor"></a>
 					<h3>Xapi<wbr>Result</h3>
 					<div class="tsd-signature tsd-kind-icon">Xapi<wbr>Result<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L10">ui.d.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L52">ui.d.ts:52</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Most api calls return a promise (except when you register for feedback)</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="Xml" class="tsd-anchor"></a>
@@ -123,24 +194,435 @@
 					<div class="tsd-signature tsd-kind-icon">Xml<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L9">ui.d.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L47">ui.d.ts:47</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>UI extension xml string. Device expects something looking like:</p>
+						</div>
+						<pre><code><span style="color: #000000">&lt;</span><span style="color: #267F99">Extensions</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">  &lt;</span><span style="color: #267F99">Version</span><span style="color: #000000">&gt;</span><span style="color: #098658">1.8</span><span style="color: #000000">&lt;/</span><span style="color: #001080">Version</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">  &lt;</span><span style="color: #267F99">Panel</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">  &lt;</span><span style="color: #267F99">PanelId</span><span style="color: #000000">&gt;</span><span style="color: #001080">end</span><span style="color: #000000">-</span><span style="color: #001080">call</span><span style="color: #000000">&lt;/</span><span style="color: #001080">PanelId</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #267F99">Type</span><span style="color: #000000">&gt;</span><span style="color: #001080">InCall</span><span style="color: #000000">&lt;/</span><span style="color: #001080">Type</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #267F99">Icon</span><span style="color: #000000">&gt;</span><span style="color: #001080">Handset</span><span style="color: #000000">&lt;/</span><span style="color: #001080">Icon</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #267F99">Color</span><span style="color: #000000">&gt;#</span><span style="color: #0070C1">FF503C</span><span style="color: #000000">&lt;/</span><span style="color: #001080">Color</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #267F99">Name</span><span style="color: #000000">&gt;</span><span style="color: #001080">End</span><span style="color: #000000"> </span><span style="color: #001080">call</span><span style="color: #000000">&lt;/</span><span style="color: #001080">Name</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">    &lt;</span><span style="color: #267F99">Page</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">      &lt;</span><span style="color: #267F99">Name</span><span style="color: #000000">&gt;</span><span style="color: #001080">End</span><span style="color: #000000"> </span><span style="color: #001080">call</span><span style="color: #000000">&lt;/</span><span style="color: #001080">Name</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">      &lt;</span><span style="color: #267F99">Row</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">      ...</span>
+</code></pre>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="onPanelClicked" class="tsd-anchor"></a>
-					<h3>on<wbr>Panel<wbr>Clicked</h3>
+					<a name="onButtonClicked" class="tsd-anchor"></a>
+					<h3>on<wbr>Button<wbr>Clicked</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Panel<wbr>Clicked<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span>, panelId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Button<wbr>Clicked<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L33">ui.d.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L134">ui.d.ts:134</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onButtonPressed" class="tsd-anchor"></a>
+					<h3>on<wbr>Button<wbr>Pressed</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Button<wbr>Pressed<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L139">ui.d.ts:139</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onButtonReleased" class="tsd-anchor"></a>
+					<h3>on<wbr>Button<wbr>Released</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Button<wbr>Released<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L144">ui.d.ts:144</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onDirectionalPadClicked" class="tsd-anchor"></a>
+					<h3>on<wbr>Directional<wbr>Pad<wbr>Clicked</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Clicked<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L204">ui.d.ts:204</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onDirectionalPadPressed" class="tsd-anchor"></a>
+					<h3>on<wbr>Directional<wbr>Pad<wbr>Pressed</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Pressed<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L194">ui.d.ts:194</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onDirectionalPadReleased" class="tsd-anchor"></a>
+					<h3>on<wbr>Directional<wbr>Pad<wbr>Released</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Released<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L199">ui.d.ts:199</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onGroupButtonPressed" class="tsd-anchor"></a>
+					<h3>on<wbr>Group<wbr>Button<wbr>Pressed</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Pressed<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L169">ui.d.ts:169</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onGroupButtonReleased" class="tsd-anchor"></a>
+					<h3>on<wbr>Group<wbr>Button<wbr>Released</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Released<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L174">ui.d.ts:174</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onPanelClicked" class="tsd-anchor"></a>
+					<h3>on<wbr>Panel<wbr>Clicked</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Panel<wbr>Clicked<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span>, panelId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Panel<wbr>Clicked<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L76">ui.d.ts:76</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -164,19 +646,403 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L124">ui.d.ts:124</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onSliderChanged" class="tsd-anchor"></a>
+					<h3>on<wbr>Slider<wbr>Changed</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Slider<wbr>Changed<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L154">ui.d.ts:154</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onSliderPressed" class="tsd-anchor"></a>
+					<h3>on<wbr>Slider<wbr>Pressed</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Slider<wbr>Pressed<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L159">ui.d.ts:159</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onSliderReleased" class="tsd-anchor"></a>
+					<h3>on<wbr>Slider<wbr>Released</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Slider<wbr>Released<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L164">ui.d.ts:164</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onSpinnerClicked" class="tsd-anchor"></a>
+					<h3>on<wbr>Spinner<wbr>Clicked</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Spinner<wbr>Clicked<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L189">ui.d.ts:189</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onSpinnerPressed" class="tsd-anchor"></a>
+					<h3>on<wbr>Spinner<wbr>Pressed</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Spinner<wbr>Pressed<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L179">ui.d.ts:179</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onSpinnerReleased" class="tsd-anchor"></a>
+					<h3>on<wbr>Spinner<wbr>Released</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Spinner<wbr>Released<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L184">ui.d.ts:184</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="onToggleButtonChanged" class="tsd-anchor"></a>
+					<h3>on<wbr>Toggle<wbr>Button<wbr>Changed</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Toggle<wbr>Button<wbr>Changed<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L149">ui.d.ts:149</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="onWidgetAction" class="tsd-anchor"></a>
 					<h3>on<wbr>Widget<wbr>Action</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">on<wbr>Widget<wbr>Action<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span>, action<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, widgetId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Widget<wbr>Action<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span>, action<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, widgetId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Widget<wbr>Action<span class="tsd-signature-symbol">(</span>widgetId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L55">ui.d.ts:55</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L119">ui.d.ts:119</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -195,10 +1061,28 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>callback: <span class="tsd-signature-type">Function</span></h5>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Your callback will receive the widget event</p>
 									</div>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> action: <span class="tsd-signature-type">string</span></h5>
@@ -213,7 +1097,102 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+							<p>function that can be used to unsubscribe again</p>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L129">ui.d.ts:129</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Callback will receive a widget event when the action is triggered.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widgetId: <span class="tsd-signature-type">string</span></h5>
+								</li>
+								<li>
+									<h5>callback: <span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-signature">
+											<ul class="tsd-signatures tsd-kind-type-literal">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>event<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>event: <a href="../interfaces/ui.WidgetEvent.html" class="tsd-signature-type" data-tsd-kind="Interface">WidgetEvent</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="panelClose" class="tsd-anchor"></a>
+					<h3>panel<wbr>Close</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">panel<wbr>Close<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#XapiResult" class="tsd-signature-type" data-tsd-kind="Type alias">XapiResult</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L85">ui.d.ts:85</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#XapiResult" class="tsd-signature-type" data-tsd-kind="Type alias">XapiResult</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="panelOpen" class="tsd-anchor"></a>
+					<h3>panel<wbr>Open</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">panel<wbr>Open<span class="tsd-signature-symbol">(</span>PanelId<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, PageId<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#XapiResult" class="tsd-signature-type" data-tsd-kind="Type alias">XapiResult</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L83">ui.d.ts:83</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Opens a ui extensions panel, and page if specified</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>PanelId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Which panel to open</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> PageId: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>If not specified, the first page is shown</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#XapiResult" class="tsd-signature-type" data-tsd-kind="Type alias">XapiResult</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -227,7 +1206,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L26">ui.d.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L69">ui.d.ts:69</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -258,7 +1237,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L14">ui.d.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L57">ui.d.ts:57</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -280,12 +1259,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L19">ui.d.ts:19</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L62">ui.d.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Save a panel to the device. The panel is specified is used, any panel id inside the xml is ignored. Any existing panel with the same panel will be overriden, so this is also a method to edit panels dynamically.</p>
+									<p>Save a panel to the device. The panel specified is used, any panel id inside the xml is ignored. Any existing panel with the same panel will be overriden, so this is also a method to edit panels dynamically.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -305,28 +1284,90 @@
 					<a name="scale" class="tsd-anchor"></a>
 					<h3>scale</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.CoordinateSystem.html" class="tsd-signature-type" data-tsd-kind="Interface">CoordinateSystem</a>, to<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.CoordinateSystem.html" class="tsd-signature-type" data-tsd-kind="Interface">CoordinateSystem</a>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+						<li class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">(</span>from<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.Range.html" class="tsd-signature-type" data-tsd-kind="Interface">Range</a>, to<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui.Range.html" class="tsd-signature-type" data-tsd-kind="Interface">Range</a>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L67">ui.d.ts:67</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L248">ui.d.ts:248</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Transforms (linearly) a value btw two range systems.</p>
+								</div>
+								<p>Typically useful for sliders, eg you are converting values from a ui slider (0,255) to a
+									volume setting (0-100)
+								scale({ min: 0, max: 255 }, { min: 0, max: 100 }, 128) =&gt; 50</p>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>from: <a href="../interfaces/ui.CoordinateSystem.html" class="tsd-signature-type" data-tsd-kind="Interface">CoordinateSystem</a></h5>
+									<h5>from: <a href="../interfaces/ui.Range.html" class="tsd-signature-type" data-tsd-kind="Interface">Range</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The range you are converting from</p>
+									</div>
 								</li>
 								<li>
-									<h5>to: <a href="../interfaces/ui.CoordinateSystem.html" class="tsd-signature-type" data-tsd-kind="Interface">CoordinateSystem</a></h5>
+									<h5>to: <a href="../interfaces/ui.Range.html" class="tsd-signature-type" data-tsd-kind="Interface">Range</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The range you are converting to</p>
+									</div>
 								</li>
 								<li>
 									<h5>value: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The value you are converting</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="subscribe" class="tsd-anchor"></a>
+					<h3>subscribe</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">subscribe<span class="tsd-signature-symbol">(</span>api<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, onChanged<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L226">ui.d.ts:226</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Same as subscribing to an API, but also calls get() on the api immediately, so sync happens on start.
+										This is a recommended best practise when syncing any value with a config or status in the xAPI.
+									Its basically similar to doing the following, but in one call instead of two:</p>
+									<pre><code><span style="color: #001080">xapi</span><span style="color: #000000">.</span><span style="color: #001080">Status</span><span style="color: #000000">.</span><span style="color: #001080">Audio</span><span style="color: #000000">.</span><span style="color: #001080">Volume</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #001080">volumeChanged</span><span style="color: #000000">);</span>
+<span style="color: #001080">xapi</span><span style="color: #000000">.</span><span style="color: #001080">Status</span><span style="color: #000000">.</span><span style="color: #001080">Audio</span><span style="color: #000000">.</span><span style="color: #001080">Volume</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(</span><span style="color: #001080">volumeChanged</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt;</span>
+<span style="color: #001080">ui</span><span style="color: #000000">.</span><span style="color: #795E26">subscribe</span><span style="color: #000000">(</span><span style="color: #001080">xapi</span><span style="color: #000000">.</span><span style="color: #001080">Status</span><span style="color: #000000">.</span><span style="color: #001080">Audio</span><span style="color: #000000">.</span><span style="color: #001080">Volume</span><span style="color: #000000">, </span><span style="color: #001080">volumeChanged</span><span style="color: #000000">);</span>
+</code></pre>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>api: <span class="tsd-signature-type">object</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The xapi you want to sync with, eg xapi.Status.Audio.Volume</p>
+									</div>
+								</li>
+								<li>
+									<h5>onChanged: <span class="tsd-signature-type">Function</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The callback when the value changes (also called initially)</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="ui.html#Unsubscribe" class="tsd-signature-type" data-tsd-kind="Type alias">Unsubscribe</a></h4>
+							<p>Function to unsubscribe again</p>
 						</li>
 					</ul>
 				</section>
@@ -340,7 +1381,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/9c1f578/src/ui.d.ts#L60">ui.d.ts:60</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L209">ui.d.ts:209</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -380,7 +1421,13 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/ui.CoordinateSystem.html" class="tsd-kind-icon">Coordinate<wbr>System</a>
+						<a href="../interfaces/ui.Range.html" class="tsd-kind-icon">Range</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/ui.WidgetEvent.html" class="tsd-kind-icon">Widget<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="ui.html#Unsubscribe" class="tsd-kind-icon">Unsubscribe</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="ui.html#XapiResult" class="tsd-kind-icon">Xapi<wbr>Result</a>
@@ -389,10 +1436,61 @@
 						<a href="ui.html#Xml" class="tsd-kind-icon">Xml</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onButtonClicked" class="tsd-kind-icon">on<wbr>Button<wbr>Clicked</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onButtonPressed" class="tsd-kind-icon">on<wbr>Button<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onButtonReleased" class="tsd-kind-icon">on<wbr>Button<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onDirectionalPadClicked" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Clicked</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onDirectionalPadPressed" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onDirectionalPadReleased" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onGroupButtonPressed" class="tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onGroupButtonReleased" class="tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="ui.html#onPanelClicked" class="tsd-kind-icon">on<wbr>Panel<wbr>Clicked</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onSliderChanged" class="tsd-kind-icon">on<wbr>Slider<wbr>Changed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onSliderPressed" class="tsd-kind-icon">on<wbr>Slider<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onSliderReleased" class="tsd-kind-icon">on<wbr>Slider<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onSpinnerClicked" class="tsd-kind-icon">on<wbr>Spinner<wbr>Clicked</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onSpinnerPressed" class="tsd-kind-icon">on<wbr>Spinner<wbr>Pressed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onSpinnerReleased" class="tsd-kind-icon">on<wbr>Spinner<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#onToggleButtonChanged" class="tsd-kind-icon">on<wbr>Toggle<wbr>Button<wbr>Changed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="ui.html#onWidgetAction" class="tsd-kind-icon">on<wbr>Widget<wbr>Action</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#panelClose" class="tsd-kind-icon">panel<wbr>Close</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#panelOpen" class="tsd-kind-icon">panel<wbr>Open</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="ui.html#panelRemove" class="tsd-kind-icon">panel<wbr>Remove</a>
@@ -405,6 +1503,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="ui.html#scale" class="tsd-kind-icon">scale</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="ui.html#subscribe" class="tsd-kind-icon">subscribe</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="ui.html#widgetSetValue" class="tsd-kind-icon">widget<wbr>Set<wbr>Value</a>

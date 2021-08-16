@@ -11,6 +11,18 @@
  * xapi.Command.UserInterface.Message.Alert.Display({ Text: 'Hello World!' });
  * ```
  *
+ * Also, event handling is made easier with dedicated methods:
+ *
+ * ```
+ * ui.onSliderChanged(e => console.log('slider changed:', e.Value), 'my-widget');
+ *
+ * // instead of
+ * xapi.Event.UserInterface.Extensions.Widget.Action.on(e => {
+ *   if (e.WidgetId === 'my-widget' && e.Type === 'changed') {
+ *     console.log('slider changed:', e.Value);
+ *   }
+ * });
+ * ```
  * @module
  */
 
@@ -64,6 +76,26 @@ declare function panelRemove(panelId: string) : XapiResult;
 declare function onPanelClicked(callback: Function, panelId?: string): void;
 
 /**
+ * Opens a ui extensions panel, and page if specified
+ * @param PanelId Which panel to open
+ * @param PageId If not specified, the first page is shown
+ */
+declare function panelOpen(PanelId: string, PageId?: string): XapiResult;
+
+declare function panelClose(): XapiResult;
+
+declare interface WidgetEvent {
+  WidgetId: string;
+  Type: string;
+  Value: string;
+}
+
+/**
+ * Call this to stop subscribing to feedback
+ */
+declare type Unsubscribe = () => void;
+
+/**
  * Event listener for when a widget action occurs. This is typically
  * when a user interacts with a widget, such as pressing a button,
  * moving a slider, toggling a switch.
@@ -84,7 +116,92 @@ declare function onPanelClicked(callback: Function, panelId?: string): void;
  * @param widgetId Specify the widget you are interested in. If falsy, any widget will apply
  * @return function that can be used to unsubscribe again
  */
-declare function onWidgetAction(callback: Function, action?: string, widgetId?: string) : Function;
+declare function onWidgetAction(callback: (event: WidgetEvent) => void, action?: string, widgetId?: string) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onPanelClicked(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onWidgetAction(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onButtonClicked(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onButtonPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onButtonReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onToggleButtonChanged(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onSliderChanged(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onSliderPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onSliderReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onGroupButtonPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onGroupButtonReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onSpinnerPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onSpinnerReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onSpinnerClicked(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onDirectionalPadPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onDirectionalPadReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
+
+/**
+ * Callback will receive a widget event when the action is triggered.
+ */
+declare function onDirectionalPadClicked(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
 
 /**
  * Sets the value for a widget. This has different meanings for different widgets, eg for a slider it is the slider value, for a text widget its the text, and for a button it is ignored.
@@ -106,7 +223,7 @@ declare function widgetSetValue(widgetId: string, value: string|number|boolean) 
  * @param onChanged The callback when the value changes (also called initially)
  * @return Function to unsubscribe again
  */
-declare function subscribe(api: object, onChanged: Function): Function;
+declare function subscribe(api: object, onChanged: Function): Unsubscribe;
 
 
 /**

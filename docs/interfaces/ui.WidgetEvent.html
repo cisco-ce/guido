@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Node | roomos-ui-lib</title>
+	<title>WidgetEvent | roomos-ui-lib</title>
 	<meta name="description" content="Documentation for roomos-ui-lib">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,36 +55,24 @@
 					<a href="../modules.html">roomos-ui-lib</a>
 				</li>
 				<li>
-					<a href="../modules/ui_builder.html">ui-builder</a>
+					<a href="../modules/ui.html">ui</a>
 				</li>
 				<li>
-					<a href="ui_builder.Node.html">Node</a>
+					<a href="ui.WidgetEvent.html">WidgetEvent</a>
 				</li>
 			</ul>
-			<h1>Interface Node</h1>
+			<h1>Interface WidgetEvent</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>General node for any UI element</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Node</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<a href="ui_builder.Widget.html" class="tsd-signature-type" data-tsd-kind="Interface">Widget</a>
-							</li>
-						</ul>
+						<span class="target">WidgetEvent</span>
 					</li>
 				</ul>
 			</section>
@@ -95,9 +83,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui_builder.Node.html#attributes" class="tsd-kind-icon">attributes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui_builder.Node.html#children" class="tsd-kind-icon">children</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui_builder.Node.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.WidgetEvent.html#Type" class="tsd-kind-icon">Type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.WidgetEvent.html#Value" class="tsd-kind-icon">Value</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui.WidgetEvent.html#WidgetId" class="tsd-kind-icon">Widget<wbr>Id</a></li>
 							</ul>
 						</section>
 					</div>
@@ -106,32 +94,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="attributes" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> attributes</h3>
-					<div class="tsd-signature tsd-kind-icon">attributes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="Type" class="tsd-anchor"></a>
+					<h3>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L20">ui-builder.d.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L89">ui.d.ts:89</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="children" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> children</h3>
-					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <a href="ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span></div>
+					<a name="Value" class="tsd-anchor"></a>
+					<h3>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">Value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L21">ui-builder.d.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L90">ui.d.ts:90</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="WidgetId" class="tsd-anchor"></a>
+					<h3>Widget<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">Widget<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L19">ui-builder.d.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui.d.ts#L88">ui.d.ts:88</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -143,10 +131,10 @@
 					<li class=" ">
 						<a href="../modules.html">Modules</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/ui.html">ui</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/ui_builder.html">ui-<wbr>builder</a>
 					</li>
 				</ul>
@@ -154,94 +142,109 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="ui_builder.ConfigAttributes.html" class="tsd-kind-icon">Config<wbr>Attributes</a>
+						<a href="ui.Range.html" class="tsd-kind-icon">Range</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="ui_builder.Node.html" class="tsd-kind-icon">Node</a>
+						<a href="ui.WidgetEvent.html" class="tsd-kind-icon">Widget<wbr>Event</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ui_builder.Node.html#attributes" class="tsd-kind-icon">attributes</a>
+								<a href="ui.WidgetEvent.html#Type" class="tsd-kind-icon">Type</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ui_builder.Node.html#children" class="tsd-kind-icon">children</a>
+								<a href="ui.WidgetEvent.html#Value" class="tsd-kind-icon">Value</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ui_builder.Node.html#type" class="tsd-kind-icon">type</a>
+								<a href="ui.WidgetEvent.html#WidgetId" class="tsd-kind-icon">Widget<wbr>Id</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="ui_builder.PageAttributes.html" class="tsd-kind-icon">Page<wbr>Attributes</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="ui_builder.PanelAttributes.html" class="tsd-kind-icon">Panel<wbr>Attributes</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="ui_builder.RowAttributes.html" class="tsd-kind-icon">Row<wbr>Attributes</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="ui_builder.WebAppAttributes.html" class="tsd-kind-icon">Web<wbr>App<wbr>Attributes</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="ui_builder.Widget.html" class="tsd-kind-icon">Widget</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/ui.html#Unsubscribe" class="tsd-kind-icon">Unsubscribe</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#ButtonIcon" class="tsd-kind-icon">Button<wbr>Icon</a>
+						<a href="../modules/ui.html#XapiResult" class="tsd-kind-icon">Xapi<wbr>Result</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#PanelIcon" class="tsd-kind-icon">Panel<wbr>Icon</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#WidgetSize" class="tsd-kind-icon">Widget<wbr>Size</a>
+						<a href="../modules/ui.html#Xml" class="tsd-kind-icon">Xml</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#ActionButton" class="tsd-kind-icon">Action<wbr>Button</a>
+						<a href="../modules/ui.html#onButtonClicked" class="tsd-kind-icon">on<wbr>Button<wbr>Clicked</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Button" class="tsd-kind-icon">Button</a>
+						<a href="../modules/ui.html#onButtonPressed" class="tsd-kind-icon">on<wbr>Button<wbr>Pressed</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Config" class="tsd-kind-icon">Config</a>
+						<a href="../modules/ui.html#onButtonReleased" class="tsd-kind-icon">on<wbr>Button<wbr>Released</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#DirectionalPad" class="tsd-kind-icon">Directional<wbr>Pad</a>
+						<a href="../modules/ui.html#onDirectionalPadClicked" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Clicked</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#GroupButton" class="tsd-kind-icon">Group<wbr>Button</a>
+						<a href="../modules/ui.html#onDirectionalPadPressed" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Pressed</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Page" class="tsd-kind-icon">Page</a>
+						<a href="../modules/ui.html#onDirectionalPadReleased" class="tsd-kind-icon">on<wbr>Directional<wbr>Pad<wbr>Released</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Panel" class="tsd-kind-icon">Panel</a>
+						<a href="../modules/ui.html#onGroupButtonPressed" class="tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Pressed</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Row" class="tsd-kind-icon">Row</a>
+						<a href="../modules/ui.html#onGroupButtonReleased" class="tsd-kind-icon">on<wbr>Group<wbr>Button<wbr>Released</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Slider" class="tsd-kind-icon">Slider</a>
+						<a href="../modules/ui.html#onPanelClicked" class="tsd-kind-icon">on<wbr>Panel<wbr>Clicked</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Spacer" class="tsd-kind-icon">Spacer</a>
+						<a href="../modules/ui.html#onSliderChanged" class="tsd-kind-icon">on<wbr>Slider<wbr>Changed</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Spinner" class="tsd-kind-icon">Spinner</a>
+						<a href="../modules/ui.html#onSliderPressed" class="tsd-kind-icon">on<wbr>Slider<wbr>Pressed</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#Text" class="tsd-kind-icon">Text</a>
+						<a href="../modules/ui.html#onSliderReleased" class="tsd-kind-icon">on<wbr>Slider<wbr>Released</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#ToggleButton" class="tsd-kind-icon">Toggle<wbr>Button</a>
+						<a href="../modules/ui.html#onSpinnerClicked" class="tsd-kind-icon">on<wbr>Spinner<wbr>Clicked</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#WebApp" class="tsd-kind-icon">Web<wbr>App</a>
+						<a href="../modules/ui.html#onSpinnerPressed" class="tsd-kind-icon">on<wbr>Spinner<wbr>Pressed</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/ui_builder.html#toXml" class="tsd-kind-icon">to<wbr>Xml</a>
+						<a href="../modules/ui.html#onSpinnerReleased" class="tsd-kind-icon">on<wbr>Spinner<wbr>Released</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onToggleButtonChanged" class="tsd-kind-icon">on<wbr>Toggle<wbr>Button<wbr>Changed</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#onWidgetAction" class="tsd-kind-icon">on<wbr>Widget<wbr>Action</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#panelClose" class="tsd-kind-icon">panel<wbr>Close</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#panelOpen" class="tsd-kind-icon">panel<wbr>Open</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#panelRemove" class="tsd-kind-icon">panel<wbr>Remove</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#panelRemoveAll" class="tsd-kind-icon">panel<wbr>Remove<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#panelSave" class="tsd-kind-icon">panel<wbr>Save</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#scale" class="tsd-kind-icon">scale</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#subscribe" class="tsd-kind-icon">subscribe</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/ui.html#widgetSetValue" class="tsd-kind-icon">widget<wbr>Set<wbr>Value</a>
 					</li>
 				</ul>
 			</nav>

@@ -39,7 +39,8 @@ const LegalWidgetAttributes = {
 
 
 function Node(type, attributes, children = []) {
-  const c = Array.isArray(children) ? children : [children];
+  let c = Array.isArray(children) ? children : [children];
+  c = c.filter(i => i); // remove null, falsy elements
   const invalid = c.find(i => i.type !== LegalChildren[type]);
   if (invalid) {
     throw new Error(`${type} cannot have child of type ${invalid.type}`);
@@ -49,7 +50,7 @@ function Node(type, attributes, children = []) {
   }
 }
 
-function validate(type, options) {
+function validate(type, options = {}) {
   Object.keys(options).forEach(option => {
     if (!LegalAttributes[type].includes(option)) {
       throw new Error(`${type} does not support attribute ${option}`);
@@ -57,7 +58,7 @@ function validate(type, options) {
   });
 }
 
-function Config(options, children) {
+function Config(options = {}, children = []) {
   validate('Config', options);
   const attributes = {
     Version: options.version || LatestVersion,
@@ -242,7 +243,7 @@ function prettifyXml(xml, tab = '  ') {
   return formatted.substring(1, formatted.length - 3);
 }
 
-function toXml(json, prettify = true) {
+function toXml(json, prettify = false) {
   if (!json) {
     throw new Error('Empty document');
   }
