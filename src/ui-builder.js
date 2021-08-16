@@ -1,3 +1,8 @@
+/**
+ * UI helper library for building ui extensions xml.
+ * For documentation see corresponding typescript file (d.ts)
+ * or https://github.com/cisco-ce/guido
+ */
 const LatestVersion = '1.8';
 
 const LegalChildren = {
