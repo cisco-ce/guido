@@ -14,7 +14,8 @@ function panelRemoveAll() {
 }
 
 function panelSave(PanelId, config) {
-  return xapi.Command.UserInterface.Extensions.Panel.Save({ PanelId }, config);
+  const xml = config.toString(); // can send string or object with toString repr
+  return xapi.Command.UserInterface.Extensions.Panel.Save({ PanelId }, xml);
 }
 
 function panelRemove(PanelId) {

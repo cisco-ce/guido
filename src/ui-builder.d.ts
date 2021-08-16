@@ -1,16 +1,104 @@
 /**
- * Library for creating dynamic UI extensions for Cisco Webex Devices in a declarative fashion.
+ * Library for creating dynamic UI extensions for Cisco Webex Devices.
  *
- * This means the developer does need to know or use the xml syntax required by the xAPI commands
- * for adding / changing UI extensions.
+ * This means you don't need to know or deal with the XML syntax for UI extensions.
  *
- * Example usage:
+ * An extension (ui panel, action button or web app) is typically constructed by creating a
+ * tree of nodes. A node can be a panel, a page, a row, a slider etc. A node has attributes
+ * (type, name, color, text, ...), and most nodes types can also have child nodes.
+ *
+ * The library will validate the attributes (a slider cannot have a name) and the children type
+ * (eg a row can only be added to a page, not a panel).
+ *
+ * Each node type has, for convenience, a method that creates this node. Eg this is how we construct
+ * a page with two empty rows:
  * ```
- * const { Config, Panel } = require('uiext');
- * const config = Config({ version: '1.8' }, Panel());
+ * const { Page, Row } = require('./ui-builder');
+ * const attributes = { name: 'My page', pageId: 'mypage' };
+ * const children = [Row(), Row()];
+ * const page = Page(attributes, children);
+ *
+ * // or for short:
+ * const page = Page({ name: 'My page', pageId: 'mypage' }, [Row(), Row()]);
  * ```
+ *
+ * To save an extension to the video device, a panel / action button / web app must also be wrapped in a Config object. Here are 3 full examples:
+ *
+ * <img src="../../images/homescreen.png">
+ * <i>The 3 extensions supported: Action button, panel and web app</i>
+ *
+ * ## Example - Create an action button:
+ *
+ * ```
+ * const ui = require('./ui');
+ * const { Config, ActionButton } = require('./ui-builder');
+ *
+ * // Create an action button for calling helpdesk
+ * const actionButton = Config({}, [
+ *   ActionButton({
+ *    name: 'HelpDesk', panelId: 'helpdesk', icon: 'Helpdesk', color: '#003399',
+ *   })
+ * ]);
+ * ui.panelSave('helpdesk', actionButton);
+ * ```
+ *
+ * ## Example - Create a panel:
+ *
+ * ```
+ * const ui = require('./ui');
+ * const {
+ *   Config, Panel, Page, Row, ToggleButton, Slider, GroupButton
+ * } = require('./ui-builder');
+ *
+ * // Create a panel for controlling lights in the room
+ * const panel = Config({}, [
+ *   Panel({ name: 'Lights', icon: 'Lightbulb', color: 'orange' }, [
+ *     Page({ name: 'Lights' }, [
+ *       Row({ text: 'Main lights' }, [
+ *         Slider({ widgetId: 'lights-toggle' }),
+ *         ToggleButton({ widgetId: 'lights-slider' }),
+ *      ]),
+ *      Row({ text: 'Color' }, [
+ *        GroupButton({
+ *          widgetId: 'lights-colors',
+ *          buttons: { warm: 'Warm', medium: 'Medium', cold: 'Cold' },
+ *        })
+ *      ])
+ *    ]),
+ *  ])
+ *]);
+ *
+ *  ui.panelSave('lights', panel);
+ *
+ * // The node structure:
+ * // Config
+ * //   Panel
+ * //     Page
+ * //       Row
+ * //         Slider
+ * //         ToggleButton
+ * //       Row
+ * //         GroupButton
+ * ```
+ *
+ * <img src="../../images/panel.png">
+ * <i>Result of running the code above</i>
+ *
+ * ## Example - create a web app:
+ *
+ * ```
+ * const ui = require('./ui');
+ * const { Config, WebApp } = require('./ui-builder');
+ *
+ * // Create a web app link to YouTube
+ * const webApp = Config({}, WebApp({ name: 'YouTube', url: 'https://youtube.com' }));
+ * ui.panelSave('youtube', webApp);
+ *
+ * ```
+ *
  * @module
  */
+
 
 /**
  * General node for any UI element
@@ -46,6 +134,7 @@ declare function Page(attributes: PageAttributes, rows: Node | Node[]): Node;
 declare function Row(attributes: RowAttributes, widgets: Widget | Widget[]): Node;
 
 declare interface ConfigAttributes {
+  /** 1.4, 1.6. etc. Omit it and the lib will pick the newest one */
   version?: string;
 }
 
@@ -65,12 +154,16 @@ declare interface PanelAttributes {
   name?: string;
 }
 
+/**
+ * Color can be specified as name (blue, pink, ...), on hexidecimal format (#aa00cc) or RGB (rgb(128, 132, 199))
+ */
+declare type Color = string;
 
 declare interface WebAppAttributes {
   url: string;
   panelId?: string;
   type?: 'Home' | 'InCall' | 'StatusBar' | 'Never';
-  color?: string;
+  color?: Color;
   icon?: string;
   order?: number;
   name?: string;

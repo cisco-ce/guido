@@ -45,9 +45,12 @@ function Node(type, attributes, children = []) {
   if (invalid) {
     throw new Error(`${type} cannot have child of type ${invalid.type}`);
   }
-  return {
+
+  const node = {
     type, attributes, children: c,
-  }
+  };
+
+  return Object.assign(node, { toString: () => toXml(node) });
 }
 
 function validate(type, options = {}) {

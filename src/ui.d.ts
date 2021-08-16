@@ -27,7 +27,9 @@
  */
 
 /**
- * UI extension xml string. Device expects something looking like:
+ * UI extension xml string. Can either be a string or an object with a toString() method
+ *
+ * Device expects something looking like:
  *
  * ```
  * <Extensions>
@@ -44,7 +46,7 @@
  *       ...
  * ```
  */
-declare type Xml = string;
+declare type Xml = string | { toString: () => void };
 
 /**
  * Most api calls return a promise (except when you register for feedback)

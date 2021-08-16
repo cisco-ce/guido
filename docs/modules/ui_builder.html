@@ -68,13 +68,91 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Library for creating dynamic UI extensions for Cisco Webex Devices in a declarative fashion.</p>
+						<p>Library for creating dynamic UI extensions for Cisco Webex Devices.</p>
 					</div>
-					<p>This means the developer does need to know or use the xml syntax required by the xAPI commands
-					for adding / changing UI extensions.</p>
-					<p>Example usage:</p>
-					<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Config</span><span style="color: #000000">, </span><span style="color: #0070C1">Panel</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;uiext&#039;</span><span style="color: #000000">);</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">config</span><span style="color: #000000"> = </span><span style="color: #795E26">Config</span><span style="color: #000000">({ </span><span style="color: #001080">version:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;1.8&#039;</span><span style="color: #000000"> }, </span><span style="color: #795E26">Panel</span><span style="color: #000000">());</span>
+					<p>This means you don&#39;t need to know or deal with the XML syntax for UI extensions.</p>
+					<p>An extension (ui panel, action button or web app) is typically constructed by creating a
+						tree of nodes. A node can be a panel, a page, a row, a slider etc. A node has attributes
+					(type, name, color, text, ...), and most nodes types can also have child nodes.</p>
+					<p>The library will validate the attributes (a slider cannot have a name) and the children type
+					(eg a row can only be added to a page, not a panel).</p>
+					<p>Each node type has, for convenience, a method that creates this node. Eg this is how we construct
+					a page with two empty rows:</p>
+					<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Page</span><span style="color: #000000">, </span><span style="color: #0070C1">Row</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./ui-builder&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">attributes</span><span style="color: #000000"> = { </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;My page&#039;</span><span style="color: #000000">, </span><span style="color: #001080">pageId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;mypage&#039;</span><span style="color: #000000"> };</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">children</span><span style="color: #000000"> = [</span><span style="color: #795E26">Row</span><span style="color: #000000">(), </span><span style="color: #795E26">Row</span><span style="color: #000000">()];</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">page</span><span style="color: #000000"> = </span><span style="color: #795E26">Page</span><span style="color: #000000">(</span><span style="color: #001080">attributes</span><span style="color: #000000">, </span><span style="color: #001080">children</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// or for short:</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">page</span><span style="color: #000000"> = </span><span style="color: #795E26">Page</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;My page&#039;</span><span style="color: #000000">, </span><span style="color: #001080">pageId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;mypage&#039;</span><span style="color: #000000"> }, [</span><span style="color: #795E26">Row</span><span style="color: #000000">(), </span><span style="color: #795E26">Row</span><span style="color: #000000">()]);</span>
+</code></pre>
+					<p>To save an extension to the video device, a panel / action button / web app must also be wrapped in a Config object. Here are 3 full examples:</p>
+					<img src="../../images/homescreen.png">
+					<i>The 3 extensions supported: Action button, panel and web app</i>
+					<a href="#example---create-an-action-button" id="example---create-an-action-button" style="color: inherit; text-decoration: none;">
+						<h2>Example - Create an action button:</h2>
+					</a>
+					<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ui</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./ui&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Config</span><span style="color: #000000">, </span><span style="color: #0070C1">ActionButton</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./ui-builder&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Create an action button for calling helpdesk</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">actionButton</span><span style="color: #000000"> = </span><span style="color: #795E26">Config</span><span style="color: #000000">({}, [</span>
+<span style="color: #000000">  </span><span style="color: #795E26">ActionButton</span><span style="color: #000000">({</span>
+<span style="color: #000000">   </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;HelpDesk&#039;</span><span style="color: #000000">, </span><span style="color: #001080">panelId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;helpdesk&#039;</span><span style="color: #000000">, </span><span style="color: #001080">icon:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Helpdesk&#039;</span><span style="color: #000000">, </span><span style="color: #001080">color:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;#003399&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  })</span>
+<span style="color: #000000">]);</span>
+<span style="color: #001080">ui</span><span style="color: #000000">.</span><span style="color: #795E26">panelSave</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;helpdesk&#039;</span><span style="color: #000000">, </span><span style="color: #001080">actionButton</span><span style="color: #000000">);</span>
+</code></pre>
+					<a href="#example---create-a-panel" id="example---create-a-panel" style="color: inherit; text-decoration: none;">
+						<h2>Example - Create a panel:</h2>
+					</a>
+					<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ui</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./ui&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0070C1">Config</span><span style="color: #000000">, </span><span style="color: #0070C1">Panel</span><span style="color: #000000">, </span><span style="color: #0070C1">Page</span><span style="color: #000000">, </span><span style="color: #0070C1">Row</span><span style="color: #000000">, </span><span style="color: #0070C1">ToggleButton</span><span style="color: #000000">, </span><span style="color: #0070C1">Slider</span><span style="color: #000000">, </span><span style="color: #0070C1">GroupButton</span>
+<span style="color: #000000">} = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./ui-builder&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Create a panel for controlling lights in the room</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">panel</span><span style="color: #000000"> = </span><span style="color: #795E26">Config</span><span style="color: #000000">({}, [</span>
+<span style="color: #000000">  </span><span style="color: #795E26">Panel</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Lights&#039;</span><span style="color: #000000">, </span><span style="color: #001080">icon:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Lightbulb&#039;</span><span style="color: #000000">, </span><span style="color: #001080">color:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;orange&#039;</span><span style="color: #000000"> }, [</span>
+<span style="color: #000000">    </span><span style="color: #795E26">Page</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Lights&#039;</span><span style="color: #000000"> }, [</span>
+<span style="color: #000000">      </span><span style="color: #795E26">Row</span><span style="color: #000000">({ </span><span style="color: #001080">text:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Main lights&#039;</span><span style="color: #000000"> }, [</span>
+<span style="color: #000000">        </span><span style="color: #795E26">Slider</span><span style="color: #000000">({ </span><span style="color: #001080">widgetId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;lights-toggle&#039;</span><span style="color: #000000"> }),</span>
+<span style="color: #000000">        </span><span style="color: #795E26">ToggleButton</span><span style="color: #000000">({ </span><span style="color: #001080">widgetId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;lights-slider&#039;</span><span style="color: #000000"> }),</span>
+<span style="color: #000000">     ]),</span>
+<span style="color: #000000">     </span><span style="color: #795E26">Row</span><span style="color: #000000">({ </span><span style="color: #001080">text:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Color&#039;</span><span style="color: #000000"> }, [</span>
+<span style="color: #000000">       </span><span style="color: #795E26">GroupButton</span><span style="color: #000000">({</span>
+<span style="color: #000000">         </span><span style="color: #001080">widgetId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;lights-colors&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">         </span><span style="color: #001080">buttons:</span><span style="color: #000000"> { </span><span style="color: #001080">warm:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Warm&#039;</span><span style="color: #000000">, </span><span style="color: #001080">medium:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Medium&#039;</span><span style="color: #000000">, </span><span style="color: #001080">cold:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;Cold&#039;</span><span style="color: #000000"> },</span>
+<span style="color: #000000">       })</span>
+<span style="color: #000000">     ])</span>
+<span style="color: #000000">   ]),</span>
+<span style="color: #000000"> ])</span>
+<span style="color: #000000">]);</span>
+
+<span style="color: #000000"> </span><span style="color: #001080">ui</span><span style="color: #000000">.</span><span style="color: #795E26">panelSave</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;lights&#039;</span><span style="color: #000000">, </span><span style="color: #001080">panel</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// The node structure:</span>
+<span style="color: #008000">// Config</span>
+<span style="color: #008000">//   Panel</span>
+<span style="color: #008000">//     Page</span>
+<span style="color: #008000">//       Row</span>
+<span style="color: #008000">//         Slider</span>
+<span style="color: #008000">//         ToggleButton</span>
+<span style="color: #008000">//       Row</span>
+<span style="color: #008000">//         GroupButton</span>
+</code></pre>
+					<img src="../../images/panel.png">
+					<i>Result of running the code above</i>
+					<a href="#example---create-a-web-app" id="example---create-a-web-app" style="color: inherit; text-decoration: none;">
+						<h2>Example - create a web app:</h2>
+					</a>
+					<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ui</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./ui&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">Config</span><span style="color: #000000">, </span><span style="color: #0070C1">WebApp</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./ui-builder&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Create a web app link to YouTube</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">webApp</span><span style="color: #000000"> = </span><span style="color: #795E26">Config</span><span style="color: #000000">({}, </span><span style="color: #795E26">WebApp</span><span style="color: #000000">({ </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;YouTube&#039;</span><span style="color: #000000">, </span><span style="color: #001080">url:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;https://youtube.com&#039;</span><span style="color: #000000"> }));</span>
+<span style="color: #001080">ui</span><span style="color: #000000">.</span><span style="color: #795E26">panelSave</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;youtube&#039;</span><span style="color: #000000">, </span><span style="color: #001080">webApp</span><span style="color: #000000">);</span>
+
 </code></pre>
 				</div>
 			</section>
@@ -98,6 +176,7 @@
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#ButtonIcon" class="tsd-kind-icon">Button<wbr>Icon</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#Color" class="tsd-kind-icon">Color</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#PanelIcon" class="tsd-kind-icon">Panel<wbr>Icon</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#WidgetSize" class="tsd-kind-icon">Widget<wbr>Size</a></li>
 							</ul>
@@ -133,9 +212,24 @@
 					<div class="tsd-signature tsd-kind-icon">Button<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;arrow_down|arrow_left|arrow_right|arrow_up|audio_minus|audio_plus|back|blue|eject|end|fast_bw|fast_fw|green|help|home|list|mic|mic_muted|minus|pause|phone|play|play_pause|plus|plus|power|record|red|skip_bw|skip_fw|speaker|speaker_muted|stop|video|video_muted|volume_muted|yellow|zoom_in|zoom_out&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L83">ui-builder.d.ts:83</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L176">ui-builder.d.ts:176</a></li>
 						</ul>
 					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="Color" class="tsd-anchor"></a>
+					<h3>Color</h3>
+					<div class="tsd-signature tsd-kind-icon">Color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L160">ui-builder.d.ts:160</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Color can be specified as name (blue, pink, ...), on hexidecimal format (#aa00cc) or RGB (rgb(128, 132, 199))</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="PanelIcon" class="tsd-anchor"></a>
@@ -143,7 +237,7 @@
 					<div class="tsd-signature tsd-kind-icon">Panel<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Blinds|Briefing|Camera|Concierge|Disc|Handset|Help|Helpdesk|Home|Hvac|Info|Input|Language|Laptop|Lightbulb|Media|Microphone|Power|Proximity|Record|Sliders|Tv&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L81">ui-builder.d.ts:81</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L174">ui-builder.d.ts:174</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -153,7 +247,7 @@
 					<div class="tsd-signature tsd-kind-icon">Widget<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">4</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L99">ui-builder.d.ts:99</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L192">ui-builder.d.ts:192</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -170,7 +264,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L40">ui-builder.d.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L128">ui-builder.d.ts:128</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -193,7 +287,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L101">ui-builder.d.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L194">ui-builder.d.ts:194</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -230,7 +324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L36">ui-builder.d.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L124">ui-builder.d.ts:124</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -261,7 +355,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L143">ui-builder.d.ts:143</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L236">ui-builder.d.ts:236</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -292,7 +386,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L122">ui-builder.d.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L215">ui-builder.d.ts:215</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -338,7 +432,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L44">ui-builder.d.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L132">ui-builder.d.ts:132</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -364,7 +458,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L38">ui-builder.d.ts:38</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L126">ui-builder.d.ts:126</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -390,7 +484,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L46">ui-builder.d.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L134">ui-builder.d.ts:134</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -416,7 +510,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L133">ui-builder.d.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L226">ui-builder.d.ts:226</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -447,7 +541,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L138">ui-builder.d.ts:138</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L231">ui-builder.d.ts:231</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -478,7 +572,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L127">ui-builder.d.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L220">ui-builder.d.ts:220</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -512,7 +606,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L148">ui-builder.d.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L241">ui-builder.d.ts:241</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -552,7 +646,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L156">ui-builder.d.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L249">ui-builder.d.ts:249</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -580,7 +674,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L42">ui-builder.d.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L130">ui-builder.d.ts:130</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -603,7 +697,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/cec28f9/src/ui-builder.d.ts#L33">ui-builder.d.ts:33</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/5cda95a/src/ui-builder.d.ts#L121">ui-builder.d.ts:121</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -663,6 +757,9 @@
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="ui_builder.html#ButtonIcon" class="tsd-kind-icon">Button<wbr>Icon</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="ui_builder.html#Color" class="tsd-kind-icon">Color</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="ui_builder.html#PanelIcon" class="tsd-kind-icon">Panel<wbr>Icon</a>
