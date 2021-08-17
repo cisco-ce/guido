@@ -12,3 +12,9 @@ The library contains two independent components:
 
 The two libraries can be used completely independently or together. You can install them as macro modules on the video device,
 by importing the two files `src/ui.js` and `src/ui-builder.js` in the macro editor.
+
+* See Guido API reference at [Github Pages](https://cisco-ce.github.io/guido/)
+
+* See xAPI references at [roomos.cisco.com/resources](https://roomos.cisco.com)
+
+* See UI Extension guide at [cisco.com](https://www.cisco.com/c/en/us/support/collaboration-endpoints/telepresence-quick-set-series/products-installation-and-configuration-guides-list.html)
