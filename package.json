@@ -1,11 +1,12 @@
 {
-  "name": "roomos-ui-lib",
+  "name": "guido",
   "version": "1.0.0",
+  "author": "Tore Bjolseth <tbjolset@cisco.com>",
   "description": "",
   "main": "gui-create.lib.js",
   "scripts": {
     "test": "mocha 'test/**/*.js'",
-    "doc": "typedoc --out docs src/*.d.ts"
+    "doc": "typedoc --out docs src/*.d.ts --media images"
   },
   "keywords": [],
   "author": "",

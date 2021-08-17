@@ -24,7 +24,7 @@
  *
  * To save an extension to the video device, a panel / action button / web app must also be wrapped in a Config object. Here are 3 full examples:
  *
- * <img src="../../images/homescreen.png">
+ * <img src="media://homescreen.png">
  * <i>The 3 extensions supported: Action button, panel and web app</i>
  *
  * ## Example - Create an action button:
@@ -81,7 +81,7 @@
  * //         GroupButton
  * ```
  *
- * <img src="../../images/panel.png">
+ * <img src="media://panel.png">
  * <i>Result of running the code above</i>
  *
  * ## Example - create a web app:
