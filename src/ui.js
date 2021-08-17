@@ -68,6 +68,21 @@ const onDirectionalPadPressed = onButtonPressed;
 const onDirectionalPadReleased = onButtonReleased;
 const onDirectionalPadClicked = onButtonClicked;
 
+function onTextInputResponse(callback, id) {
+  xapi.Event.UserInterface.Message.TextInput.Response.on((e) => {
+    if (e.FeedbackId === id) {
+      callback(e.Text);
+    }
+  })
+}
+
+function onPromptResponse(callback, id) {
+  xapi.Event.UserInterface.Message.Prompt.Response.on((e) => {
+    if (e.FeedbackId === id) {
+      callback(Number(e.OptionId) - 1);
+    }
+  })
+}
 
 function alert(text, title = '', duration = 0) {
   return xapi.Command.UserInterface.Message.Alert.Display
@@ -78,6 +93,35 @@ function alertHide() {
   return xapi.Command.UserInterface.Message.Alert.Clear();
 }
 
+function textInputShow(props) {
+  return xapi.Command.UserInterface.Message.TextInput.Display(props);
+}
+
+function textInputHide() {
+  return xapi.Command.UseriInterface.Message.TextInput.Clear();
+}
+
+function promptShow(props, options) {
+  const max = 5;
+  if (options.length > max) {
+    throw new Error(`Prompt can have max ${max} options`);
+  }
+
+  const namedOptions = options.forEach((text, i) => {
+    props[`Option.${i + 1}`] = text;
+  });
+
+  return xapi.Command.UserInterface.Message.Prompt.Display(props);
+}
+
+function promptHide() {
+  return xapi.Command.UserInterface.Message.Prompt.Clear();
+}
+
+function wallpaperSet(url, halfwakeOnly = true) {
+  const type = halfwakeOnly ? 'HalfwakeBackground' : 'Background';
+  return xapi.Command.UserInterface.Branding.Fetch({ Type: type, URL: url});
+}
 
 function scale(from, to, value) {
 if (typeof value !== 'number') {
@@ -95,6 +139,12 @@ function subscribe(api, onChanged) {
 module.exports = {
   alert,
   alertHide,
+  textInputShow,
+  textInputHide,
+  promptShow,
+  promptHide,
+  wallpaperSet,
+
   panelRemoveAll,
   panelRemove,
   panelSave,
@@ -121,5 +171,6 @@ module.exports = {
   onDirectionalPadPressed,
   onDirectionalPadReleased,
   onDirectionalPadClicked,
-
+  onTextInputResponse,
+  onPromptResponse,
 };
