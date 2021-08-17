@@ -31,7 +31,7 @@ function panelClose() {
 }
 
 function onPanelClicked(callback, panelId = '') {
-  xapi.UserInterface.Extensions.Panel.Clicked.on(e => {
+  xapi.Event.UserInterface.Extensions.Panel.Clicked.on(e => {
     if (panelId && e.PanelId !== panelId) return;
     callback(e);
   });
