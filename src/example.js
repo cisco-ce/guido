@@ -1,3 +1,11 @@
+/**
+ * Example of how to create a panel, an action button and a web app.
+ *
+ * This can be run as a macro on the video device without modification.
+ * Add ui.js and ui-builder.js as macro modules first, then add this file
+ * and enable it. The example does not show to react to button presses etc,
+ * you can find that for documentation for the ui module.
+ */
 const ui = require('./ui');
 const {
   Config, Panel, ActionButton, WebApp, Page, Row, ToggleButton, Slider, GroupButton
