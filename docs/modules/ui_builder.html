@@ -103,6 +103,10 @@
 <span style="color: #000000">]);</span>
 <span style="color: #001080">ui</span><span style="color: #000000">.</span><span style="color: #795E26">panelSave</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;helpdesk&#039;</span><span style="color: #000000">, </span><span style="color: #001080">actionButton</span><span style="color: #000000">);</span>
 </code></pre>
+					<p>If you do not want to use the ui lib (just the ui-builder), you can replace the last line with:</p>
+					<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">xml</span><span style="color: #000000"> = </span><span style="color: #001080">actionButton</span><span style="color: #000000">.</span><span style="color: #795E26">toString</span><span style="color: #000000">();</span>
+<span style="color: #001080">xapi</span><span style="color: #000000">.</span><span style="color: #001080">Command</span><span style="color: #000000">.</span><span style="color: #001080">UserInterfae</span><span style="color: #000000">.</span><span style="color: #001080">Extensions</span><span style="color: #000000">.</span><span style="color: #001080">Panel</span><span style="color: #000000">.</span><span style="color: #795E26">Save</span><span style="color: #000000">({ </span><span style="color: #001080">PanelId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;helpdesk&#039;</span><span style="color: #000000"> }, </span><span style="color: #001080">xml</span><span style="color: #000000">);</span>
+</code></pre>
 					<a href="#example---create-a-panel" id="example---create-a-panel" style="color: inherit; text-decoration: none;">
 						<h2>Example - Create a panel:</h2>
 					</a>
@@ -178,6 +182,7 @@
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#Availability" class="tsd-kind-icon">Availability</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#ButtonIcon" class="tsd-kind-icon">Button<wbr>Icon</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#Color" class="tsd-kind-icon">Color</a></li>
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#NodeChildren" class="tsd-kind-icon">Node<wbr>Children</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#PanelIcon" class="tsd-kind-icon">Panel<wbr>Icon</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#WidgetSize" class="tsd-kind-icon">Widget<wbr>Size</a></li>
 							</ul>
@@ -199,7 +204,6 @@
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui_builder.html#Text" class="tsd-kind-icon">Text</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui_builder.html#ToggleButton" class="tsd-kind-icon">Toggle<wbr>Button</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui_builder.html#WebApp" class="tsd-kind-icon">Web<wbr>App</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="ui_builder.html#toXml" class="tsd-kind-icon">to<wbr>Xml</a></li>
 							</ul>
 						</section>
 					</div>
@@ -213,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">Availability<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Home&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;InCall&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;StatusBar&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;Never&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L171">ui-builder.d.ts:171</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L181">ui-builder.d.ts:181</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -223,7 +227,7 @@
 					<div class="tsd-signature tsd-kind-icon">Button<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;arrow_down|arrow_left|arrow_right|arrow_up|audio_minus|audio_plus|back|blue|eject|end|fast_bw|fast_fw|green|help|home|list|mic|mic_muted|minus|pause|phone|play|play_pause|plus|plus|power|record|red|skip_bw|skip_fw|speaker|speaker_muted|stop|video|video_muted|volume_muted|yellow|zoom_in|zoom_out&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L210">ui-builder.d.ts:210</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L220">ui-builder.d.ts:220</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -233,7 +237,7 @@
 					<div class="tsd-signature tsd-kind-icon">Color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L192">ui-builder.d.ts:192</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L202">ui-builder.d.ts:202</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -243,12 +247,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="NodeChildren" class="tsd-anchor"></a>
+					<h3>Node<wbr>Children</h3>
+					<div class="tsd-signature tsd-kind-icon">Node<wbr>Children<span class="tsd-signature-symbol">:</span> <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L140">ui-builder.d.ts:140</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Node children can either be passed as an array, or just the node itself if its a single child</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="PanelIcon" class="tsd-anchor"></a>
 					<h3>Panel<wbr>Icon</h3>
 					<div class="tsd-signature tsd-kind-icon">Panel<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Blinds|Briefing|Camera|Concierge|Disc|Handset|Help|Helpdesk|Home|Hvac|Info|Input|Language|Laptop|Lightbulb|Media|Microphone|Power|Proximity|Record|Sliders|Tv&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L208">ui-builder.d.ts:208</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L218">ui-builder.d.ts:218</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -258,7 +277,7 @@
 					<div class="tsd-signature tsd-kind-icon">Widget<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">4</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L226">ui-builder.d.ts:226</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L236">ui-builder.d.ts:236</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -280,12 +299,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L147">ui-builder.d.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L157">ui-builder.d.ts:157</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>An action button is located on the home screen and can be programmed to do an action when the user presses it. Unlike a panel (button), it does not open anything when pressed.</p>
+									<p>An action button is located on the home screen and can be programmed to do an action when the user presses it. Unlike a panel (button), it does not automatically open anything when pressed.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -308,7 +327,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L229">ui-builder.d.ts:229</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L239">ui-builder.d.ts:239</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -344,13 +363,13 @@
 					<a name="Config" class="tsd-anchor"></a>
 					<h3>Config</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">Config<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ui_builder.ConfigAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">ConfigAttributes</a>, panels<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></li>
+						<li class="tsd-signature tsd-kind-icon">Config<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ui_builder.ConfigAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">ConfigAttributes</a>, panels<span class="tsd-signature-symbol">?: </span><a href="ui_builder.html#NodeChildren" class="tsd-signature-type" data-tsd-kind="Type alias">NodeChildren</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L137">ui-builder.d.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L146">ui-builder.d.ts:146</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -365,7 +384,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> attributes: <a href="../interfaces/ui_builder.ConfigAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">ConfigAttributes</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> panels: <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> panels: <a href="ui_builder.html#NodeChildren" class="tsd-signature-type" data-tsd-kind="Type alias">NodeChildren</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></h4>
@@ -382,7 +401,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L278">ui-builder.d.ts:278</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L288">ui-builder.d.ts:288</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -418,7 +437,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L251">ui-builder.d.ts:251</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L261">ui-builder.d.ts:261</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -459,13 +478,13 @@
 					<a name="Page" class="tsd-anchor"></a>
 					<h3>Page</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">Page<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.PageAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">PageAttributes</a>, rows<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></li>
+						<li class="tsd-signature tsd-kind-icon">Page<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.PageAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">PageAttributes</a>, rows<span class="tsd-signature-symbol">: </span><a href="ui_builder.html#NodeChildren" class="tsd-signature-type" data-tsd-kind="Type alias">NodeChildren</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L159">ui-builder.d.ts:159</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L169">ui-builder.d.ts:169</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -479,7 +498,7 @@
 									<h5>attributes: <a href="../interfaces/ui_builder.PageAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">PageAttributes</a></h5>
 								</li>
 								<li>
-									<h5>rows: <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5>rows: <a href="ui_builder.html#NodeChildren" class="tsd-signature-type" data-tsd-kind="Type alias">NodeChildren</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></h4>
@@ -490,18 +509,19 @@
 					<a name="Panel" class="tsd-anchor"></a>
 					<h3>Panel</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">Panel<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.PanelAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">PanelAttributes</a>, pages<span class="tsd-signature-symbol">?: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></li>
+						<li class="tsd-signature tsd-kind-icon">Panel<span class="tsd-signature-symbol">(</span>attributes<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.PanelAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">PanelAttributes</a>, pages<span class="tsd-signature-symbol">?: </span><a href="ui_builder.html#NodeChildren" class="tsd-signature-type" data-tsd-kind="Type alias">NodeChildren</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L142">ui-builder.d.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L152">ui-builder.d.ts:152</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>A can contain custom userinterfaces with pages, rows and widgets.</p>
+									<p>A panel is a top level node in a config object and contain custom ui elements.
+									All direct children of a panel are pages.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -510,7 +530,7 @@
 									<h5>attributes: <a href="../interfaces/ui_builder.PanelAttributes.html" class="tsd-signature-type" data-tsd-kind="Interface">PanelAttributes</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> pages: <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol"> | </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> pages: <a href="ui_builder.html#NodeChildren" class="tsd-signature-type" data-tsd-kind="Type alias">NodeChildren</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></h4>
@@ -527,7 +547,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L164">ui-builder.d.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L174">ui-builder.d.ts:174</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -558,7 +578,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L264">ui-builder.d.ts:264</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L274">ui-builder.d.ts:274</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -594,7 +614,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L270">ui-builder.d.ts:270</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L280">ui-builder.d.ts:280</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -630,7 +650,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L257">ui-builder.d.ts:257</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L267">ui-builder.d.ts:267</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -669,7 +689,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L284">ui-builder.d.ts:284</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L294">ui-builder.d.ts:294</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -714,7 +734,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L295">ui-builder.d.ts:295</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L305">ui-builder.d.ts:305</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -747,7 +767,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L154">ui-builder.d.ts:154</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/db16bee/src/ui-builder.d.ts#L164">ui-builder.d.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -763,35 +783,6 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="toXml" class="tsd-anchor"></a>
-					<h3>to<wbr>Xml</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">to<wbr>Xml<span class="tsd-signature-symbol">(</span>node<span class="tsd-signature-symbol">: </span><a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L131">ui-builder.d.ts:131</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Converts any node (and all children) to the XML format that the xAPI commands expect
-									Typically you always want to do this on the config object only.</p>
-								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>node: <a href="../interfaces/ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -844,6 +835,9 @@
 						<a href="ui_builder.html#Color" class="tsd-kind-icon">Color</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="ui_builder.html#NodeChildren" class="tsd-kind-icon">Node<wbr>Children</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="ui_builder.html#PanelIcon" class="tsd-kind-icon">Panel<wbr>Icon</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
@@ -890,9 +884,6 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="ui_builder.html#WebApp" class="tsd-kind-icon">Web<wbr>App</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="ui_builder.html#toXml" class="tsd-kind-icon">to<wbr>Xml</a>
 					</li>
 				</ul>
 			</nav>

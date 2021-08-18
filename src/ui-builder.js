@@ -276,5 +276,4 @@ module.exports = {
   Text,
   GroupButton,
   ToggleButton,
-  toXml,
 };

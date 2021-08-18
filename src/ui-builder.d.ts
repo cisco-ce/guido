@@ -42,6 +42,13 @@
  * ui.panelSave('helpdesk', actionButton);
  * ```
  *
+ * If you do not want to use the ui lib (just the ui-builder), you can replace the last line with:
+ *
+ * ```
+ * const xml = actionButton.toString();
+ * xapi.Command.UserInterfae.Extensions.Panel.Save({ PanelId: 'helpdesk' }, xml);
+ * ```
+ *
  * ## Example - Create a panel:
  *
  * ```
@@ -110,8 +117,13 @@
 declare interface Node {
   /** Panel, Page, ... */
   type: string;
-  attributes?: Object[];
-  children?: Node[];
+  attributes: Object[];
+  children: Node[];
+  /**
+   * Converts the node (and all children) to the XML format that the xAPI expects
+   * Typically you want to do this only on the Config node
+   */
+  toString: () => string;
 }
 
 /**
@@ -124,25 +136,23 @@ declare interface Widget extends Node {
   widgetId: string;
 }
 
-/**
- * Converts any node (and all children) to the XML format that the xAPI commands expect
- * Typically you always want to do this on the config object only.
- */
-declare function toXml(node: Node): string;
+/** Node children can either be passed as an array, or just the node itself if its a single child */
+declare type NodeChildren = Node | Node[];
 
 /**
  * Creates a new UI extension config. This is the top level node, and the one that you
  * must use when saving an extension to the video device
  */
-declare function Config(attributes?: ConfigAttributes, panels?: Node | Node[]): Node;
+declare function Config(attributes?: ConfigAttributes, panels?: NodeChildren): Node;
 
 /**
- * A can contain custom userinterfaces with pages, rows and widgets.
+ * A panel is a top level node in a config object and contain custom ui elements.
+ * All direct children of a panel are pages.
  */
-declare function Panel(attributes: PanelAttributes, pages?: Node | Node[]): Node;
+declare function Panel(attributes: PanelAttributes, pages?: NodeChildren): Node;
 
 /**
- * An action button is located on the home screen and can be programmed to do an action when the user presses it. Unlike a panel (button), it does not open anything when pressed.
+ * An action button is located on the home screen and can be programmed to do an action when the user presses it. Unlike a panel (button), it does not automatically open anything when pressed.
  */
 declare function ActionButton(attributes: PanelAttributes): Node;
 
@@ -156,7 +166,7 @@ declare function WebApp(attributes: WebAppAttributes): Node;
 /**
  * A page is contained in a panel and can contain multiple rows.
  */
-declare function Page(attributes: PageAttributes, rows: Node | Node[]): Node;
+declare function Page(attributes: PageAttributes, rows: NodeChildren): Node;
 
 /**
  * A row is contained in a page, and can contain multiple widgets. The widgets are laid of horizontally. Each row contains 4 columns, if the widgets take up more than that they will wrap to the next line (but same row).
