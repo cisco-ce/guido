@@ -71,8 +71,11 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>General node for any UI element</p>
+						<p>General node in the ui tree, eg panel, page, widget, ...</p>
 					</div>
+					<p>Should be considered abstract, use the helper funtions (Panel(), Page(), ...) to create actual
+						nodes. Upon creation, the node verifies that it only contains valid attributes and children
+					for its given type.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -111,7 +114,7 @@
 					<div class="tsd-signature tsd-kind-icon">attributes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L108">ui-builder.d.ts:108</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L113">ui-builder.d.ts:113</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -121,7 +124,7 @@
 					<div class="tsd-signature tsd-kind-icon">children<span class="tsd-signature-symbol">:</span> <a href="ui_builder.Node.html" class="tsd-signature-type" data-tsd-kind="Interface">Node</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L109">ui-builder.d.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L114">ui-builder.d.ts:114</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -131,9 +134,14 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L107">ui-builder.d.ts:107</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L112">ui-builder.d.ts:112</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Panel, Page, ...</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -188,6 +196,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="ui_builder.Widget.html" class="tsd-kind-icon">Widget</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/ui_builder.html#Availability" class="tsd-kind-icon">Availability</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/ui_builder.html#ButtonIcon" class="tsd-kind-icon">Button<wbr>Icon</a>

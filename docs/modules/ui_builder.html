@@ -175,6 +175,7 @@
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#Availability" class="tsd-kind-icon">Availability</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#ButtonIcon" class="tsd-kind-icon">Button<wbr>Icon</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#Color" class="tsd-kind-icon">Color</a></li>
 								<li class="tsd-kind-type-alias tsd-parent-kind-module"><a href="ui_builder.html#PanelIcon" class="tsd-kind-icon">Panel<wbr>Icon</a></li>
@@ -207,12 +208,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Type aliases</h2>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
+					<a name="Availability" class="tsd-anchor"></a>
+					<h3>Availability</h3>
+					<div class="tsd-signature tsd-kind-icon">Availability<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Home&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;InCall&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;StatusBar&quot;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">&quot;Never&quot;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L171">ui-builder.d.ts:171</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-module">
 					<a name="ButtonIcon" class="tsd-anchor"></a>
 					<h3>Button<wbr>Icon</h3>
 					<div class="tsd-signature tsd-kind-icon">Button<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;arrow_down|arrow_left|arrow_right|arrow_up|audio_minus|audio_plus|back|blue|eject|end|fast_bw|fast_fw|green|help|home|list|mic|mic_muted|minus|pause|phone|play|play_pause|plus|plus|power|record|red|skip_bw|skip_fw|speaker|speaker_muted|stop|video|video_muted|volume_muted|yellow|zoom_in|zoom_out&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L176">ui-builder.d.ts:176</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L210">ui-builder.d.ts:210</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -222,12 +233,12 @@
 					<div class="tsd-signature tsd-kind-icon">Color<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L160">ui-builder.d.ts:160</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L192">ui-builder.d.ts:192</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Color can be specified as name (blue, pink, ...), on hexidecimal format (#aa00cc) or RGB (rgb(128, 132, 199))</p>
+							<p>Color can be specified as name (blue, pink, ...), on hexidecimal format (#aa00cc) or alpha hex (#33ffffff, transparent white)</p>
 						</div>
 					</div>
 				</section>
@@ -237,7 +248,7 @@
 					<div class="tsd-signature tsd-kind-icon">Panel<wbr>Icon<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;Blinds|Briefing|Camera|Concierge|Disc|Handset|Help|Helpdesk|Home|Hvac|Info|Input|Language|Laptop|Lightbulb|Media|Microphone|Power|Proximity|Record|Sliders|Tv&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L174">ui-builder.d.ts:174</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L208">ui-builder.d.ts:208</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -247,9 +258,14 @@
 					<div class="tsd-signature tsd-kind-icon">Widget<wbr>Size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">2</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">3</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">4</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L192">ui-builder.d.ts:192</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L226">ui-builder.d.ts:226</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Number of columns that the widget taks up. Each row has maximum 4 columns.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
@@ -264,9 +280,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L128">ui-builder.d.ts:128</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L147">ui-builder.d.ts:147</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>An action button is located on the home screen and can be programmed to do an action when the user presses it. Unlike a panel (button), it does not open anything when pressed.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -287,9 +308,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L194">ui-builder.d.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L229">ui-builder.d.ts:229</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A simple push button.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -324,12 +350,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L124">ui-builder.d.ts:124</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L137">ui-builder.d.ts:137</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates a new UI extension config</p>
+									<p>Creates a new UI extension config. This is the top level node, and the one that you
+									must use when saving an extension to the video device</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -355,9 +382,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L236">ui-builder.d.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L278">ui-builder.d.ts:278</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A 4-way directional pad + center button. The text of the center button can be specified.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -386,12 +418,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L215">ui-builder.d.ts:215</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L251">ui-builder.d.ts:251</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Create group button, where the user can select one of several choices
+										You can programatically select which button is selected by setting the widget value.
 									Example:</p>
 									<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">group</span><span style="color: #000000"> = </span><span style="color: #795E26">GroupButton</span><span style="color: #000000">({</span>
 <span style="color: #000000">  </span><span style="color: #001080">widgetId:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;my-colors&#039;</span><span style="color: #000000">,</span>
@@ -432,9 +465,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L132">ui-builder.d.ts:132</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L159">ui-builder.d.ts:159</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A page is contained in a panel and can contain multiple rows.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -458,9 +496,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L126">ui-builder.d.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L142">ui-builder.d.ts:142</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A can contain custom userinterfaces with pages, rows and widgets.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -484,9 +527,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L134">ui-builder.d.ts:134</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L164">ui-builder.d.ts:164</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A row is contained in a page, and can contain multiple widgets. The widgets are laid of horizontally. Each row contains 4 columns, if the widgets take up more than that they will wrap to the next line (but same row).</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -510,9 +558,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L226">ui-builder.d.ts:226</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L264">ui-builder.d.ts:264</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A slider / scrollbar. The range is fixed from 0-255, you might need to map this to your own scale. See the ui lib for a handy scale function. You can programatically set the scroll position by setting the widget value.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -541,9 +594,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L231">ui-builder.d.ts:231</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L270">ui-builder.d.ts:270</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>An invisible widget that takes up space, so you can create custom layouts with gaps if you need it.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -572,9 +630,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L220">ui-builder.d.ts:220</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L257">ui-builder.d.ts:257</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A widget that lefts the user select next/previous or up/down. You can programatically update the text in the middle of the spinner by setting the widget value</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -606,9 +669,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L241">ui-builder.d.ts:241</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L284">ui-builder.d.ts:284</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A simple text label. Change the text by setting the value of the widget.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -646,9 +714,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L249">ui-builder.d.ts:249</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L295">ui-builder.d.ts:295</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>An on/off mode button. You can programatically set the mode by setting widget value to &#39;on&#39; or &#39;off&#39;.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -674,9 +747,15 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L130">ui-builder.d.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L154">ui-builder.d.ts:154</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>A web app is basically a url shortcut that can open a full screen web page on the device.</p>
+								</div>
+								<p>The web page is opened when the user presses the shortcut.</p>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -697,7 +776,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L121">ui-builder.d.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L131">ui-builder.d.ts:131</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -754,6 +833,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/ui_builder.Widget.html" class="tsd-kind-icon">Widget</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="ui_builder.html#Availability" class="tsd-kind-icon">Availability</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="ui_builder.html#ButtonIcon" class="tsd-kind-icon">Button<wbr>Icon</a>

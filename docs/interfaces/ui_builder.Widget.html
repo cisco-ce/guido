@@ -68,6 +68,15 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Specific node type that is parent of all widgets. Like Node, should be considered abstract. Use
+							helper functions (ToggleButton(), Slider(), ...) to create actual widget nodes.
+						A widget id is required for all widgets</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -88,11 +97,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui_builder.Widget.html#Type" class="tsd-kind-icon">Type</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui_builder.Widget.html#WidgetId" class="tsd-kind-icon">Widget<wbr>Id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui_builder.Widget.html#attributes" class="tsd-kind-icon">attributes</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui_builder.Widget.html#children" class="tsd-kind-icon">children</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="ui_builder.Widget.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite"><a href="ui_builder.Widget.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="ui_builder.Widget.html#widgetId" class="tsd-kind-icon">widget<wbr>Id</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,26 +108,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="Type" class="tsd-anchor"></a>
-					<h3>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L113">ui-builder.d.ts:113</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="WidgetId" class="tsd-anchor"></a>
-					<h3>Widget<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">Widget<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L114">ui-builder.d.ts:114</a></li>
-						</ul>
-					</aside>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="attributes" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> attributes</h3>
@@ -127,7 +115,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui_builder.Node.html">Node</a>.<a href="ui_builder.Node.html#attributes">attributes</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L108">ui-builder.d.ts:108</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L113">ui-builder.d.ts:113</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -138,18 +126,33 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="ui_builder.Node.html">Node</a>.<a href="ui_builder.Node.html#children">children</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L109">ui-builder.d.ts:109</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L114">ui-builder.d.ts:114</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
 					<a name="type" class="tsd-anchor"></a>
 					<h3>type</h3>
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from <a href="ui_builder.Node.html">Node</a>.<a href="ui_builder.Node.html#type">type</a></p>
+						<p>Overrides <a href="ui_builder.Node.html">Node</a>.<a href="ui_builder.Node.html#type">type</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a9c4528/src/ui-builder.d.ts#L107">ui-builder.d.ts:107</a></li>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L123">ui-builder.d.ts:123</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Panel, Page, ...</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="widgetId" class="tsd-anchor"></a>
+					<h3>widget<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">widget<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/a28c441/src/ui-builder.d.ts#L124">ui-builder.d.ts:124</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -194,25 +197,25 @@
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
 						<a href="ui_builder.Widget.html" class="tsd-kind-icon">Widget</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ui_builder.Widget.html#Type" class="tsd-kind-icon">Type</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="ui_builder.Widget.html#WidgetId" class="tsd-kind-icon">Widget<wbr>Id</a>
-							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="ui_builder.Widget.html#attributes" class="tsd-kind-icon">attributes</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="ui_builder.Widget.html#children" class="tsd-kind-icon">children</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-overwrite">
 								<a href="ui_builder.Widget.html#type" class="tsd-kind-icon">type</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="ui_builder.Widget.html#widgetId" class="tsd-kind-icon">widget<wbr>Id</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/ui_builder.html#Availability" class="tsd-kind-icon">Availability</a>
+					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/ui_builder.html#ButtonIcon" class="tsd-kind-icon">Button<wbr>Icon</a>
 					</li>
