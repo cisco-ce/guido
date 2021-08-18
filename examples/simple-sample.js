@@ -1,4 +1,4 @@
-const { toXml, Config, Panel, Page, Row, ToggleButton, GroupButton } = require('../src/ui-builder');
+const { Config, Panel, Page, Row, ToggleButton, GroupButton } = require('../src/ui-builder');
 const ui = require('../src/ui');
 
 const PanelId = 'panel-lights';
@@ -29,8 +29,7 @@ function buildPanel(expanded) {
     ]),
   ));
 
-  const xml = toXml(config);
-  return ui.panelSave(PanelId, xml);
+  return ui.panelSave(PanelId, config);
 }
 
 async function modeChanged(evt) {

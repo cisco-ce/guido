@@ -261,6 +261,8 @@ declare function Button(attributes: {
 declare function GroupButton(attributes: {
   widgetId: string;
   buttons: object;
+  /** Number of buttons per row. If there are more buttons than columns, the buttons will wrap to the next line, creating a grid group. */
+  columns: number;
 }): Widget;
 
 /** A widget that lefts the user select next/previous or up/down. You can programatically update the text in the middle of the spinner by setting the widget value */
