@@ -101,17 +101,27 @@
 
 
 /**
- * General node for any UI element
+ * General node in the ui tree, eg panel, page, widget, ...
+ *
+ * Should be considered abstract, use the helper funtions (Panel(), Page(), ...) to create actual
+ * nodes. Upon creation, the node verifies that it only contains valid attributes and children
+ * for its given type.
  */
 declare interface Node {
+  /** Panel, Page, ... */
   type: string;
   attributes?: Object[];
   children?: Node[];
 }
 
+/**
+ * Specific node type that is parent of all widgets. Like Node, should be considered abstract. Use
+ * helper functions (ToggleButton(), Slider(), ...) to create actual widget nodes.
+ * A widget id is required for all widgets
+ */
 declare interface Widget extends Node {
-  Type: string;
-  WidgetId: string;
+  type: string;
+  widgetId: string;
 }
 
 /**
@@ -120,23 +130,45 @@ declare interface Widget extends Node {
  */
 declare function toXml(node: Node): string;
 
-/** Creates a new UI extension config */
+/**
+ * Creates a new UI extension config. This is the top level node, and the one that you
+ * must use when saving an extension to the video device
+ */
 declare function Config(attributes?: ConfigAttributes, panels?: Node | Node[]): Node;
 
+/**
+ * A can contain custom userinterfaces with pages, rows and widgets.
+ */
 declare function Panel(attributes: PanelAttributes, pages?: Node | Node[]): Node;
 
+/**
+ * An action button is located on the home screen and can be programmed to do an action when the user presses it. Unlike a panel (button), it does not open anything when pressed.
+ */
 declare function ActionButton(attributes: PanelAttributes): Node;
 
+/**
+ * A web app is basically a url shortcut that can open a full screen web page on the device.
+ *
+ * The web page is opened when the user presses the shortcut.
+ */
 declare function WebApp(attributes: WebAppAttributes): Node;
 
+/**
+ * A page is contained in a panel and can contain multiple rows.
+ */
 declare function Page(attributes: PageAttributes, rows: Node | Node[]): Node;
 
+/**
+ * A row is contained in a page, and can contain multiple widgets. The widgets are laid of horizontally. Each row contains 4 columns, if the widgets take up more than that they will wrap to the next line (but same row).
+ */
 declare function Row(attributes: RowAttributes, widgets: Widget | Widget[]): Node;
 
 declare interface ConfigAttributes {
-  /** 1.4, 1.6. etc. Omit it and the lib will pick the newest one */
+  /** The ux extensions version (1.4, 1.6. etc). Omit it and the lib will pick the newest one */
   version?: string;
 }
+
+declare type Availability = 'Home' | 'InCall' | 'StatusBar' | 'Never';
 
 declare interface PanelAttributes {
   panelId?: string;
@@ -145,9 +177,9 @@ declare interface PanelAttributes {
    * * Home screen only
    * * InCall: in-call only
    * * StatusBar: Both
-   * * Never: hidden (open with xAPI)
+   * * Never: hidden (open programatically only)
    */
-  type?: 'Home' | 'InCall' | 'StatusBar' | 'Never';
+  type?: Availability;
   color?: string;
   icon?: PanelIcon;
   order?: number;
@@ -155,17 +187,19 @@ declare interface PanelAttributes {
 }
 
 /**
- * Color can be specified as name (blue, pink, ...), on hexidecimal format (#aa00cc) or RGB (rgb(128, 132, 199))
+ * Color can be specified as name (blue, pink, ...), on hexidecimal format (#aa00cc) or alpha hex (#33ffffff, transparent white)
  */
 declare type Color = string;
 
 declare interface WebAppAttributes {
+  /** The url (internal or external) that you want to show. If no icon is specified, the web page's favicon is used as icon */
   url: string;
   panelId?: string;
-  type?: 'Home' | 'InCall' | 'StatusBar' | 'Never';
-  color?: Color;
+  type?: Availability
+  /** Icon URL to an external image/icon to show on the home page instead of the favicon */
   icon?: string;
   order?: number;
+  /** The button name that appears on home screen etc */
   name?: string;
 }
 
@@ -176,7 +210,6 @@ declare type PanelIcon = 'Blinds|Briefing|Camera|Concierge|Disc|Handset|Help|Hel
 declare type ButtonIcon = 'arrow_down|arrow_left|arrow_right|arrow_up|audio_minus|audio_plus|back|blue|eject|end|fast_bw|fast_fw|green|help|home|list|mic|mic_muted|minus|pause|phone|play|play_pause|plus|plus|power|record|red|skip_bw|skip_fw|speaker|speaker_muted|stop|video|video_muted|volume_muted|yellow|zoom_in|zoom_out';
 
 /**
- * Pages can be inside panels.
  * @param hideRowNames Hide the name rows on the left if you want to make the page more compact
  */
 declare interface PageAttributes {
@@ -189,8 +222,10 @@ declare interface RowAttributes {
   text?: string;
 }
 
+/** Number of columns that the widget taks up. Each row has maximum 4 columns. */
 declare type WidgetSize = 1 | 2 | 3 | 4;
 
+/** A simple push button. */
 declare function Button(attributes: {
   widgetId: string;
   text?: string;
@@ -200,6 +235,7 @@ declare function Button(attributes: {
 
 /**
  * Create group button, where the user can select one of several choices
+ * You can programatically select which button is selected by setting the widget value.
  * Example:
  * ```
  * const group = GroupButton({
@@ -217,27 +253,34 @@ declare function GroupButton(attributes: {
   buttons: object;
 }): Widget;
 
+/** A widget that lefts the user select next/previous or up/down. You can programatically update the text in the middle of the spinner by setting the widget value */
 declare function Spinner(attributes: {
   widgetId: string;
   size?: WidgetSize;
   style?: 'vertical' | 'horizontal' | 'plusminus';
 }): Widget;
 
+/** A slider / scrollbar. The range is fixed from 0-255, you might need to map this to your own scale. See the ui lib for a handy scale function. You can programatically set the scroll position by setting the widget value. */
 declare function Slider(attributes: {
   widgetId: string;
   size?: WidgetSize;
 }): Widget;
 
+/** An invisible widget that takes up space, so you can create custom layouts with gaps if you need it. */
 declare function Spacer(attributes: {
   widgetId: string;
   size?: WidgetSize;
 }): Widget;
 
+/**
+ * A 4-way directional pad + center button. The text of the center button can be specified.
+ */
 declare function DirectionalPad(attributes: {
   widgetId: string;
   text?: string;
 }): Widget;
 
+/** A simple text label. Change the text by setting the value of the widget. */
 declare function Text(attributes: {
   widgetId: string;
   text?: string;
@@ -246,6 +289,9 @@ declare function Text(attributes: {
   align?: '' | '' | '';
 }): Widget;
 
+/**
+ * An on/off mode button. You can programatically set the mode by setting widget value to 'on' or 'off'.
+ */
 declare function ToggleButton(attributes: {
   widgetId: string;
 }): Widget;
