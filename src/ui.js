@@ -30,7 +30,18 @@ function panelClose() {
   return xapi.Command.UserInterface.Extensions.Panel.Close();
 }
 
+function webAppOpen(url, name = '') {
+  return xapi.Command.UserInterface.WebView.Display({ Url: url, Title: name });
+}
+
+function webAppClose() {
+  return xapi.Command.UserInterface.WebView.Clear();
+}
+
 function onPanelClicked(callback, panelId = '') {
+  if (typeof callback !== 'function') {
+    throw new Error('onWidgetAction: first param needs to be a function');
+  }
   xapi.Event.UserInterface.Extensions.Panel.Clicked.on(e => {
     if (panelId && e.PanelId !== panelId) return;
     callback(e);
@@ -153,6 +164,8 @@ module.exports = {
   widgetSetValue,
   scale,
   subscribe,
+  webAppOpen,
+  webAppClose,
 
   onPanelClicked,
   onWidgetAction,
