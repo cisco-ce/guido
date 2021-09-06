@@ -114,7 +114,7 @@
  * nodes. Upon creation, the node verifies that it only contains valid attributes and children
  * for its given type.
  */
-declare interface Node {
+export declare interface Node {
   /** Panel, Page, ... */
   type: string;
   attributes: Object[];
@@ -125,62 +125,78 @@ declare interface Node {
    */
   toString: () => string;
 }
+/** As created by [[Config]] */
+export type NodeConfig = Node;
 
+/** As created by [[Panel]] */
+export type NodePanel = Node;
+
+/** As created by [[WebApp]] */
+export type NodeWebApp = Node;
+
+/** As created by [[ActionButton]] */
+export type NodeActionButton = Node;
+
+/** As created by [[Page]] */
+export type NodePage = Node;
+
+/** As created by [[Row]] */
+export type NodeRow = Node;
+
+/** The general of type of extension, this typically appears on the homescreen as a button */
+export type NodeExtension = NodePanel | NodeActionButton | NodeWebApp;
 /**
  * Specific node type that is parent of all widgets. Like Node, should be considered abstract. Use
  * helper functions (ToggleButton(), Slider(), ...) to create actual widget nodes.
  * A widget id is required for all widgets
  */
-declare interface Widget extends Node {
+export declare interface Widget extends Node {
   type: string;
   widgetId: string;
 }
-
-/** Node children can either be passed as an array, or just the node itself if its a single child */
-declare type NodeChildren = Node | Node[];
 
 /**
  * Creates a new UI extension config. This is the top level node, and the one that you
  * must use when saving an extension to the video device
  */
-declare function Config(attributes?: ConfigAttributes, panels?: NodeChildren): Node;
+export declare function Config(attributes?: ConfigAttributes, extensions?: NodeExtension | NodeExtension[]): NodeConfig;
 
 /**
  * A panel is a top level node in a config object and contain custom ui elements.
  * All direct children of a panel are pages.
  */
-declare function Panel(attributes: PanelAttributes, pages?: NodeChildren): Node;
+export declare function Panel(attributes: PanelAttributes, pages?: NodePage | NodePage[]): NodePanel;
 
 /**
  * An action button is located on the home screen and can be programmed to do an action when the user presses it. Unlike a panel (button), it does not automatically open anything when pressed.
  */
-declare function ActionButton(attributes: PanelAttributes): Node;
+export declare function ActionButton(attributes: ActionButtonAttributes): NodeActionButton;
 
 /**
  * A web app is basically a url shortcut that can open a full screen web page on the device.
  *
  * The web page is opened when the user presses the shortcut.
  */
-declare function WebApp(attributes: WebAppAttributes): Node;
+export declare function WebApp(attributes: WebAppAttributes): NodeWebApp;
 
 /**
  * A page is contained in a panel and can contain multiple rows.
  */
-declare function Page(attributes: PageAttributes, rows: NodeChildren): Node;
+export declare function Page(attributes: PageAttributes, rows: NodeRow | NodeRow[]): NodePage;
 
 /**
  * A row is contained in a page, and can contain multiple widgets. The widgets are laid of horizontally. Each row contains 4 columns, if the widgets take up more than that they will wrap to the next line (but same row).
  */
-declare function Row(attributes: RowAttributes, widgets: Widget | Widget[]): Node;
+export declare function Row(attributes: RowAttributes, widgets: Widget | Widget[]): NodeRow;
 
-declare interface ConfigAttributes {
+export declare interface ConfigAttributes {
   /** The ux extensions version (1.4, 1.6. etc). Omit it and the lib will pick the newest one */
   version?: string;
 }
 
-declare type Availability = 'Home' | 'InCall' | 'StatusBar' | 'Never';
+export declare type Availability = 'Home' | 'InCall' | 'StatusBar' | 'Never';
 
-declare interface PanelAttributes {
+export declare interface PanelAttributes {
   panelId?: string;
   /**
    * Where the button for opening the panel is available
@@ -196,12 +212,14 @@ declare interface PanelAttributes {
   name?: string;
 }
 
+export type ActionButtonAttributes = PanelAttributes;
+
 /**
  * Color can be specified as name (blue, pink, ...), on hexidecimal format (#aa00cc) or alpha hex (#33ffffff, transparent white)
  */
-declare type Color = string;
+export declare type Color = string;
 
-declare interface WebAppAttributes {
+export declare interface WebAppAttributes {
   /** The url (internal or external) that you want to show. If no icon is specified, the web page's favicon is used as icon */
   url: string;
   panelId?: string;
@@ -215,28 +233,28 @@ declare interface WebAppAttributes {
 
 // list = Array.from(document.querySelectorAll('.icon-button'))
 // list.map(b => b.classList[1].replace('icon-', '')).sort((i1, i2) => i1 < i2 ? -1 : 1).join('|')
-declare type PanelIcon = 'Blinds|Briefing|Camera|Concierge|Disc|Handset|Help|Helpdesk|Home|Hvac|Info|Input|Language|Laptop|Lightbulb|Media|Microphone|Power|Proximity|Record|Sliders|Tv';
+export declare type PanelIcon = 'Blinds|Briefing|Camera|Concierge|Disc|Handset|Help|Helpdesk|Home|Hvac|Info|Input|Language|Laptop|Lightbulb|Media|Microphone|Power|Proximity|Record|Sliders|Tv';
 
-declare type ButtonIcon = 'arrow_down|arrow_left|arrow_right|arrow_up|audio_minus|audio_plus|back|blue|eject|end|fast_bw|fast_fw|green|help|home|list|mic|mic_muted|minus|pause|phone|play|play_pause|plus|plus|power|record|red|skip_bw|skip_fw|speaker|speaker_muted|stop|video|video_muted|volume_muted|yellow|zoom_in|zoom_out';
+export declare type ButtonIcon = 'arrow_down|arrow_left|arrow_right|arrow_up|audio_minus|audio_plus|back|blue|eject|end|fast_bw|fast_fw|green|help|home|list|mic|mic_muted|minus|pause|phone|play|play_pause|plus|plus|power|record|red|skip_bw|skip_fw|speaker|speaker_muted|stop|video|video_muted|volume_muted|yellow|zoom_in|zoom_out';
 
 /**
  * @param hideRowNames Hide the name rows on the left if you want to make the page more compact
  */
-declare interface PageAttributes {
+export declare interface PageAttributes {
   pageId?: string;
   name?: string;
   hideRowNames?: boolean;
 }
 
-declare interface RowAttributes {
+export declare interface RowAttributes {
   text?: string;
 }
 
 /** Number of columns that the widget taks up. Each row has maximum 4 columns. */
-declare type WidgetSize = 1 | 2 | 3 | 4;
+export declare type WidgetSize = 1 | 2 | 3 | 4;
 
 /** A simple push button. */
-declare function Button(attributes: {
+export declare function Button(attributes: {
   widgetId: string;
   text?: string;
   size?: WidgetSize;
@@ -258,28 +276,26 @@ declare function Button(attributes: {
  * })
  * ```
  */
-declare function GroupButton(attributes: {
+export declare function GroupButton(attributes: {
   widgetId: string;
   buttons: object;
-  /** Number of buttons per row. If there are more buttons than columns, the buttons will wrap to the next line, creating a grid group. */
-  columns: number;
 }): Widget;
 
 /** A widget that lefts the user select next/previous or up/down. You can programatically update the text in the middle of the spinner by setting the widget value */
-declare function Spinner(attributes: {
+export declare function Spinner(attributes: {
   widgetId: string;
   size?: WidgetSize;
   style?: 'vertical' | 'horizontal' | 'plusminus';
 }): Widget;
 
 /** A slider / scrollbar. The range is fixed from 0-255, you might need to map this to your own scale. See the ui lib for a handy scale function. You can programatically set the scroll position by setting the widget value. */
-declare function Slider(attributes: {
+export declare function Slider(attributes: {
   widgetId: string;
   size?: WidgetSize;
 }): Widget;
 
 /** An invisible widget that takes up space, so you can create custom layouts with gaps if you need it. */
-declare function Spacer(attributes: {
+export declare function Spacer(attributes: {
   widgetId: string;
   size?: WidgetSize;
 }): Widget;
@@ -287,13 +303,13 @@ declare function Spacer(attributes: {
 /**
  * A 4-way directional pad + center button. The text of the center button can be specified.
  */
-declare function DirectionalPad(attributes: {
+export declare function DirectionalPad(attributes: {
   widgetId: string;
   text?: string;
 }): Widget;
 
 /** A simple text label. Change the text by setting the value of the widget. */
-declare function Text(attributes: {
+export declare function Text(attributes: {
   widgetId: string;
   text?: string;
   size?: WidgetSize;
@@ -304,6 +320,6 @@ declare function Text(attributes: {
 /**
  * An on/off mode button. You can programatically set the mode by setting widget value to 'on' or 'off'.
  */
-declare function ToggleButton(attributes: {
+export declare function ToggleButton(attributes: {
   widgetId: string;
 }): Widget;
