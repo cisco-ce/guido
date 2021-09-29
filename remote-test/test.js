@@ -1,4 +1,6 @@
 const universalAdapter = require('./universal-adapter');
 
 const login = { host: '', username: '', password: '' };
-universalAdapter(login, '../src/example').catch(console.log);
+universalAdapter(login, () => {
+  require('../src/example');
+}).catch(console.log);

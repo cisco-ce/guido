@@ -10,8 +10,12 @@
  * Usage:
  *  const adapter = require('./universal-adapter');
  *  const videoDevice = { host: '10.0.0.99', username: 'admin', password: 'password };
- *  const macroModule = './mymacro'; // the file name you would usually use in require()
- *  adapter(videoDevice, macroModule); // connect and start macro
+ *  adapter(videoDevice)
+ *  .then(() => {
+ *    // start requiring your code that contains <require('xapi')>
+ *    const mymacro = require('./mymacro');
+ *    // mymacro will start automatically, just like on video device
+ *  })
  *
  */
 
@@ -35,17 +39,12 @@ function connectXapi ({ host, username, password }) {
   });
 }
 
-async function init(deviceLogin, macroModuleName) {
-
+async function init(deviceLogin) {
     const xapi = await connectXapi(deviceLogin);
     Module.prototype.require = function() {
       const moduleName = arguments[0];
       return moduleName === 'xapi' ? xapi : originalRequire.apply(this, arguments);
     }
-
-    // run macro as an external integration. when it calls require('xapi') it will get the
-    // connected xapi object
-    require(macroModuleName);
 }
 
 module.exports = init;

@@ -1,189 +1,229 @@
 /**
- * Library for working with RoomOS custom UI.
- * Includes support for both the simple elements (alerts, prompts, etc)
- * and the UI extensions.
- *
- * The main idea is remove the need to know anything about the xAPI.
- * For documentation, see the corresponding typescript file (d.ts) file,
- * or https://github.com/cisco-ce/guido
+ * Inspired by jquery and https://github.com/valgaze/sugar
  */
 const xapi = require('xapi');
 
-function panelRemoveAll() {
-  return xapi.Command.UserInterface.Extensions.Clear();
+let isListening = false;
+let debug = false;
+
+/** List of all listeners, indexed by event path and relevant id */
+let feedbackListeners = [];
+
+function _addListener(path, conditions, listener) {
+  if (!isListening) {
+    // Sets up a catch-all event listener for all UI events (across all consumers)
+    xapi.Event.UserInterface.on(onUiEvent);
+    isListening = true;
+  }
+
+  if (typeof listener !== 'function') {
+    throw new Error('Listener must be a callback function');
+  }
+  feedbackListeners.push({ path, conditions, func: listener });
+
+  return () => _removeListener(path, conditions);
 }
 
-function panelSave(PanelId, config) {
-  const xml = config.toString(); // can send string or object with toString repr
-  return xapi.Command.UserInterface.Extensions.Panel.Save({ PanelId }, xml);
+function _removeListener(path, conditions) {
+  feedbackListeners = feedbackListeners.filter(listener => {
+    const match = listener.path === path && eventMatchConditions(listener.conditions, conditions);
+    return !match;
+  })
 }
 
-function panelRemove(PanelId) {
-  return xapi.Command.UserInterface.Extensions.Panel.Remove({ PanelId });
+function getNode(path, obj) {
+  const first = path.shift();
+  if (first && obj[first]) {
+    // object matched whole path:
+    if (!path.length) {
+        return obj[first];
+    }
+
+    // match so far, parse further down:
+    return getNode(path, obj[first]);
+  }
 }
 
-function panelOpen(PanelId, PageId = '') {
-  return xapi.Command.UserInterface.Extensions.Panel.Open({ PanelId, PageId });
+function eventMatchConditions(event, conditions) {
+  for (const key in conditions) {
+    if (conditions[key] !== event[key]) {
+      return false;
+    }
+  }
+  return true;
 }
 
-function panelClose() {
-  return xapi.Command.UserInterface.Extensions.Panel.Close();
+function onUiEvent(event) {
+  const isLegacyEvent = !!(event.Extensions && event.Extensions.Event);
+  // (we dont want to show Extensions.Event.Pressed etc, they are duplicate events for
+  // legacy control system such as Crestron)
+  if (isLegacyEvent) return;
+
+  if (debug) {
+    console.log('UI event:', JSON.stringify(event));
+  }
+
+  for (const listener of feedbackListeners) {
+    const node = getNode(listener.path.split(' '), event);
+    if (node && eventMatchConditions(node, listener.conditions)) {
+      listener.func(node);
+      break;
+    }
+  }
 }
 
-function webAppOpen(url, name = '') {
+function ui(id) {
+  return {
+    onUsbKeyPressed: func => {
+      return _addListener('InputDevice Key Action', { Type: 'pressed' }, func);
+    },
+    onUsbKeyReleased: func => {
+      return _addListener('InputDevice Key Action', { Type: 'released' }, func);
+    },
+    onPromptResponse: func => {
+      return _addListener('Message Prompt Response', { FeedbackId: id }, func);
+    },
+    onTextResponse: func => {
+      return _addListener('Message Text Response', { FeedbackId: id }, func);
+    },
+    onPageOpened: func => {
+      return _addListener('Extensions Page Action', { PageId: id, Type: 'Opened' }, func);
+    },
+    onPageClosed: func => {
+      return _addListener('Extensions Page Action', { PageId: id, Type: 'Closed' }, func);
+    },
+    onPanelClicked: func => {
+      return _addListener('Extensions Panel Clicked', { PanelId: id }, func);
+    },
+    onPanelOpened: func => {
+      return _addListener('Extensions Panel Open', { PanelId: id }, func);
+    },
+    onPanelClosed: func => {
+      return _addListener('Extensions Panel Close', { PanelId: id }, func);
+    },
+    onWidgetClicked: func => {
+      return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'clicked' }, func);
+    },
+    onWidgetPressed: func => {
+     return  _addListener('Extensions Widget Action', { WidgetId: id, Type: 'pressed' }, func);
+    },
+    onWidgetReleased: func => {
+      return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' }, func);
+    },
+    onWidgetChanged: func => {
+     return  _addListener('Extensions Widget Action', { WidgetId: id, Type: 'changed' }, func);
+    },
+    onSliderChanged: (func, min = 0, max = 255) => {
+      return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'changed' }, e => {
+
+        const scaledValue = ui.scale({ min: 0, max: 255 }, { min, max }, e.Value);
+        func(scaledValue);
+      });
+    },
+
+    widgetSetValue(Value) {
+      return xapi.Command.UserInterface.Extensions.Widget.SetValue({ Value, WidgetId: id });
+    },
+  };
+}
+
+ui.debug = (on = true) => {
+  debug = on;
+};
+
+ui.webAppOpen = (url, name = '') => {
   return xapi.Command.UserInterface.WebView.Display({ Url: url, Title: name });
-}
+};
 
-function webAppClose() {
+ui.webAppClose = ()  => {
   return xapi.Command.UserInterface.WebView.Clear();
-}
+};
 
-function onPanelClicked(callback, panelId = '') {
-  if (typeof callback !== 'function') {
-    throw new Error('onWidgetAction: first param needs to be a function');
-  }
-  xapi.Event.UserInterface.Extensions.Panel.Clicked.on(e => {
-    if (panelId && e.PanelId !== panelId) return;
-    callback(e);
-  });
-}
+ui.alert = (optionsOrText) => {
+  const opts = typeof options === 'string'
+    ? { Text: optionsOrText, Duration: 10 }
+    : optionsOrText;
+  return xapi.Command.UserInterface.Message.Alert.Display(opts);
+};
 
-function widgetSetValue(WidgetId, Value) {
-  return xapi.Command.UserInterface.Extensions.Widget.SetValue({ Value, WidgetId });
-}
-
-function onWidgetAction(callback, action = '', widgetId = '') {
-  if (typeof callback !== 'function') {
-    throw new Error('onWidgetAction: first param needs to be a function');
-  }
-  // todo: just one listener in total
-  return xapi.Event.UserInterface.Extensions.Widget.Action.on(e => {
-    if (action && e.Type !== action) return;
-    if (widgetId && e.WidgetId !== widgetId) return;
-    callback(e);
-})};
-
-const onButtonClicked = (widgetId, callback) => onWidgetAction(callback, 'clicked', widgetId);
-const onButtonPressed = (widgetId, callback) => onWidgetAction(callback, 'pressed', widgetId);
-const onButtonReleased = (widgetId, callback) => onWidgetAction(callback, 'released', widgetId);
-const onToggleButtonChanged = (widgetId, callback) => onWidgetAction(callback, 'changed', widgetId);
-const onSliderChanged = onToggleButtonChanged;
-const onSliderPressed = onButtonPressed;
-const onSliderReleased = onButtonReleased;
-const onGroupButtonPressed = onButtonPressed;
-const onGroupButtonReleased = onButtonPressed;
-const onSpinnerPressed = onButtonPressed;
-const onSpinnerReleased = onButtonReleased;
-const onSpinnerClicked = onButtonClicked;
-const onDirectionalPadPressed = onButtonPressed;
-const onDirectionalPadReleased = onButtonReleased;
-const onDirectionalPadClicked = onButtonClicked;
-
-function onTextInputResponse(callback, id) {
-  xapi.Event.UserInterface.Message.TextInput.Response.on((e) => {
-    if (e.FeedbackId === id) {
-      callback(e.Text);
-    }
-  })
-}
-
-function onPromptResponse(callback, id) {
-  xapi.Event.UserInterface.Message.Prompt.Response.on((e) => {
-    if (e.FeedbackId === id) {
-      callback(Number(e.OptionId) - 1);
-    }
-  })
-}
-
-function alert(text, title = '', duration = 0) {
-  return xapi.Command.UserInterface.Message.Alert.Display
-    ({ Duration: duration, Text: text, Title: title});
-}
-
-function alertHide() {
+ui.alertHide = () => {
   return xapi.Command.UserInterface.Message.Alert.Clear();
-}
+};
 
-function textInputShow(props) {
+ui.textInputShow = (props) => {
   return xapi.Command.UserInterface.Message.TextInput.Display(props);
-}
+};
 
-function textInputHide() {
+ui.textInputHide = () => {
   return xapi.Command.UseriInterface.Message.TextInput.Clear();
-}
+};
 
-function promptShow(props, options) {
+ui.promptShow = (props, options) => {
   const max = 5;
   if (options.length > max) {
     throw new Error(`Prompt can have max ${max} options`);
   }
 
-  const namedOptions = options.forEach((text, i) => {
+  options.forEach((text, i) => {
     props[`Option.${i + 1}`] = text;
   });
 
   return xapi.Command.UserInterface.Message.Prompt.Display(props);
-}
+};
 
-function promptHide() {
+ui.promptHide = () => {
   return xapi.Command.UserInterface.Message.Prompt.Clear();
-}
+};
 
-function wallpaperSet(url, halfwakeOnly = true) {
+ui.textLineShow = (props) => {
+  return xapi.Event.UserInterface.Message.TextLine.Display(props);
+};
+
+ui.textLineHide = () => {
+  return xapi.Command.UserInterface.Message.TextLine.Clear();
+};
+
+ui.panelSave = (PanelId, config) => {
+  const xml = config.toString(); // can send string or object with toString repr
+  return xapi.Command.UserInterface.Extensions.Panel.Save({ PanelId }, xml);
+};
+
+ui.panelRemove = (PanelId) => {
+  return xapi.Command.UserInterface.Extensions.Panel.Remove({ PanelId });
+};
+
+ui.panelOpen = (PanelId, PageId = '') => {
+  return xapi.Command.UserInterface.Extensions.Panel.Open({ PanelId, PageId });
+};
+
+ui.panelClose = () => {
+  return xapi.Command.UserInterface.Extensions.Panel.Close();
+};
+
+ui.webAppOpen = (url, name = '') => {
+  return xapi.Command.UserInterface.WebView.Display({ Url: url, Title: name });
+};
+
+ui.webAppClose = () => {
+  return xapi.Command.UserInterface.WebView.Clear();
+};
+
+ui.wallpaperSet = (url, halfwakeOnly = true) => {
   const type = halfwakeOnly ? 'HalfwakeBackground' : 'Background';
   return xapi.Command.UserInterface.Branding.Fetch({ Type: type, URL: url});
-}
-
-function scale(from, to, value) {
-if (typeof value !== 'number') {
-  throw new Error('Scale value must be a number');
-}
-const norm = (value - from.min) / (from.max - from.min); // normalized 0-1
-return to.min + norm * (to.max - to.min);
-}
-
-function subscribe(api, onChanged) {
-  api.get().then(onChanged);
-  api.on(onChanged);
-}
-
-module.exports = {
-  alert,
-  alertHide,
-  textInputShow,
-  textInputHide,
-  promptShow,
-  promptHide,
-  wallpaperSet,
-
-  panelRemoveAll,
-  panelRemove,
-  panelSave,
-  panelOpen,
-  panelClose,
-  widgetSetValue,
-  scale,
-  subscribe,
-  webAppOpen,
-  webAppClose,
-
-  onPanelClicked,
-  onWidgetAction,
-  onButtonClicked,
-  onButtonPressed,
-  onButtonReleased,
-  onToggleButtonChanged,
-  onSliderChanged,
-  onSliderPressed,
-  onSliderReleased,
-  onGroupButtonPressed,
-  onGroupButtonReleased,
-  onSpinnerPressed,
-  onSpinnerReleased,
-  onSpinnerClicked,
-  onDirectionalPadPressed,
-  onDirectionalPadReleased,
-  onDirectionalPadClicked,
-  onTextInputResponse,
-  onPromptResponse,
 };
+
+ui.wallpaperRemove = () => {
+  return xapi.Command.UserInterface.Branding.Clear();
+}
+
+ui.scale = (from, to, value) => {
+  value = Number(value);
+  if (isNaN(value)) {
+    throw new Error('Scale value must be a number');
+  }
+  const norm = (value - from.min) / (from.max - from.min); // normalized 0-1
+  return to.min + norm * (to.max - to.min);
+};
+
+module.exports = ui;

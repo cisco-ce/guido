@@ -11,10 +11,10 @@
  * xapi.Command.UserInterface.Message.Alert.Display({ Text: 'Hello World!' });
  * ```
  *
- * Also, event handling is made easier with dedicated methods:
+ * Also, event handling is made easier with dedicated methods, in a jquery-like style:
  *
  * ```
- * ui.onSliderChanged(e => console.log('slider changed:', e.Value), 'my-widget');
+ * ui('my-widget').onWidgetChange(e => console.log('slider changed:', e.Value));
  *
  * // instead of
  * xapi.Event.UserInterface.Extensions.Widget.Action.on(e => {
@@ -22,7 +22,12 @@
  *     console.log('slider changed:', e.Value);
  *   }
  * });
+ *
+ * An added benefit with the event handling is that behind the scenes, only *one* single
+ * catch-all event listener is registered for the library. This means you don't need to worry
+ * about getting close to the max number of listeners on the system.
  * ```
+ *
  * @module
  */
 
