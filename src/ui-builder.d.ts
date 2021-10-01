@@ -268,7 +268,7 @@ export declare function Button(attributes: {
  * ```
  * const group = GroupButton({
  *   widgetId: 'my-colors',
- *   button: {
+ *   buttons: {
  *     green: 'Green',
  *     red: 'Red',
  *     blue: 'Blue',
