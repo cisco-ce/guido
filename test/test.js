@@ -3,7 +3,6 @@ const samples = require('./samples.json');
 const assert = require('assert');
 
 const {
-  toXml,
   Config,
   Panel,
   ActionButton,
@@ -20,6 +19,10 @@ const {
   Spinner,
   Spacer,
 } = require('../src/ui-builder');
+
+function toXml(el) {
+  return el.toString();
+}
 
 describe('XML creation', function() {
 
