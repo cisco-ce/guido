@@ -1,7 +1,7 @@
 /**
- * Thin wrapper for most xAPI user interface commands.
+ * Thin wrapper library for general ui operations, and easy ways to add event listeners to specific elements.
  *
- * This means you don't need to use the long xAPI commands yourself, eg:
+ * Basically this means you don't need to use the xAPI commands yourself, eg:
  *
  * ```
  * import ui from './ui';
@@ -11,25 +11,29 @@
  * xapi.Command.UserInterface.Message.Alert.Display({ Text: 'Hello World!' });
  * ```
  *
- * Also, event handling is made easier with dedicated methods, in a jquery-like style:
+ * Also, event handling is made easier with dedicated methods, in a jquery-like fashion:
  *
  * ```
- * ui('my-widget').onWidgetChange(e => console.log('slider changed:', e.Value));
+ * ui('my-button').onButtonClicked(() => console.log('button clicked'));
  *
  * // instead of
- * xapi.Event.UserInterface.Extensions.Widget.Action.on(e => {
- *   if (e.WidgetId === 'my-widget' && e.Type === 'changed') {
- *     console.log('slider changed:', e.Value);
+ * xapi.Event.UserInterface.Extensions.Widget.Action.on((e) => {
+ *   if (e.WidgetId === 'my-button' && e.Type === 'clicked') {
+ *     console.log('button clicked');
  *   }
  * });
- *
- * An added benefit with the event handling is that behind the scenes, only *one* single
- * catch-all event listener is registered for the library. This means you don't need to worry
- * about getting close to the max number of listeners on the system.
  * ```
  *
- * @module
+ * An added benefit with the event handling is that behind the scenes, only *one* single catch-all event listener is registered for the library. This means you don't need to worry about getting close to the system's max number of listeners.
+ *
+ * ## Don't miss
+ *
+ * * [The available ui methods](./ui.ui-1.html)
+ * * [The available event listeners ](../interfaces/ui.uiElement.html)
+ *
+ * This library is inspired by jQuery and https://github.com/valgaze/sugar
  */
+
 
 /**
  * UI extension xml string. Can either be a string or an object with a toString() method
@@ -51,7 +55,7 @@
  *       ...
  * ```
  */
-declare type Xml = string | { toString: () => void };
+ declare type Xml = string | { toString: () => void };
 
 /**
  * Most api calls return a promise (except when you register for feedback)
@@ -59,197 +63,187 @@ declare type Xml = string | { toString: () => void };
 declare type XapiResult = Promise<{ result: string }>;
 
 /**
- * Removes all 'panels' on the device (that also includes web apps and action buttons)
+ * Element that provides event listeners.
+ * It's the user's responsibility to ensure that the id is correct and
+ * appropriate for the given event.
  */
-declare function panelRemoveAll() : XapiResult;
+export declare interface uiElement {
+  onPromptResponse: (callback: (choiceId: number) => void) => XapiResult;
+  onTextResponse: (callback: (text: string) => void) => XapiResult;
+  onPageOpened: (callback: Function) => XapiResult;
+  onPageClosed: (callback: Function) => XapiResult;
+  onPanelClicked: (callback: Function) => XapiResult;
+  onPanelOpened: (callback: Function) => XapiResult;
+  onPanelClosed: (callback: Function) => XapiResult;
+  onButtonClicked: (callback: Function) => XapiResult;
+  onButtonPressed: (callback: Function) => XapiResult;
+  onButtonReleased: (callback: Function) => XapiResult;
+  onGroupButtonPressed: (callback: (groupButtonId: string) => void) => XapiResult;
+  onGroupButtonReleased: (callback: (groupButtonId: string) => void) => XapiResult;
+  onToggleButtonChanged: (callback: (isOn: boolean) => void) => XapiResult;
+  onSpinnerClicked: (callback: (increment: boolean) => void) => XapiResult;
+  onSpinnerPressed: (callback: (increment: boolean) => void) => XapiResult;
+  onSpinnerReleased: (callback: (increment: boolean) => void) => XapiResult;
+  onDirectionalPadClicked: (callback: (buttonId: string) => void) => XapiResult;  onDirectionalPadPressed: (callback: (buttonId: string) => void) => XapiResult;  onDirectionalPadReleased: (callback: (buttonId: string) => void) => XapiResult;
+  /**
+   * Feedback when a slider changes value <0, 255>. If you specify min/max, the value will be automatically scaled to your chosen range (typically 0-100 or 0-1).
+   */
+  onSliderChanged: (callback: (value: number) => void, min: number, max: number) => XapiResult;
 
-/**
- * Save a panel to the device. The panel specified is used, any panel id inside the xml is ignored. Any existing panel with the same panel will be overriden, so this is also a method to edit panels dynamically.
- */
-declare function panelSave(panelId: string, config: Xml) : XapiResult;
-
-/**
- * Remove a panel (or web app or action button) with the given id from
- * the device
- * @param panelId
- */
-declare function panelRemove(panelId: string) : XapiResult;
-
-/**
- * Event listener for when a panel (or web app or action button) is clicked.
- * @param callback The callback will receive the click event
- * @param panelId
- */
-declare function onPanelClicked(callback: Function, panelId?: string): void;
-
-/**
- * Opens a ui extensions panel, and page if specified
- * @param PanelId Which panel to open
- * @param PageId If not specified, the first page is shown
- */
-declare function panelOpen(PanelId: string, PageId?: string): XapiResult;
-
-declare function panelClose(): XapiResult;
-
-declare interface WidgetEvent {
-  WidgetId: string;
-  Type: string;
-  Value: string;
+  setValue(widgetValue: string): XapiResult;
 }
 
-/**
- * Call this to stop subscribing to feedback
- */
-declare type Unsubscribe = () => void;
-
-/**
- * Event listener for when a widget action occurs. This is typically
- * when a user interacts with a widget, such as pressing a button,
- * moving a slider, toggling a switch.
- *
- * This method may either be used as a firehose:
- *
- * ```
- * gui.onWidgetAction(e => console.log('any event:', e));
- * ```
- *
- * Or for a specific action for a specific widget:
- * ```
- * gui.onWidgetAction(resetClicked, 'click', 'resetButton')
- * ```
- *
- * @param callback Your callback will receive the widget event
- * @param action Specifhy the vent you are interested in. If falsy, any action will apply
- * @param widgetId Specify the widget you are interested in. If falsy, any widget will apply
- * @return function that can be used to unsubscribe again
- */
-declare function onWidgetAction(callback: (event: WidgetEvent) => void, action?: string, widgetId?: string) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onPanelClicked(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onWidgetAction(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onButtonClicked(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onButtonPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onButtonReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onToggleButtonChanged(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onSliderChanged(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onSliderPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onSliderReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onGroupButtonPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onGroupButtonReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onSpinnerPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onSpinnerReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onSpinnerClicked(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onDirectionalPadPressed(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onDirectionalPadReleased(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Callback will receive a widget event when the action is triggered.
- */
-declare function onDirectionalPadClicked(widgetId: string, callback: (event: WidgetEvent) => void) : Unsubscribe;
-
-/**
- * Sets the value for a widget. This has different meanings for different widgets, eg for a slider it is the slider value, for a text widget its the text, and for a button it is ignored.
- */
-declare function widgetSetValue(widgetId: string, value: string|number|boolean) : void;
-
-/**
- * Same as subscribing to an API, but also calls get() on the api immediately, so sync happens on start.
- * This is a recommended best practise when syncing any value with a config or status in the xAPI.
- * Its basically similar to doing the following, but in one call instead of two:
- * ```
- * xapi.Status.Audio.Volume.on(volumeChanged);
- * xapi.Status.Audio.Volume.get().then(volumeChanged);
- * // =>
- * ui.subscribe(xapi.Status.Audio.Volume, volumeChanged);
- * ```
- *
- * @param api The xapi you want to sync with, eg xapi.Status.Audio.Volume
- * @param onChanged The callback when the value changes (also called initially)
- * @return Function to unsubscribe again
- */
-declare function subscribe(api: object, onChanged: Function): Unsubscribe;
-
-
-/**
- * Min-max range for eg sliders
- */
-interface Range {
+/** Slider type scale */
+export declare interface Range {
   min: number;
   max: number;
 }
 
 /**
- * Transforms (linearly) a value btw two range systems.
+ * Instantiates an element that can provide event listener, eg:
+ * ```
+ * const ui = require('./ui');
+ * ui('my-toggle').onButtonClicked(() => console.log('clicked my button));
+ * ```
  *
- * Typically useful for sliders, eg you are converting values from a ui slider (0,255) to a
- * volume setting (0-100)
- * scale({ min: 0, max: 255 }, { min: 0, max: 100 }, 128) => 50
- *
- * @param from The range you are converting from
- * @param to  The range you are converting to
- * @param value The value you are converting
+ * @param id Id (widget id, panel id, page id, etc) whichever id is relevant for
+ * the event you want to listen for.
  */
-declare function scale(from: Range, to: Range, value: number): number;
+export declare function ui(id: string): uiElement;
+
+/**
+ * Static convenience ui functions
+ *
+ * ```
+ * const { alert } = require('./ui');
+ * ui.alert('Hello world');
+ * ```
+ */
+export declare namespace ui {
+  /**
+   * Enable/disable debugging. This will print out any ui events in console.log
+   * @param on
+   */
+  function debug(on?: boolean): void;
+
+  /**
+   * Shows a text messsage on screen. See https://roomos.cisco.com/xapi/Command.UserInterface.Message.Alert.Display for details.
+   * @param optionsOrText If text is specifed, duration is set to 10 s.
+   */
+  function alert(optionsOrText: Object | string) : XapiResult;
+
+  /** Hide the text message */
+  function alertHide() : XapiResult;
+
+  /**
+   * Open a web view on main screen. See https://roomos.cisco.com/xapi/Command.UserInterface.WebView.Display for details.
+   * @param url The URL you want to open
+   * @param name Shown while page is loading
+   */
+  function webViewOpen(url: string, name?: string) : XapiResult;
+
+  /**
+   * Close any currently open web view.
+   */
+  function webViewClose() : XapiResult;
+
+  /**
+   * Shows an input dialog that prompts users for text. An event is genereated when user submits the dialog. See https://roomos.cisco.com/xapi/Command.UserInterface.Message.TextInput.Display for details
+   * @param props
+   * @param callback Optional callback when user submits text
+   */
+  function textInput(props: Object, callback: (text: string) => void) : XapiResult;
+
+  function textInputHide() : XapiResult;
+
+  /**
+   * Promps users with a multiple choice dialog. When user selects an option, an event is generated.
+   *
+   * Note: You can use the `options` parameter to enter options more conveniently.
+   *
+   * Also, you can add an optional callback for when the user chooses an option. This is similar to using ui(...).onPromptResponse(...)
+   *
+   * Example:
+   * ```
+   * const options = ['Under 18', 'Over 18', 'Dinosaur'];
+   * ui.prompt({
+   *  Title: 'Age Check',
+   *  Text: 'How old are you?',
+   *  FeedbackId: 'age-check',
+   * }, options, idx => console.log('You chose:' + options[idx]));
+   * ```
+   *
+   * See https://roomos.cisco.com/xapi/Command.UserInterface.Message.Prompt.Display for details.
+   *
+   * @param props
+   * @param options
+   */
+  function prompt(props: Object, options: Array<string>) : XapiResult;
+
+  function promptHide() : XapiResult;
+
+  /**
+   * Shows a single-line text dialog at a chosen location on screen.
+   * See https://roomos.cisco.com/xapi/Command.UserInterface.Message.TextLine.Display
+   * @param props
+   */
+  function textLine(props: Object) : XapiResult;
+
+  /**
+   * Hides any text line currently showing.
+   * See https://roomos.cisco.com/xapi/Command.UserInterface.Message.TextLine.Clear/
+   */
+  function textLineHide() : XapiResult;
+
+  /**
+   * Saves a panel (can be a ui panel, ann action button or a web app)
+   * Any existing element with the same id will be replaced
+   * See https://roomos.cisco.com/xapi/Command.UserInterface.Extensions.Panel.Save
+   * @param PanelId
+   * @param config
+   */
+  function panelSave(PanelId: string, config: Xml) : XapiResult;
+
+  /**
+   * Removes the given panel (panel can be a panel, an action button or a web app). See https://roomos.cisco.com/xapi/Command.UserInterface.Extensions.Panel.Remove
+   * @param PanelId
+   */
+  function panelRemove(PanelId: string) : XapiResult;
+
+  /**
+   * Opens a panel. See https://roomos.cisco.com/xapi/Command.UserInterface.Extensions.Panel.Open.
+   * @param PanelId
+   * @param PageId - If not specified, then first page is opened
+   */
+  function panelOpen(PanelId: string, PageId?: string) : XapiResult;
+
+  /**
+   * Closes the currently open panel. See https://roomos.cisco.com/xapi/Command.UserInterface.Extensions.Panel.Close
+   */
+  function panelClose() : XapiResult;
+
+  /**
+   * Transforms (linearly) a value btw two range systems.
+   *
+   * Typically useful for sliders, eg you are converting values from a ui slider (0,255) to a volume setting (0-100)
+   *
+   * ```
+   * const v = scale(
+   *   { min: 0, max: 255 },
+   *   { min: 0, max: 100 },
+   *   128
+   * ); // => 50
+   * ```
+   *
+   * @param from - The range you are converting from
+   * @param to -  The range you are converting to
+   * @param value - The value you are converting
+   */
+
+  function scale(from: Range, to: Range, value: number): number;
+
+  function onUsbKeyPressed(callback: (key: string, code: number) => void): XapiResult;
+  function onUsbKeyReleased(callback: (key: string, code: number) => void): XapiResult;
+
+}
+

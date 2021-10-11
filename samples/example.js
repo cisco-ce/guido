@@ -22,8 +22,8 @@ const panel = Config({}, [
   Panel({ name: 'Lights', icon: 'Lightbulb', color: 'orange' }, [
     Page({ name: 'Lights' }, [
       Row({ text: 'Main lights' }, [
-        Slider({ widgetId: 'lights-toggle' }),
-        ToggleButton({ widgetId: 'lights-slider' }),
+        Slider({ widgetId: 'lights-slider' }),
+        ToggleButton({ widgetId: 'lights-toggle' }),
       ]),
       Row({ text: 'Color' }, [
         GroupButton({
@@ -36,6 +36,7 @@ const panel = Config({}, [
 ]);
 
 ui.panelSave('lights', panel);
+ui('lights-toggle').onWidgetChanged(console.log);
 
 // Create a web app link to YouTube
 const webApp = Config({}, WebApp({ name: 'YouTube', url: 'https://youtube.com' }));

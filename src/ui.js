@@ -3,19 +3,15 @@
  */
 const xapi = require('xapi');
 
-let isListening = false;
 let debug = false;
 
 /** List of all listeners, indexed by event path and relevant id */
 let feedbackListeners = [];
 
-function _addListener(path, conditions, listener) {
-  if (!isListening) {
-    // Sets up a catch-all event listener for all UI events (across all consumers)
-    xapi.Event.UserInterface.on(onUiEvent);
-    isListening = true;
-  }
+/** Catch all ui event listener */
+xapi.Event.UserInterface.on(onUiEvent);
 
+function _addListener(path, conditions, listener) {
   if (typeof listener !== 'function') {
     throw new Error('Listener must be a callback function');
   }
@@ -74,17 +70,11 @@ function onUiEvent(event) {
 
 function ui(id) {
   return {
-    onUsbKeyPressed: func => {
-      return _addListener('InputDevice Key Action', { Type: 'pressed' }, func);
-    },
-    onUsbKeyReleased: func => {
-      return _addListener('InputDevice Key Action', { Type: 'released' }, func);
-    },
     onPromptResponse: func => {
-      return _addListener('Message Prompt Response', { FeedbackId: id }, func);
+      return _addListener('Message Prompt Response', { FeedbackId: id }, e => func(parseInt(e.OptionId) - 1));
     },
     onTextResponse: func => {
-      return _addListener('Message Text Response', { FeedbackId: id }, func);
+      return _addListener('Message TextInput Response', { FeedbackId: id }, e => func(e.Text));
     },
     onPageOpened: func => {
       return _addListener('Extensions Page Action', { PageId: id, Type: 'Opened' }, func);
@@ -101,18 +91,67 @@ function ui(id) {
     onPanelClosed: func => {
       return _addListener('Extensions Panel Close', { PanelId: id }, func);
     },
-    onWidgetClicked: func => {
-      return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'clicked' }, func);
+
+
+    // onWidgetClicked: func => {
+    //   return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'clicked' }, func);
+    // },
+    // onWidgetPressed: func => {
+    //  return  _addListener('Extensions Widget Action', { WidgetId: id, Type: 'pressed' }, func);
+    // },
+    // onWidgetReleased: func => {
+    //   return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' }, func);
+    // },
+    // onWidgetChanged: func => {
+    //  return  _addListener('Extensions Widget Action', { WidgetId: id, Type: 'changed' }, func);
+    // },
+
+    onButtonClicked: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'clicked' }, callback);
     },
-    onWidgetPressed: func => {
-     return  _addListener('Extensions Widget Action', { WidgetId: id, Type: 'pressed' }, func);
+    onButtonPressed: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'pressed' }, callback);
     },
-    onWidgetReleased: func => {
-      return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' }, func);
+    onButtonReleased: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' }, callback);
     },
-    onWidgetChanged: func => {
-     return  _addListener('Extensions Widget Action', { WidgetId: id, Type: 'changed' }, func);
+    onGroupButtonPressed: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'pressed' },
+        e => callback(e.Value));
     },
+    onGroupButtonReleased: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' },
+        e => callback(e.Value));
+    },
+    onToggleButtonChanged: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'changed' },
+        e => callback(e.Value === 'on'));
+    },
+    onSpinnerClicked: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'clicked' },
+        e => callback(e.Value === 'increment'));
+    },
+    onSpinnerPressed: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'pressed' },
+        e => callback(e.Value === 'increment'));
+    },
+    onSpinnerReleased: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' },
+        e => callback(e.Value === 'increment'));
+    },
+    onDirectionalPadClicked: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'clicked' },
+        e => callback(e.Value));
+    },
+    onDirectionalPadPressed: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'pressed' },
+        e => callback(e.Value));
+    },
+    onDirectionalPadReleased: callback => {
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' },
+        e => callback(e.Value));
+    },
+
     onSliderChanged: (func, min = 0, max = 255) => {
       return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'changed' }, e => {
 
@@ -121,7 +160,7 @@ function ui(id) {
       });
     },
 
-    widgetSetValue(Value) {
+    setValue(Value) {
       return xapi.Command.UserInterface.Extensions.Widget.SetValue({ Value, WidgetId: id });
     },
   };
@@ -131,16 +170,16 @@ ui.debug = (on = true) => {
   debug = on;
 };
 
-ui.webAppOpen = (url, name = '') => {
+ui.webViewOpen = (url, name = '') => {
   return xapi.Command.UserInterface.WebView.Display({ Url: url, Title: name });
 };
 
-ui.webAppClose = ()  => {
+ui.webViewClose = ()  => {
   return xapi.Command.UserInterface.WebView.Clear();
 };
 
 ui.alert = (optionsOrText) => {
-  const opts = typeof options === 'string'
+  const opts = typeof optionsOrText === 'string'
     ? { Text: optionsOrText, Duration: 10 }
     : optionsOrText;
   return xapi.Command.UserInterface.Message.Alert.Display(opts);
@@ -150,7 +189,13 @@ ui.alertHide = () => {
   return xapi.Command.UserInterface.Message.Alert.Clear();
 };
 
-ui.textInputShow = (props) => {
+ui.textInput = (props, callback = null) => {
+  if (callback) {
+    if (props.FeedbackId)
+      ui(props.FeedbackId).onTextResponse(callback);
+    else
+      throw new Error('You need to provide FeedbackId');
+  }
   return xapi.Command.UserInterface.Message.TextInput.Display(props);
 };
 
@@ -158,7 +203,7 @@ ui.textInputHide = () => {
   return xapi.Command.UseriInterface.Message.TextInput.Clear();
 };
 
-ui.promptShow = (props, options) => {
+ui.prompt = (props, options, callback = null) => {
   const max = 5;
   if (options.length > max) {
     throw new Error(`Prompt can have max ${max} options`);
@@ -168,6 +213,13 @@ ui.promptShow = (props, options) => {
     props[`Option.${i + 1}`] = text;
   });
 
+  if (callback) {
+    if (props.FeedbackId)
+      ui(props.FeedbackId).onPromptResponse(callback);
+    else
+      throw new Error('You need to provide FeedbackId for the prompt');
+  }
+
   return xapi.Command.UserInterface.Message.Prompt.Display(props);
 };
 
@@ -175,8 +227,8 @@ ui.promptHide = () => {
   return xapi.Command.UserInterface.Message.Prompt.Clear();
 };
 
-ui.textLineShow = (props) => {
-  return xapi.Event.UserInterface.Message.TextLine.Display(props);
+ui.textLine = (props) => {
+  return xapi.Command.UserInterface.Message.TextLine.Display(props);
 };
 
 ui.textLineHide = () => {
@@ -208,14 +260,13 @@ ui.webAppClose = () => {
   return xapi.Command.UserInterface.WebView.Clear();
 };
 
-ui.wallpaperSet = (url, halfwakeOnly = true) => {
-  const type = halfwakeOnly ? 'HalfwakeBackground' : 'Background';
-  return xapi.Command.UserInterface.Branding.Fetch({ Type: type, URL: url});
-};
+ui.onUsbKeyPressed = (func) => {
+  return _addListener('InputDevice Key Action', { Type: 'Pressed' }, e => func(e.Key, e.Code));
+},
 
-ui.wallpaperRemove = () => {
-  return xapi.Command.UserInterface.Branding.Clear();
-}
+ui.onUsbKeyReleased = (func) => {
+  return _addListener('InputDevice Key Action', { Type: 'Released' }, e => func(e.Key, e.Code));
+},
 
 ui.scale = (from, to, value) => {
   value = Number(value);
