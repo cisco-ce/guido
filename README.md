@@ -16,6 +16,17 @@ The two libraries can be used completely independently or together. You can inst
 * Import these into the macro editor on your Webex Device. They will now be available as macro modules for you own macros.
 * Follow the documentation and examples on https://cisco-ce.github.io/guido/
 
+## Example
+
+A widget gallery example is provided. This shows a panel where user can browse through all the widgets of the UI Extensions, and interact with the widgets and see the events.
+
+This example shows how to build and edit UI extensions panels dynamically with *ui-builder* library, as well as listen to ui events with the *ui* library.
+
+## Running in node.js
+
+The included example macro can also run from node.js instead of the Webex device, without any change to the macro code.
+To see how this is done, see *run-macro* and *universal-adapter.js* in the *samples/* folder
+
 ## Main documentation
 
 * See Guido API reference at [Github Pages](https://cisco-ce.github.io/guido/)

@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+
+/**
+ * Let's you run macros easily from node (your laptop) instead of macro editor (device)
+ * without changing any code in the macro.
+ */
 const adapter = require('./universal-adapter');
 
 async function go(host, username, password, macro) {
@@ -11,6 +16,7 @@ if (process.argv.length < 6) {
   console.log('Run a Webex Device macro remotely from a node.js environment');
   console.log('Usage: ./run-macro <host> <username> <password> <macrofile>');
   console.log('\neg: ./run 10.47.31.28 admin mypwd ./mymacro.js')
+  console.log('NOTE: macro file path is relative to the run-macro scripts folder');
   process.exit(1);
 }
 
