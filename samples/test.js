@@ -1,5 +1,10 @@
 const ui = require('./ui');
 
-// ui.debug(true);
-ui.onUsbKeyPressed(key => console.log('pressed', key));
-ui.onUsbKeyReleased(key => console.log('released', key));
+ui.textInput({
+  Title: 'Ca va', Text: 'How you feel?', FeedbackId: 'feel',
+  Placeholder: 'Gooood', SubmitText: 'Tell us'
+});
+
+ui.debug();
+ui('feel').onTextResponse(e => console.log(e));
+

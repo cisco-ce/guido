@@ -1,5 +1,5 @@
-const { Config, Panel, Page, Row, ToggleButton, GroupButton } = require('../src/ui-builder');
-const ui = require('../src/ui');
+const { Config, Panel, Page, Row, ToggleButton, GroupButton } = require('ui-builder');
+const ui = require('ui');
 
 const PanelId = 'panel-lights';
 

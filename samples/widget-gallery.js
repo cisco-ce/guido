@@ -1,12 +1,10 @@
 const ui = require('./ui');
 const builder = require('./ui-builder');
-const xapi = require('xapi');
 
 const IdChangeWidget = 'choose-widget';
 const IdPanel = 'widget-gallery';
 const IdWidgetType = 'widget-type';
 const IdTextEvent = 'widget-event-text';
-const IdMainWidget = 'main-widget';
 
 let currentWidgetIndex = 0;
 let lastEventTime = 0;
@@ -25,7 +23,7 @@ const widgets = [
   },
   {
     type: 'GroupButton',
-    options: { buttons: { 1: 'Alt 1', 2: 'Alt 2', 3: 'Alt 3' }},
+    options: { buttons: { first: 'Alt 1', second: 'Alt 2', third: 'Alt 3' }},
     info: 'To select btw presets',
   },
   {
@@ -75,7 +73,7 @@ function createDemoPanel(mainWidget) {
 }
 
 function createWidget(type, props) {
-  const attrs = Object.assign({ widgetId: IdMainWidget }, props);
+  const attrs = Object.assign({ widgetId: type }, props);
   return builder[type](attrs);
 }
 
@@ -105,21 +103,44 @@ function onChangeWidget(next) {
   setWidget(currentWidgetIndex);
 }
 
-function onWidgetAction(e) {
-  if (e.WidgetId !== IdMainWidget) return;
+function setEventText(type, value) {
 
   const now = new Date().getTime();
   const timeSinceLast = now - lastEventTime;
   const delay = timeSinceLast < 250 ? 250 : 0;
   lastEventTime = now;
 
-  let msg = '';
-  if (e.Type) msg += ` Type=${e.Type}`;
-  if (e.Value) msg += ` Value=${e.Value}`;
+  const msg = [type, value].filter(i => i).join(', ');
   setTimeout(() => ui(IdTextEvent).setValue(msg), delay);
 }
 
-setWidget(0);
-ui(IdChangeWidget).onSpinnerClicked(onChangeWidget);
-xapi.Event.UserInterface.Extensions.Widget.Action.on(onWidgetAction);
-// ui.debug();
+function init() {
+  setWidget(0);
+  ui(IdChangeWidget).onSpinnerClicked(onChangeWidget);
+
+  // create event listener for each widget type
+  ui('Button').onButtonPressed(() => setEventText('Button pressed'));
+  ui('Button').onButtonReleased(() => setEventText('Button released'));
+  ui('Button').onButtonClicked(() => setEventText('Button clicked'));
+
+  ui('Spinner').onSpinnerClicked((up) => setEventText('Spinner clicked', up ? 'Up' : 'Down'));
+  ui('Spinner').onSpinnerPressed((up) => setEventText('Spinner pressed', up ? 'Up' : 'Down'));
+  ui('Spinner').onSpinnerReleased((up) => setEventText('Spinner released', up ? 'Up' : 'Down'));
+
+  ui('GroupButton').onGroupButtonPressed((button) => setEventText('Group button pressed', 'Button: ' + button));
+  ui('GroupButton').onGroupButtonReleased((button) => setEventText('Group button released', 'Button: ' + button));
+
+  ui('ToggleButton').onToggleButtonChanged((active) => setEventText('Toggle changed', active ? 'Active' : 'Inactive'));
+
+  ui('Slider').onSliderChanged((val) => setEventText('Slider changed', val.toFixed(1) + '%'), 0, 100);
+
+  ui('DirectionalPad').onDirectionalPadClicked(btn => setEventText('Directional pad clicked', 'Button: ' + btn));
+  ui('DirectionalPad').onDirectionalPadPressed(btn => setEventText('Directional pad pressed', 'Button: ' + btn));
+  ui('DirectionalPad').onDirectionalPadReleased(btn => setEventText('Directional pad released', 'Button: ' + btn));
+
+  ui('IconButton').onButtonPressed(() => setEventText('Icon button pressed'));
+  ui('IconButton').onButtonReleased(() => setEventText('Icon button released'));
+  ui('IconButton').onButtonClicked(() => setEventText('Icon button clicked'));
+}
+
+init();
