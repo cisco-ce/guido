@@ -69,11 +69,14 @@ function createDemoPanel(mainWidget) {
   );
 
   ui.panelSave(IdPanel, config);
-  ui(IdTextEvent).setValue('Interact with widget to see events');
+  const msg = mainWidget.attributes.Type === 'Text'
+    ? '(No event for text widgets)'
+    : '(Interact with widget to see events)';
+  ui(IdTextEvent).setValue(msg);
 }
 
 function createWidget(type, props) {
-  const attrs = Object.assign({ widgetId: type }, props);
+  const attrs = Object.assign({ widgetId: 'Example' + type }, props);
   return builder[type](attrs);
 }
 
@@ -117,30 +120,31 @@ function setEventText(type, value) {
 function init() {
   setWidget(0);
   ui(IdChangeWidget).onSpinnerClicked(onChangeWidget);
+  ui.panelOpen(IdPanel);
 
   // create event listener for each widget type
-  ui('Button').onButtonPressed(() => setEventText('Button pressed'));
-  ui('Button').onButtonReleased(() => setEventText('Button released'));
-  ui('Button').onButtonClicked(() => setEventText('Button clicked'));
+  ui('ExampleButton').onButtonPressed(() => setEventText('Button pressed'));
+  ui('ExampleButton').onButtonReleased(() => setEventText('Button released'));
+  ui('ExampleButton').onButtonClicked(() => setEventText('Button clicked'));
 
-  ui('Spinner').onSpinnerClicked((up) => setEventText('Spinner clicked', up ? 'Up' : 'Down'));
-  ui('Spinner').onSpinnerPressed((up) => setEventText('Spinner pressed', up ? 'Up' : 'Down'));
-  ui('Spinner').onSpinnerReleased((up) => setEventText('Spinner released', up ? 'Up' : 'Down'));
+  ui('ExampleSpinner').onSpinnerClicked((up) => setEventText('Spinner clicked', up ? 'Up' : 'Down'));
+  ui('ExampleSpinner').onSpinnerPressed((up) => setEventText('Spinner pressed', up ? 'Up' : 'Down'));
+  ui('ExampleSpinner').onSpinnerReleased((up) => setEventText('Spinner released', up ? 'Up' : 'Down'));
 
-  ui('GroupButton').onGroupButtonPressed((button) => setEventText('Group button pressed', 'Button: ' + button));
-  ui('GroupButton').onGroupButtonReleased((button) => setEventText('Group button released', 'Button: ' + button));
+  ui('ExampleGroupButton').onGroupButtonPressed((button) => setEventText('Group button pressed', 'Button: ' + button));
+  ui('ExampleGroupButton').onGroupButtonReleased((button) => setEventText('Group button released', 'Button: ' + button));
 
-  ui('ToggleButton').onToggleButtonChanged((active) => setEventText('Toggle changed', active ? 'Active' : 'Inactive'));
+  ui('ExampleToggleButton').onToggleButtonChanged((active) => setEventText('Toggle changed', active ? 'Active' : 'Inactive'));
 
-  ui('Slider').onSliderChanged((val) => setEventText('Slider changed', val.toFixed(1) + '%'), 0, 100);
+  ui('ExampleSlider').onSliderChanged((val) => setEventText('Slider changed', val.toFixed(1) + '%'), 0, 100);
 
-  ui('DirectionalPad').onDirectionalPadClicked(btn => setEventText('Directional pad clicked', 'Button: ' + btn));
-  ui('DirectionalPad').onDirectionalPadPressed(btn => setEventText('Directional pad pressed', 'Button: ' + btn));
-  ui('DirectionalPad').onDirectionalPadReleased(btn => setEventText('Directional pad released', 'Button: ' + btn));
+  ui('ExampleDirectionalPad').onDirectionalPadClicked(btn => setEventText('Directional pad clicked', 'Button: ' + btn));
+  ui('ExampleDirectionalPad').onDirectionalPadPressed(btn => setEventText('Directional pad pressed', 'Button: ' + btn));
+  ui('ExampleDirectionalPad').onDirectionalPadReleased(btn => setEventText('Directional pad released', 'Button: ' + btn));
 
-  ui('IconButton').onButtonPressed(() => setEventText('Icon button pressed'));
-  ui('IconButton').onButtonReleased(() => setEventText('Icon button released'));
-  ui('IconButton').onButtonClicked(() => setEventText('Icon button clicked'));
+  ui('ExampleIconButton').onButtonPressed(() => setEventText('Icon button pressed'));
+  ui('ExampleIconButton').onButtonReleased(() => setEventText('Icon button released'));
+  ui('ExampleIconButton').onButtonClicked(() => setEventText('Icon button clicked'));
 }
 
 init();
