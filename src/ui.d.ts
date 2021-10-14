@@ -28,8 +28,8 @@
  *
  * ## Main parts:
  *
- * * [The available ui methods](./ui.ui-1.html)
- * * [The available event listeners ](../interfaces/ui.uiElement.html)
+ * * [The static ui methods](./ui.ui-1.html)
+ * * [The event listeners ](../interfaces/ui.uiElement.html)
  *
  * This library is inspired by jQuery and https://github.com/valgaze/sugar
  */
