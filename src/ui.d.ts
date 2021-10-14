@@ -26,7 +26,7 @@
  *
  * An added benefit with the event handling is that behind the scenes, only *one* single catch-all event listener is registered for the library. This means you don't need to worry about getting close to the system's max number of listeners.
  *
- * ## Don't miss
+ * ## Main parts:
  *
  * * [The available ui methods](./ui.ui-1.html)
  * * [The available event listeners ](../interfaces/ui.uiElement.html)
@@ -63,9 +63,21 @@
 declare type XapiResult = Promise<{ result: string }>;
 
 /**
- * Element that provides event listeners.
- * It's the user's responsibility to ensure that the id is correct and
- * appropriate for the given event.
+ * jQuery like way to instantiate ui elements.
+ *
+ * You can instantiate ui elements with the appropriate id (panel id, widget id etc),
+ * then set event listeners on that element.
+ *
+ * Example:
+ *
+ * ```
+ * const ui = require('./ui');
+ * ui('fireMissileButton').onButtonClicked(() => fireRocket());
+ * ui('aimDirectionPad').onDirectionPadClicked(button => moveRocket(button));
+ * ui('speedSlider', 0, 100).onSliderChanaged(percent => setRocketSpeed(percent));
+ * ```
+ *
+ * **Note:** The library does not check that the id you provide exists, is valid or of the correct type, this is the reponsibility of the user. That also means that you can create your listeners before the element actually exists.
  */
 export declare interface uiElement {
   onPromptResponse: (callback: (choiceId: number) => void) => XapiResult;

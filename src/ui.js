@@ -237,6 +237,7 @@ ui.textLineHide = () => {
 
 ui.panelSave = (PanelId, config) => {
   const xml = config.toString(); // can send string or object with toString repr
+  console.log('save', xml);
   return xapi.Command.UserInterface.Extensions.Panel.Save({ PanelId }, xml);
 };
 

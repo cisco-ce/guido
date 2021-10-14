@@ -71,10 +71,17 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Element that provides event listeners.
-							It&#39;s the user&#39;s responsibility to ensure that the id is correct and
-						appropriate for the given event.</p>
+						<p>jQuery like way to instantiate ui elements.</p>
 					</div>
+					<p>You can instantiate ui elements with the appropriate id (panel id, widget id etc),
+					then set event listeners on that element.</p>
+					<p>Example:</p>
+					<pre><code><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">ui</span><span style="color: #000000"> = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;./ui&#039;</span><span style="color: #000000">);</span>
+<span style="color: #795E26">ui</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;fireMissileButton&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">onButtonClicked</span><span style="color: #000000">(() </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">fireRocket</span><span style="color: #000000">());</span>
+<span style="color: #795E26">ui</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;aimDirectionPad&#039;</span><span style="color: #000000">).</span><span style="color: #795E26">onDirectionPadClicked</span><span style="color: #000000">(</span><span style="color: #001080">button</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">moveRocket</span><span style="color: #000000">(</span><span style="color: #001080">button</span><span style="color: #000000">));</span>
+<span style="color: #795E26">ui</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;speedSlider&#039;</span><span style="color: #000000">, </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">100</span><span style="color: #000000">).</span><span style="color: #795E26">onSliderChanaged</span><span style="color: #000000">(</span><span style="color: #001080">percent</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">setRocketSpeed</span><span style="color: #000000">(</span><span style="color: #001080">percent</span><span style="color: #000000">));</span>
+</code></pre>
+					<p><strong>Note:</strong> The library does not check that the id you provide exists, is valid or of the correct type, this is the reponsibility of the user. That also means that you can create your listeners before the element actually exists.</p>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -130,7 +137,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L78">ui.d.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L90">ui.d.ts:90</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -153,7 +160,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L79">ui.d.ts:79</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L91">ui.d.ts:91</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -176,7 +183,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L80">ui.d.ts:80</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L92">ui.d.ts:92</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -199,7 +206,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L87">ui.d.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L99">ui.d.ts:99</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -240,7 +247,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L87">ui.d.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L99">ui.d.ts:99</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -281,7 +288,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L87">ui.d.ts:87</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L99">ui.d.ts:99</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -322,7 +329,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L81">ui.d.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L93">ui.d.ts:93</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -363,7 +370,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L82">ui.d.ts:82</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L94">ui.d.ts:94</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -404,7 +411,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L74">ui.d.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L86">ui.d.ts:86</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -427,7 +434,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L73">ui.d.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L85">ui.d.ts:85</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -450,7 +457,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L75">ui.d.ts:75</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L87">ui.d.ts:87</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -473,7 +480,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L77">ui.d.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L89">ui.d.ts:89</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -496,7 +503,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L76">ui.d.ts:76</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L88">ui.d.ts:88</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -519,7 +526,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L71">ui.d.ts:71</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L83">ui.d.ts:83</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -560,7 +567,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L91">ui.d.ts:91</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L103">ui.d.ts:103</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -612,7 +619,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L84">ui.d.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L96">ui.d.ts:96</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -653,7 +660,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L85">ui.d.ts:85</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L97">ui.d.ts:97</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -694,7 +701,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L86">ui.d.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L98">ui.d.ts:98</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -735,7 +742,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L72">ui.d.ts:72</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L84">ui.d.ts:84</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -776,7 +783,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L83">ui.d.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L95">ui.d.ts:95</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -817,7 +824,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/7ef8494/src/ui.d.ts#L93">ui.d.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/cisco-ce/guido/blob/41d0e4b/src/ui.d.ts#L105">ui.d.ts:105</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
