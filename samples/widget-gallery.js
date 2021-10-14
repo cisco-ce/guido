@@ -56,7 +56,7 @@ const widgets = [
 function createDemoPanel(mainWidget) {
   const { Config, Panel, Page, Row, Spinner, Text } = builder;
   const config = Config({ version: '1.7' },
-    Panel({ panelId: IdPanel, color: '#D541D8', name: 'Widget Gallery', icon: 'Blinds' }, [
+    Panel({ panelId: IdPanel, color: '#D541D8', name: 'Widget Gallery', icon: 'Blinds', order: -1 }, [
       Page({ pageId: 'widget-gallery', name: 'Widget gallery' }, [
         Row({ text: 'Choose widget'}, [
           Text({ widgetId: IdWidgetType, size: 2 }),
