@@ -16,11 +16,13 @@ The two libraries can be used completely independently or together. You can inst
 * Import these into the macro editor on your Webex Device. They will now be available as macro modules for you own macros.
 * Follow the documentation and examples on https://cisco-ce.github.io/guido/
 
-## Example
+## Examples
 
-A widget gallery example is provided. This shows a panel where user can browse through all the widgets of the UI Extensions, and interact with the widgets and see the events.
+You can find a couple of examples in the `samples/` folder. Just install and enable the macros in your macro editor. The macros will create the UI extension panels automatically.
 
-This example shows how to build and edit UI extensions panels dynamically with *ui-builder* library, as well as listen to ui events with the *ui* library.
+**Proximity toggle**: Puts a button on the home screen button to toggle on/off proximity pairing. Changes the name of the button to tell whether mode is currently on or off.
+
+**Widget gallery*: Shows a panel where you can browse through all the widgets of the UI Extensions, and interact with the widgets and see the events. This example shows how to build and edit UI extensions panels dynamically with *ui-builder* library, as well as listen to ui events with the *ui* library.
 
 ## Running in node.js
 

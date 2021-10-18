@@ -9,7 +9,7 @@
  *
  * Usage:
  *  const adapter = require('./universal-adapter');
- *  const videoDevice = { host: '10.0.0.99', username: 'admin', password: 'password };
+ *  const videoDevice = { host: '10.0.0.99', username: 'admin', password: 'password' };
  *  await adapter(videoDevice)
  *  require('./mymacro'); // macro starts with xapi available
  *
