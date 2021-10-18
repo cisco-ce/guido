@@ -24,14 +24,9 @@ You can find a couple of examples in the `samples/` folder. Just install and ena
 
 **Widget gallery*: Shows a panel where you can browse through all the widgets of the UI Extensions, and interact with the widgets and see the events. This example shows how to build and edit UI extensions panels dynamically with *ui-builder* library, as well as listen to ui events with the *ui* library.
 
-## Running in node.js
+## Reference documentation
 
-The included example macro can also run from node.js instead of the Webex device, without any change to the macro code.
-To see how this is done, see *run-macro* and *universal-adapter.js* in the *samples/* folder
-
-## Main documentation
-
-* See Guido API reference at [Github Pages](https://cisco-ce.github.io/guido/)
+* See Guido API reference docs at [Github Pages](https://cisco-ce.github.io/guido/)
 
 ## See also
 

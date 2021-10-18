@@ -2,14 +2,13 @@
   "name": "guido",
   "version": "1.0.0",
   "author": "Tore Bjolseth <tbjolset@cisco.com>",
-  "description": "",
+  "description": "UI helper library for Cisco Webex devices",
   "main": "gui-create.lib.js",
   "scripts": {
     "test": "mocha 'test/**/*.js'",
-    "doc": "typedoc --out docs src/*.d.ts --media images"
+    "doc": "typedoc --out docs src/*.d.ts --media images --readme DOC.md"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/mocha": "^8.2.2",
