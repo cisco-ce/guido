@@ -15,6 +15,7 @@ function _addListener(path, conditions, listener) {
   if (typeof listener !== 'function') {
     throw new Error('Listener must be a callback function');
   }
+  _removeListener(path, conditions); // remove any existing
   feedbackListeners.push({ path, conditions, func: listener });
 
   return () => _removeListener(path, conditions);
