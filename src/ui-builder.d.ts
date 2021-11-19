@@ -314,7 +314,7 @@ export declare function Text(attributes: {
   text?: string;
   size?: WidgetSize;
   fontSize?: 'small' | 'normal';
-  align?: '' | '' | '';
+  align?: 'left' | 'right' | 'center';
 }): Widget;
 
 /**
