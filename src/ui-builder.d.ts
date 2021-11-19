@@ -113,6 +113,9 @@
  * Should be considered abstract, use the helper funtions (Panel(), Page(), ...) to create actual
  * nodes. Upon creation, the node verifies that it only contains valid attributes and children
  * for its given type.
+ *
+ * Special attribute: *hidden* set to true means that the node will be ignored when
+ * generating the xml
  */
 export declare interface Node {
   /** Panel, Page, ... */
