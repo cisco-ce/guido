@@ -155,7 +155,6 @@ function ui(id) {
 
     onSliderChanged: (func, min = 0, max = 255) => {
       return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'changed' }, e => {
-
         const scaledValue = ui.scale({ min: 0, max: 255 }, { min, max }, e.Value);
         func(scaledValue);
       });
@@ -163,6 +162,26 @@ function ui(id) {
 
     setValue(Value) {
       return xapi.Command.UserInterface.Extensions.Widget.SetValue({ Value, WidgetId: id });
+    },
+
+    spin(props, func) {
+      let { value = 0, increment = 1, min, max, digits, options } = props;
+      let box = { value };
+      ui(id).setValue(options ? options[box.value] : box.value);
+      if (options) {
+        min = 0;
+        max = options.length - 1;
+      }
+
+      _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' }, e => {
+        const change = e.Value === 'increment' ? increment : -increment;
+        box.value = Math.max(min, Math.min(box.value + change, max));
+        let text;
+        if (options) text = options[box.value];
+        else text = digits ? box.value.toFixed(digits) : box.value;
+        ui(id).setValue(text);
+        func(box.value);
+      });
     },
   };
 }

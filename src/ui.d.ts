@@ -102,6 +102,26 @@ export declare interface uiElement {
    */
   onSliderChanged: (callback: (value: number) => void, min: number, max: number) => XapiResult;
 
+  /**
+   * Control the values of a spinner for you.
+   *
+   * It will automatically update the value for youl, limit range (if specified), and callback
+   * the currrent value.
+   *
+   * You can either provide min/max values, or a list of options.
+   * Using spin() will take ownership of the spinner's *release* event.
+   *
+   * Usage:
+   * ui('temperature').spin(
+   *   { value: 5, min: 0, max: 10, increment: 0.5, digits: 2 }, console.log);
+   * );
+   *
+   * ui('car').spin(
+   *   { options: ['BMW', 'Mercedes', 'Volvo'] }, console.log);
+   * );
+   */
+  spin(props: {}, callback: () => void): void;
+
   setValue(widgetValue: string): XapiResult;
 }
 
