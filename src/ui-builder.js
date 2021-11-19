@@ -41,7 +41,7 @@ const LegalWidgetAttributes = {
 function Node(type, attributes, children = []) {
   let c = Array.isArray(children) ? children : [children];
   c = c.filter(i => i && !i.hidden); // remove null, falsy elements
-  const invalid = c.find(i => i.type !== LegalChildren[type] && type !== 'hidden');
+  const invalid = c.find(i => i.type !== LegalChildren[type]);
   if (invalid) {
     throw new Error(`${type} cannot have child of type ${invalid.type}`);
   }
@@ -55,7 +55,8 @@ function Node(type, attributes, children = []) {
 
 function validate(type, options = {}) {
   Object.keys(options).forEach(option => {
-    if (!LegalAttributes[type].includes(option)) {
+    const valid = LegalAttributes[type].includes(option) || option === 'hidden';
+    if (!valid) {
       throw new Error(`${type} does not support attribute ${option}`);
     }
   });
