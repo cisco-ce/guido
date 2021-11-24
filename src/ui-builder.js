@@ -53,6 +53,23 @@ function Node(type, attributes, children = []) {
   return Object.assign(node, { toString: () => toXml(node) });
 }
 
+function fromJsonObject(object) {
+  const children = (object.children && object.children.length)
+    ? object.children.map(fromJsonObject)
+    : [];
+
+  const { type, widgetType } = object;
+  delete object.children;
+  delete object.type;
+  delete object.widgetType;
+
+  const funcMapping = { Config, Panel, Page, Row };
+  if (type === 'Widget') {
+    return Widget(widgetType, object);
+  }
+  return funcMapping[type](object, children);
+}
+
 function validate(type, options = {}) {
   Object.keys(options).forEach(option => {
     const valid = LegalAttributes[type].includes(option) || option === 'hidden';
@@ -277,4 +294,5 @@ module.exports = {
   Text,
   GroupButton,
   ToggleButton,
+  fromJsonObject,
 };
