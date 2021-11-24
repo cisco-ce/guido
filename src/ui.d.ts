@@ -123,6 +123,8 @@ export declare interface uiElement {
   spin(props: {}, callback: () => void): void;
 
   setValue(widgetValue: string): XapiResult;
+
+  unsetValue(): XapiResult;
 }
 
 /** Slider type scale */

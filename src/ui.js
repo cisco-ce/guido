@@ -164,6 +164,10 @@ function ui(id) {
       return xapi.Command.UserInterface.Extensions.Widget.SetValue({ Value, WidgetId: id });
     },
 
+    unsetValue() {
+      return xapi.Command.UserInterface.Extensions.Widget.UnsetValue({ WidgetId: id });
+    },
+
     spin(props, func) {
       let { value = 0, increment = 1, min, max, digits, options } = props;
       let box = { value };
