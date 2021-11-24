@@ -160,12 +160,21 @@ function ui(id) {
       });
     },
 
+    onSliderReleased: (func, min = 0, max = 255) => {
+      return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' }, e => {
+        const scaledValue = ui.scale({ min: 0, max: 255 }, { min, max }, e.Value);
+        func(scaledValue);
+      });
+    },
+
     setValue(Value) {
-      return xapi.Command.UserInterface.Extensions.Widget.SetValue({ Value, WidgetId: id });
+      return xapi.Command.UserInterface.Extensions.Widget.SetValue({ Value, WidgetId: id })
+        .catch(() => console.warn('Not able to set widget', id));
     },
 
     unsetValue() {
-      return xapi.Command.UserInterface.Extensions.Widget.UnsetValue({ WidgetId: id });
+      return xapi.Command.UserInterface.Extensions.Widget.UnsetValue({ WidgetId: id })
+        .catch(() => console.warn('Not able to set widget', id));
     },
 
     spin(props, func) {

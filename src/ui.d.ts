@@ -102,6 +102,9 @@ export declare interface uiElement {
    */
   onSliderChanged: (callback: (value: number) => void, min: number, max: number) => XapiResult;
 
+  /** See onSliderChanged */
+  onSliderReleased: (callback: (value: number) => void, min: number, max: number) => XapiResult;
+
   /**
    * Control the values of a spinner for you.
    *
