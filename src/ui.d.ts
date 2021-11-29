@@ -96,7 +96,10 @@ export declare interface uiElement {
   onSpinnerClicked: (callback: (increment: boolean) => void) => XapiResult;
   onSpinnerPressed: (callback: (increment: boolean) => void) => XapiResult;
   onSpinnerReleased: (callback: (increment: boolean) => void) => XapiResult;
-  onDirectionalPadClicked: (callback: (buttonId: string) => void) => XapiResult;  onDirectionalPadPressed: (callback: (buttonId: string) => void) => XapiResult;  onDirectionalPadReleased: (callback: (buttonId: string) => void) => XapiResult;
+  onDirectionalPadClicked: (callback: (buttonId: string) => void) => XapiResult;onDirectionalPadPressed: (callback: (buttonId: string) => void) => XapiResult;onDirectionalPadReleased: (callback: (buttonId: string) => void) => XapiResult;
+  onTextInputCancel: (callback: () => void) => XapiResult;
+  onPromptCancel: (callback: () => void) => XapiResult;
+
   /**
    * Feedback when a slider changes value <0, 255>. If you specify min/max, the value will be automatically scaled to your chosen range (typically 0-100 or 0-1).
    */

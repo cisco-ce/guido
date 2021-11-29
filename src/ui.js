@@ -152,7 +152,12 @@ function ui(id) {
       _addListener('Extensions Widget Action', { WidgetId: id, Type: 'released' },
         e => callback(e.Value));
     },
-
+    onPromptCancel: callback => {
+      _addListener('Message Prompt Cleared', { FeedbackId: id }, () => callback());
+    },
+    onTextInputCancel: callback => {
+      _addListener('Message TextInput Cleared', { FeedbackId: id }, () => callback());
+    },
     onSliderChanged: (func, min = 0, max = 255) => {
       return _addListener('Extensions Widget Action', { WidgetId: id, Type: 'changed' }, e => {
         const scaledValue = ui.scale({ min: 0, max: 255 }, { min, max }, e.Value);
