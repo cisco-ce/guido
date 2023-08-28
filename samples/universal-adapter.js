@@ -13,6 +13,8 @@
  *  await adapter(videoDevice)
  *  require('./mymacro'); // macro starts with xapi available
  *
+ * Note: if you macro requires other macros, they all need to be in the same folder.
+ *
  */
 
 const jsxapi = require('jsxapi');
