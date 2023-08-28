@@ -8,10 +8,15 @@
  * then require the macro file, which will run as if it had the same xapi object as the video device
  *
  * Usage:
+ * Create a file with the content below (replacing the device details and 'mymacro'). When you run this file,
+ * it will connect to the video device, and provide the xapi object to your macro by magic.
+ *
+ * ```js
  *  const adapter = require('./universal-adapter');
  *  const videoDevice = { host: '10.0.0.99', username: 'admin', password: 'password' };
  *  await adapter(videoDevice)
  *  require('./mymacro'); // macro starts with xapi available
+ * ```
  *
  * Note: if you macro requires other macros, they all need to be in the same folder.
  *
