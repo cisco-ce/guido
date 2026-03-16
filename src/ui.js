@@ -1,7 +1,7 @@
 /**
  * Inspired by jquery and https://github.com/valgaze/sugar
  */
-const xapi = require('xapi');
+import xapi from 'xapi';
 
 let debug = false;
 
@@ -315,4 +315,4 @@ ui.scale = (from, to, value) => {
   return to.min + norm * (to.max - to.min);
 };
 
-module.exports = ui;
+export default ui;

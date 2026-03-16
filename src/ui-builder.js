@@ -278,7 +278,7 @@ function toXml(json, prettify = false) {
   return prettify ? prettifyXml(xml) : xml;
 }
 
-module.exports = {
+export {
   Config,
   Panel,
   ActionButton,
